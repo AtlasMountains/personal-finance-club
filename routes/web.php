@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserRegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,5 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/','home')->name('home');
-route::view('/blog','blog')->name('blog');
+Route::view('/', 'home')->name('home');
+Route::view('/blog', 'blog')->name('blog');
+
+Route::group(['middleware' => 'guest'], function () {
+
+Route::view('/login', 'auth.login')->name('login');
+Route::get('/register', [UserRegisterController::class, 'index'])->name('register');
+});

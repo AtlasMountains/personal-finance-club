@@ -1,7 +1,7 @@
 const plugin = require("tailwindcss/plugin");
 
 module.exports = plugin(
-  function ({ addBase, theme }) {
+  function ({addBase, theme}) {
     addBase({
       [`.snap`]: {
         scrollSnapType: `x mandatory`,
