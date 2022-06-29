@@ -6,6 +6,12 @@
       {{ __('login') }}
     </h1>
 
+    @if(session('status'))
+      <div class="bg-red-500 px-3 py-4 rounded-lg shadow-lg text-white">
+        {{ session('status') }}
+      </div>
+    @endif
+
     <x-forms.input for="email" type="email" value="{{old('email')}}">
       {{ __('email') }}
     </x-forms.input>

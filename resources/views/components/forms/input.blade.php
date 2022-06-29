@@ -14,5 +14,10 @@
          value="{{ $value }}"
          class="
               mx-2 px-4 py-1 text-black border-2 border-gray-400 rounded block w-full
-              focus:outline-none focus:border-secondary">
+              focus:outline-none focus:border-secondary @error($for) border-red-500 @enderror">
+  @error($for)
+  <div class="text-red-500 pl-2">
+    {{$message}}
+  </div>
+  @enderror
 </div>

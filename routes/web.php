@@ -1,6 +1,10 @@
 <?php
 
-use App\Http\Controllers\UserRegisterController;
+use App\Http\Controllers\auth\LogoutController;
+use App\Http\Controllers\auth\UserDashboardController;
+use App\Http\Controllers\auth\UserLoginController;
+use App\Http\Controllers\auth\UserRegisterController;
+use App\Http\Controllers\EmailVerificationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,10 +19,38 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'home')->name('home');
-Route::view('/blog', 'blog')->name('blog');
 
+//only for guests
 Route::group(['middleware' => 'guest'], function () {
 
-Route::view('/login', 'auth.login')->name('login');
-Route::get('/register', [UserRegisterController::class, 'index'])->name('register');
+    Route::get('/login', [UserLoginController::class, 'index'])->name('login');
+    Route::post('/login', [UserLoginController::class, 'store']);
+
+    Route::get('/register', [UserRegisterController::class, 'index'])->name('register');
+    Route::post('/register', [UserRegisterController::class, 'store']);
+});
+
+// email verification
+Route::group(['middleware' => 'auth', 'as' => 'verification.'], function () {
+
+    Route::get('/email/verify', [EmailVerificationController::class, 'index'])
+        ->name('notice');
+
+    Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'fulfill'])
+        ->middleware('signed')
+        ->name('verify');
+
+    Route::post('/email/verification-notification', [EmailVerificationController::class, 'send'])
+        ->middleware('throttle:6,1')
+        ->name('send');
+});
+
+
+// only for logged-in users
+Route::group(['middleware' => 'auth', 'as' => 'user.'], function () {
+
+    Route::get('/dashboard', [UserDashboardController::class, 'index'])
+        ->middleware('verified')
+        ->name('dashboard');
+    Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 });

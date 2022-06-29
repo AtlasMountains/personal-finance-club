@@ -38,9 +38,11 @@
                 @click="navbarOpen = !navbarOpen"
                 :class="navbarOpen && 'navbarTogglerActive' "
                 id="navbarToggler"
-                class="block absolute right-4 top-1/2 -translate-y-1/2 md:hidden focus:ring-2 ring-primary px-3 py-[6px] rounded-lg bg-secondary">
-                  <span
-                    class="relative w-[30px] h-[2px] my-[6px] block bg-dark"></span>
+                class="block absolute right-0 top-1/2 -translate-y-1/2
+                md:hidden focus:ring-2 ring-primary px-3 py-[6px] rounded-lg bg-secondary">
+
+                <span
+                  class="relative w-[30px] h-[2px] my-[6px] block bg-dark"></span>
                 <span
                   class="relative w-[30px] h-[2px] my-[6px] block bg-dark"></span>
                 <span
@@ -65,13 +67,6 @@
                     </x-navigation.link>
                   </li>
 
-                  <li
-                    class="py-3 flex items-center justify-center md:py-0 hover:bg-gray-200 dark:hover:bg-slate-600 md:hover:bg-white">
-                    <x-navigation.link route="{{ route('blog') }}">
-                      {{__('Blog') }}
-                    </x-navigation.link>
-                  </li>
-
                   @guest
                     <li
                       class="py-3 flex items-center justify-center md:py-0 hover:bg-gray-200 dark:hover:bg-slate-600 md:hover:bg-white md:hidden">
@@ -93,6 +88,19 @@
                       <x-navigation.link route="{{ route('user.dashboard') }}">
                         {{__('dashboard') }}
                       </x-navigation.link>
+                    </li>
+
+                    <li
+                      class="py-3 flex items-center justify-center md:py-0 hover:bg-gray-200 dark:hover:bg-slate-600 md:hover:bg-white md:hidden">
+                      <form action="{{ route('user.logout') }}" method="post">
+                        @csrf
+                        <button type="submit"
+                                class="text-base font-medium text-dark px-2 md:hidden
+                            hover:text-secondary
+                            dark:text-white dark:hover:text-secondary">
+                          {{__('logout') }}
+                        </button>
+                      </form>
                     </li>
                   @endauth
                 </ul>
@@ -126,17 +134,26 @@
                 <x-navigation.link route="{{route('login')}}" class="hidden md:inline">
                   {{__('Login') }}
                 </x-navigation.link>
-                <x-navigation.link route="/register" class="hidden md:inline">
+                <x-navigation.link route="{{route('register')}}" class="hidden md:inline">
                   {{__('Sign Up') }}
                 </x-navigation.link>
               @endguest
               @auth
-                <li>
-                  <a href="{{ route('user.dashboard') }}"
-                     class="text-base font-medium text-white bg-primary rounded-lg py-3 px-7 hover:bg-opacity-90">
-                    {{__('Dashboard') }}
-                  </a>
-                </li>
+
+                <a href="{{ route('user.dashboard') }}"
+                   class="text-base font-medium text-white bg-primary rounded-lg py-3 px-7 hover:bg-secondary transition">
+                  {{__('Dashboard') }}
+                </a>
+
+                <form action="{{ route('user.logout') }}" method="post">
+                  @csrf
+                  <button type="submit"
+                          class="text-base font-medium text-dark px-2 hidden md:inline
+                            hover:text-secondary
+                            dark:text-white dark:hover:text-secondary">
+                    {{__('logout') }}
+                  </button>
+                </form>
               @endauth
             </div>
           </nav>
