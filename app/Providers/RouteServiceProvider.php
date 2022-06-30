@@ -48,5 +48,13 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
+//        make a rate limiter for verification emails
+        RateLimiter::for('verification_emails', function (Request $request) {
+            return Limit::perHour(3, 4)
+                ->by('verification_emails.' . $request->user()->id)
+                ->response(function () {
+                    return back()->with(['max_attempts' => __('auth.attempts_max')]);
+                });
+        });
     }
 }

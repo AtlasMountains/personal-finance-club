@@ -22,7 +22,7 @@
 >
 
 <div :class="{'dark' : darkMode === true}">
-  <div class="bg-gray-200 dark:bg-dark">
+  <div class="bg-gray-200 dark:bg-dark flex flex-col h-screen">
     <div id="navbar">
       <!-- ====== Navbar Section Start -->
       <header
@@ -162,7 +162,7 @@
       <!-- ====== Navbar Section End -->
     </div>
 
-    <main>
+    <main class="flex-1">
       {{$slot}}
     </main>
 

@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\auth\EmailVerificationController;
 use App\Http\Controllers\auth\LogoutController;
 use App\Http\Controllers\auth\UserDashboardController;
 use App\Http\Controllers\auth\UserLoginController;
 use App\Http\Controllers\auth\UserRegisterController;
-use App\Http\Controllers\EmailVerificationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,7 +41,7 @@ Route::group(['middleware' => 'auth', 'as' => 'verification.'], function () {
         ->name('verify');
 
     Route::post('/email/verification-notification', [EmailVerificationController::class, 'send'])
-        ->middleware('throttle:6,1')
+        ->middleware('throttle:verification_emails')
         ->name('send');
 });
 

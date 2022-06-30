@@ -1,64 +1,55 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# my first laravel project
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+In my first project I have made simple website.
+I started from scratch,
+looked at starter-kits like [Laravel Breeze](https://laravel.com/docs/9.x/starter-kits#laravel-breeze) & plugins
+like [filament](https://filamentphp.com/).
+But decided to start without them, in order to get a good foundation first.
+At the start of this project, I learned Tailwindcss for the styling since a lot of the starter-kits and plugins use it.
+Along the way I added [AlpineJS](https://alpinejs.dev/) for functionality with a dark mode and dropdown in mobile.
 
-## About Laravel
+## What I used
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Laravel
+- Tailwindcss
+- [AlpineJS](https://alpinejs.dev/)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## What I knew before
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Before this project I already knew HTML, CSS, Sass, bootstrap, Javascript, PHP, MVC structure, twig templating & Agile
+SCRUM.
+Find out more take a look at [My Portfolio]().
 
-## Learning Laravel
+## What I learned
+### I started with the general layout, navigation & a few pages
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+In the beginning there was nothing, so something had to be made. And that something was the general layout and navigation as well as some pages.
+at the start I learned about routing (naming, grouping) and with routing comes views and there is a lot to cover with views.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- blade templating
+- work modular with @section @yield @include
+- after the basics I learned how to work with custom components using <x-component> syntax
+- style it using tailwindcss some features like:
+  - dark mode
+  - mobile responsive
+  - tailwindcss.config to change default behaviors or add custom colors etc
+  - tailwind components to group some classes together
 
-## Laravel Sponsors
+- [AlpineJS](https://alpinejs.dev/) for dropdown & remember dark mode in LocalStorage
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### Second I made an authentication system.
 
-### Premium Partners
+After having played with the starter kit breeze, I wanted to build it from the beginning to learn how it all worked. 
+It was great to learn the basics of laravel and the system could always be expanded with more complex features.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+After lots of work on the routing and views it was time to learn controllers & form requests.
+I build an authentication system where you can register, login, verify email address, tested using [mailtrap](https://mailtrap.io/) 
+- view
+  - showing validation errors in forms with @error
+  - displaying custom error pages like 404
+- routing
+  - middleware like (auth, verified, guest)
+  - route model binding (inc slugs for SEO)
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Where to go from here

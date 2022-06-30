@@ -7,7 +7,7 @@
     </h1>
 
     @if(session('status'))
-      <div class="bg-red-500 px-3 py-4 rounded-lg shadow-lg text-white">
+      <div class="alert bg-red-500">
         {{ session('status') }}
       </div>
     @endif

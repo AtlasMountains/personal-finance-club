@@ -2,124 +2,130 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .alert {
+    @apply px-3 py-4 rounded-lg shadow-lg text-white
+  }
+}
+
 .snap {
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
 }
 
 .snap::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .snap > img {
-    scroll-snap-align: center;
+  scroll-snap-align: center;
 }
 
 body {
-    font-family: "Inter", sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 .navbarTogglerActive > span:nth-child(1) {
-    @apply top-[7px];
-    transform: rotate(45deg);
+  @apply top-[7px];
+  transform: rotate(45deg);
 }
 
 .navbarTogglerActive > span:nth-child(2) {
-    @apply opacity-0;
+  @apply opacity-0;
 }
 
 .navbarTogglerActive > span:nth-child(3) {
-    @apply top-[-8px] rotate-[135deg];
+  @apply top-[-8px] rotate-[135deg];
 }
 
 input:checked ~ .dot {
-    @apply translate-x-full bg-primary;
+  @apply translate-x-full bg-primary;
 }
 
 input:checked ~ .dot .active {
-    @apply block;
+  @apply block;
 }
 
 input:checked ~ .dot .inactive {
-    @apply hidden;
+  @apply hidden;
 }
 
 input#toggleFour:checked ~ .box {
-    @apply bg-primary;
+  @apply bg-primary;
 }
 
 input#toggleFour:checked ~ .dot {
-    @apply translate-x-full bg-white;
+  @apply translate-x-full bg-white;
 }
 
 input#toggleFive:checked ~ .dot {
-    @apply translate-x-full bg-white;
+  @apply translate-x-full bg-white;
 }
 
 input#toggleFive:checked ~ .dot span {
-    @apply bg-primary;
+  @apply bg-primary;
 }
 
 input#toggleSix:checked ~ .dot {
-    @apply translate-x-full bg-white;
+  @apply translate-x-full bg-white;
 }
 
 input#toggleEight:checked ~ .box {
-    @apply bg-[#EAEEFB];
+  @apply bg-[#EAEEFB];
 }
 
 input#toggleEight:checked ~ .dot {
-    @apply bg-primary;
+  @apply bg-primary;
 }
 
 input#toggleEight:checked ~ .dot span {
-    @apply border-white bg-primary;
+  @apply border-white bg-primary;
 }
 
 input#toggleNine:checked ~ .dot span {
-    @apply bg-white;
+  @apply bg-white;
 }
 
 input#toggleNine:checked ~ .dot {
-    @apply bg-primary;
+  @apply bg-primary;
 }
 
 input:checked ~ .box {
-    @apply border-primary;
+  @apply border-primary;
 }
 
 input#checkboxLabelOne:checked ~ .box {
-    @apply border-primary;
+  @apply border-primary;
 }
 
 input#checkboxLabelOne:checked ~ .box .dot {
-    @apply bg-primary;
+  @apply bg-primary;
 }
 
 input#checkboxLabelTwo:checked ~ .box span {
-    @apply opacity-100;
+  @apply opacity-100;
 }
 
 input#checkboxLabelThree:checked ~ .box span {
-    @apply opacity-100;
+  @apply opacity-100;
 }
 
 input#checkboxLabelFour:checked ~ .box {
-    @apply border-primary;
+  @apply border-primary;
 }
 
 input#checkboxLabelFour:checked ~ .box span {
-    @apply bg-primary;
+  @apply bg-primary;
 }
 
 input#checkboxLabelFive:checked ~ .box {
-    @apply bg-primary;
+  @apply bg-primary;
 }
 
 .shape-gradient {
-    background: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.08) 0%,
-        rgba(196, 196, 196, 0) 100%
-    );
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(196, 196, 196, 0) 100%
+  );
 }
