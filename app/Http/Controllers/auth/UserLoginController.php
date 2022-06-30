@@ -14,9 +14,12 @@ class UserLoginController extends Controller
 
     public function store(UserLoginRequest $request)
     {
-       if(!auth()->attempt($request->only('email','password'))){
-           return back()->with('status',__('auth.failed'));
-       }
-       return redirect()->route('user.dashboard');
+        if (!auth()->attempt($request->only('email', 'password'), $request->remember)) {
+            return back()->with([
+                'status' => __('auth.failed'),
+                'email' => $request->email,
+            ]);
+        }
+        return redirect()->route('user.dashboard');
     }
 }

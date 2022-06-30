@@ -12,7 +12,7 @@
       </div>
     @endif
 
-    <x-forms.input for="email" type="email" value="{{old('email')}}">
+    <x-forms.input for="email" type="email" value="{{ session('email') }}">
       {{ __('email') }}
     </x-forms.input>
 

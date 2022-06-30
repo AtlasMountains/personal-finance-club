@@ -25,22 +25,22 @@
           @if( $remaining > 0 )
             <div class="pb-2">
               {{ __('auth.emails_available') }} {{ $remaining }}
-              @else
-                {{ __('auth.max_emails_send') }}
+            </div>
+          @else
+            <div class="pb-2">
+              <p>{{ __('auth.max_emails_send') }}</p>
+              <p>{{ __('auth.more_emails_after') }} {{ $wait_time }}</p>
             </div>
           @endif
-          <div class="pb-2">
-            {{ __('auth.more_emails_after') }} {{ $wait_time }}
-          </div>
         </form>
 
       </div>
-
-      @if (session('message'))
-        <div class="alert bg-secondary">
-          {{ session('message') }}
-        </div>
-      @endif
     </div>
+
+    @if (session('message'))
+      <div class="alert bg-secondary">
+        {{ session('message') }}
+      </div>
+    @endif
   </div>
 </x-layout.app>

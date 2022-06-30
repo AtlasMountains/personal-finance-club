@@ -31,7 +31,7 @@ Route::group(['middleware' => 'guest'], function () {
 });
 
 // email verification
-Route::group(['middleware' => 'auth', 'as' => 'verification.'], function () {
+Route::group(['middleware' => ['auth', 'if_verified_redirect'], 'as' => 'verification.'], function () {
 
     Route::get('/email/verify', [EmailVerificationController::class, 'index'])
         ->name('notice');
