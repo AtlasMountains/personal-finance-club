@@ -23,7 +23,7 @@ class UserRegisterController extends Controller
     {
         $key = 'register.' . $request->ip();
         if (RateLimiter::tooManyAttempts($key, 3)) {
-            return back()->with('max_attempts', __('auth.attempts_max'));
+            return back()->withErrors(['max_attempts' => trans('auth.attempts_max')]);
         }
         $user = User::create([
             'first_name' => $request->first_name,

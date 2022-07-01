@@ -13,19 +13,16 @@ class EmailVerificationController extends Controller
     public function index(Request $request)
     {
         $key = 'verification_emails.' . $request->user()->id;
-        $time = now();
-        $time->addSeconds(RateLimiter::availableIn($key));
-        return view('auth.verify-email', [
-            'remaining' => RateLimiter::retriesLeft($key, 3),
-            'wait_time' => $time->diffForHumans()
-        ]);
+        $wait_time = now()->addSeconds(RateLimiter::availableIn($key))->diffForHumans();
+        $remaining = RateLimiter::retriesLeft($key, 3);
+        return view('auth.verify-email', compact('remaining', 'wait_time'));
     }
 
     public function send(Request $request)
     {
         $key = 'verification_emails.' . $request->user()->id;
         if (RateLimiter::tooManyAttempts($key, 3)) {
-            return back()->with('max_attempts', __('auth.attempts_max'));
+            return back()->withErrors(['max_attempts' => __('auth.attempts_max')]);
         }
 //        $request->user()->sendEmailVerificationNotification();
         RateLimiter::hit($key, 3600);

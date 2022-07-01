@@ -14,7 +14,7 @@ class UserLoginController extends Controller
     {
         $key = 'login.' . $request->ip();
         $remaining = RateLimiter::retriesLeft($key, 3);
-        $wait_time = RateLimiter::availableIn($key);
+        $wait_time = now()->addSeconds(RateLimiter::availableIn($key))->diffForHumans();
         return view('auth.login', compact('remaining', 'wait_time'));
     }
 
@@ -22,14 +22,12 @@ class UserLoginController extends Controller
     {
         $key = 'login.' . $request->ip();
         if (RateLimiter::tooManyAttempts($key, 3)) {
-            return back()->with('max_attempts', __('auth.attempts_max'));
+            return back()->withInput()->withErrors(['max_attempts' => trans('auth.attempts_max')]);
         }
+
         RateLimiter::hit($key);
         if (!auth()->attempt($request->only('email', 'password'), $request->remember)) {
-            return back()->with([
-                'status' => __('auth.failed'),
-                'email' => $request->email,
-            ]);
+            return back()->withInput()->withErrors(['status' => trans('auth.failed')]);
         }
         return redirect()->route('user.dashboard');
     }

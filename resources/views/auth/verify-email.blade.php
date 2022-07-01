@@ -2,11 +2,11 @@
   <div class="flex flex-col items-center justify-center h-full">
     <div class="w-4/5 md:w-3/6 p-4 space-y-4">
 
-      @if(session('max_attempts'))
-        <div class="alert bg-red-500">
-          {{ session('max_attempts') }}
-        </div>
-      @endif
+      @error('max_attempts')
+      <div class="alert bg-red-500">
+        {{ $errors->first('max_attempts') }}
+      </div>
+      @enderror
       <div
         class="text-center bg-white shadow-lg rounded-lg
           flex flex-col items-center justify-center space-y-3
@@ -23,11 +23,11 @@
 
           @if( $remaining > 0 )
             <div class="py-2">
-              {{ __('auth.emails_available') }} {{ $remaining }}
+              {{ __('auth.emails_available',compact('remaining')) }}
             </div>
           @else
             <div class="py-2">
-              <p>{{ __('auth.more_emails_after') }} {{ $wait_time }}</p>
+              <p>{{ __('auth.more_emails_after',compact('wait_time')) }} </p>
             </div>
           @endif
         </form>

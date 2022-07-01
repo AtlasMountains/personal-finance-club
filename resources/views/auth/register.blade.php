@@ -6,11 +6,11 @@
         {{ __('register') }}
       </h1>
 
-      @if(session('max_attempts'))
-        <div class="alert bg-red-500">
-          {{ session('max_attempts') }}
-        </div>
-      @endif
+      @error('max_attempts')
+      <div class="alert bg-red-500">
+        {{ $errors->first('max_attempts') }}
+      </div>
+      @enderror
 
       <div class="flex flex-col items-center space-y-6 w-full md:flex-row md:space-y-0 md:w-4/5 md: space-x-2">
         <x-forms.input for="first_name" value="{{old('first_name')}}">
@@ -39,12 +39,12 @@
       </x-forms.button>
 
       @if( $remaining > 0 )
-        <div class="">
-          {{ __('auth.register_available') }} {{ $remaining }}
+        <div class="rounded px-3 dark:text-white">
+          {{ trans_choice('auth.register_available',$remaining,compact('remaining')) }}
         </div>
       @else
-        <div class="">
-          <p>{{ __('auth.throttle_wait') }} {{ $wait_time }}</p>
+        <div class="bg-yellow-400 rounded px-3">
+          <p>{{ __('auth.throttle_wait',compact('wait_time')) }}</p>
         </div>
       @endif
     </x-forms.form>

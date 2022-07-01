@@ -25,6 +25,7 @@ And implemented job queuing for increased performance, user experience and secur
 - [phpstorm](https://www.jetbrains.com/phpstorm/)
 - [github](https://github.com/AtlasMountains)
 - [mailtrap](https://mailtrap.io/)
+- [laravel-debugbar](https://github.com/barryvdh/laravel-debugbar)
 
 ## What I knew before
 
@@ -90,6 +91,8 @@ This is where I hit my first big problem, there are two types of rate limiters, 
   - show info about the remaining emails & attempts and wait time
 - middleware
   - made my own middleware to redirect if the user is already verified
+
+After this I installed [laravel-debugbar](https://github.com/barryvdh/laravel-debugbar), cleaned-up & refactored some code and updated composer.
 
 #### the second expansion to the authentication system
 

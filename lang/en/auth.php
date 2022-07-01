@@ -18,9 +18,9 @@ return [
     'Verification_sent' => 'Verification link sent!',
     'attempts_left' => 'attempts left',
     'attempts_max' => "you can't do this action now, please wait a while",
-    'throttle_wait' => "Please wait a while before trying again.",
-    'emails_available' => "Available verification emails:",
-    'more_emails_after' => 'You can send more emails',
-    'login_available' => 'login attempts available',
-    'register_available' => 'registrations available'
+    'throttle_wait' => "Please wait, you can try again in :wait_time.",
+    'emails_available' => ":remaining Available verification emails",
+    'more_emails_after' => 'You can send more emails :wait_time',
+    'login_available' => ':remaining login attempt available|:remaining login attempts available',
+    'register_available' => 'You can register :remaining more time|You can register :remaining more times'
 ];
