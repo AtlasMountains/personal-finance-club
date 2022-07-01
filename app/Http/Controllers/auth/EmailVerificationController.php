@@ -24,8 +24,11 @@ class EmailVerificationController extends Controller
     public function send(Request $request)
     {
         $key = 'verification_emails.' . $request->user()->id;
-        $request->user()->sendEmailVerificationNotification();
-        RateLimiter::hit($key, 4 * 3600);
+        if (RateLimiter::tooManyAttempts($key, 3)) {
+            return back()->with('max_attempts', __('auth.attempts_max'));
+        }
+//        $request->user()->sendEmailVerificationNotification();
+        RateLimiter::hit($key, 3600);
         return back()->with(['message' => 'email send']);
     }
 

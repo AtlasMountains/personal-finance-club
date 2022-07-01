@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'home')->name('home');
 
-//only for guests
+//only for guests if auth redirect home
 Route::group(['middleware' => 'guest'], function () {
 
     Route::get('/login', [UserLoginController::class, 'index'])->name('login');
@@ -30,7 +30,7 @@ Route::group(['middleware' => 'guest'], function () {
     Route::post('/register', [UserRegisterController::class, 'store']);
 });
 
-// email verification
+// email verification only for auth redirect login & if already verified redirect dashboard
 Route::group(['middleware' => ['auth', 'if_verified_redirect'], 'as' => 'verification.'], function () {
 
     Route::get('/email/verify', [EmailVerificationController::class, 'index'])
@@ -41,7 +41,6 @@ Route::group(['middleware' => ['auth', 'if_verified_redirect'], 'as' => 'verific
         ->name('verify');
 
     Route::post('/email/verification-notification', [EmailVerificationController::class, 'send'])
-        ->middleware('throttle:verification_emails')
         ->name('send');
 });
 

@@ -17,8 +17,10 @@ return [
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'Verification_sent' => 'Verification link sent!',
     'attempts_left' => 'attempts left',
-    'attempts_max' => "you can't send more emails for now please wait a while",
-    'max_emails_send' => "All available verification emails send. please wait a while before trying again.",
+    'attempts_max' => "you can't do this action now, please wait a while",
+    'throttle_wait' => "Please wait a while before trying again.",
     'emails_available' => "Available verification emails:",
     'more_emails_after' => 'You can send more emails',
+    'login_available' => 'login attempts available',
+    'register_available' => 'registrations available'
 ];
