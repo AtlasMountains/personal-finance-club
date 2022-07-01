@@ -24,10 +24,10 @@ Route::view('/', 'home')->name('home');
 Route::group(['middleware' => 'guest'], function () {
 
     Route::get('/login', [UserLoginController::class, 'index'])->name('login');
-    Route::post('/login', [UserLoginController::class, 'store']);
+    Route::post('/login', [UserLoginController::class, 'store'])->middleware('throttle:login');
 
     Route::get('/register', [UserRegisterController::class, 'index'])->name('register');
-    Route::post('/register', [UserRegisterController::class, 'store']);
+    Route::post('/register', [UserRegisterController::class, 'store'])->middleware('throttle:register');
 });
 
 // email verification only for auth redirect login & if already verified redirect dashboard
@@ -43,7 +43,6 @@ Route::group(['middleware' => ['auth', 'if_verified_redirect'], 'as' => 'verific
     Route::post('/email/verification-notification', [EmailVerificationController::class, 'send'])
         ->name('send');
 });
-
 
 // only for logged-in users
 Route::group(['middleware' => 'auth', 'as' => 'user.'], function () {

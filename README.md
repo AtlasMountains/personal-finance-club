@@ -12,9 +12,9 @@ At the start of this project, I learned [Tailwindcss](https://tailwindcss.com/) 
 starter-kits and plugins use it. which I plan to use in following projects.
 Along the way I added [AlpineJS](https://alpinejs.dev/) for functionality with a dark mode and dropdown in mobile.
 
-After the general layout, navigation & a few pages (responsive and with a dark mode), I made an authentication system
-with email verification. Expanded on that with rate limiting (emails sent per user, login & registration attempts by ip
-address) and job queuing for increased performance, user experience and security.
+After the general layout, navigation & a few pages (responsive and with a dark mode), I made an authentication system with email verification.
+Expanded on that with rate limiting emails, login & registration attempts, using both route limiters and custom-made limiters in the controllers. (here I hit my first bigger problem more details below).
+And implemented job queuing for increased performance, user experience and security.
 
 ## What I used
 
@@ -74,21 +74,29 @@ using [mailtrap](https://mailtrap.io/)
 - routing
   - used standard middleware like (auth, verified, guest)
 
-#### the first expansion to the authentication system
+#### the first expansion to the authentication system and the first big problem
 
 After I had the basic authentication system with email verification, I wanted to limit the amount of emails sent to
-protect against spammers. And while we're at it, I also limited the amount of login and registration attempts per ip
-address to increase security.
+protect against spammers. And while we're at it, I also limited the amount of login and registration attempts both per ip
+address and in total to increase security.
+
+This is where I hit my first big problem, there are two types of rate limiters, the naming is the same and syntax is very similar, but they're different and obviously easily confused. It took me a while to figure that out. you can use [rate limiters in routes](https://laravel.com/docs/9.x/routing#rate-limiting) which will automatically increment upon visiting that route, but are different from [rate limiters you can make yourself](https://laravel.com/docs/9.x/rate-limiting) in controllers and interact with manually. At a point i was using two different types of limiters to limit the same action thinking I was interaction with one and the same limiter, not knowing they were different. The documentation on that can be improved!
 
 - rate limiting
-  - Limit the amount of verification emails
-  - Limit login and registration attempts per ip address
-  - show info about the remaining emails & attempts and wait time before you can send more
+  - Limit the amount of verification emails per user
+  - Limit login and registration attempts: 
+    - per ip address using custom rate limiters in the controllers
+    - in total using rate limiters in the routes as middleware
+  - show info about the remaining emails & attempts and wait time
 - middleware
   - made my own middleware to redirect if the user is already verified
 
 #### the second expansion to the authentication system
 
 To increase the performance of the site, and user experience I implemented queuing and made email sending a job.
+
+- jobs
+- queuing
+- workers
 
 ## Where to go from here
