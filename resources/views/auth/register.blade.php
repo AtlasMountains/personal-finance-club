@@ -1,18 +1,18 @@
 <x-layout.app xmlns="http://www.w3.org/1999/html">
-  <div class="h-full flex flex-col items-center justify-center">
+  <div class="flex flex-col items-center justify-center h-full">
     <x-forms.form class="dark:my-0">
 
-      <h1 class="text-center font-bold text-3xl dark:text-white">
+      <h1 class="text-3xl font-bold text-center dark:text-white">
         {{ __('register') }}
       </h1>
 
       @error('max_attempts')
-      <div class="alert bg-red-500">
+      <div class="bg-red-500 alert">
         {{ $errors->first('max_attempts') }}
       </div>
       @enderror
 
-      <div class="flex flex-col items-center space-y-6 w-full md:flex-row md:space-y-0 md:w-4/5 md: space-x-2">
+      <div class="flex flex-col items-center w-full space-x-2 space-y-6 md:flex-row md:space-y-0 md:w-4/5 md:">
         <x-forms.input for="first_name" value="{{old('first_name')}}">
           {{ __('First name') }}
         </x-forms.input>
@@ -39,11 +39,11 @@
       </x-forms.button>
 
       @if( $remaining > 0 )
-        <div class="rounded px-3 dark:text-white">
+        <div class="px-3 rounded dark:text-white">
           {{ trans_choice('auth.register_available',$remaining,compact('remaining')) }}
         </div>
       @else
-        <div class="bg-yellow-400 rounded px-3">
+        <div class="px-3 bg-yellow-400 rounded">
           <p>{{ __('auth.throttle_wait',compact('wait_time')) }}</p>
         </div>
       @endif

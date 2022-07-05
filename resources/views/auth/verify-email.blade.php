@@ -1,18 +1,16 @@
 <x-layout.app>
   <div class="flex flex-col items-center justify-center h-full">
-    <div class="w-4/5 md:w-3/6 p-4 space-y-4">
+    <div class="w-4/5 p-4 space-y-4 md:w-3/6">
 
       @error('max_attempts')
-      <div class="alert bg-red-500">
+      <div class="bg-red-500 alert">
         {{ $errors->first('max_attempts') }}
       </div>
       @enderror
       <div
-        class="text-center bg-white shadow-lg rounded-lg
-          flex flex-col items-center justify-center space-y-3
-          dark:bg-gray-300 dark:text-black">
+        class="flex flex-col items-center justify-center space-y-3 text-center bg-white rounded-lg shadow-lg dark:bg-gray-300 dark:text-black">
 
-        <h1 class="text-3xl font-bold p-3">{{__('messages.verify_email')}}</h1>
+        <h1 class="p-3 text-3xl font-bold">{{__('messages.verify_email')}}</h1>
         <p class="px-6">{{ __('messages.verify_email_body') }}</p>
 
         <form action="{{ route('verification.send') }}" method="post">

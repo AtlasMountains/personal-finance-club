@@ -1,10 +1,10 @@
 <x-layout.app>
-  <h1 class="mx-auto text-3xl bg-blue-400 p-3 mb-3 rounded-lg text-center w-6/12 text-white">Dashboard</h1>
+  <h1 class="w-6/12 p-3 mx-auto mb-3 text-3xl text-center text-white bg-blue-400 rounded-lg">Dashboard</h1>
 
-  <div class="grid grid-cols-5 h-full bg-yellow-200">
+  <div class="grid h-full grid-cols-5 bg-yellow-200">
     <aside class="col-span-1">
 
-      <div class="text-center font-bold text-lg">ROLE</div>
+      <div class="text-lg font-bold text-center">ROLE</div>
       <ul class="pl-3 space-y-2">
         <li class="">family
           @if($family)
@@ -29,7 +29,7 @@
       </ul>
     </aside>
 
-    <section class="col-span-4 flex flex-col items-center h-full bg-red-200">
+    <section class="flex flex-col items-center h-full col-span-4 bg-red-200">
       {{ $slot }}
     </section>
 

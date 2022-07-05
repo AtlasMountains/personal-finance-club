@@ -1,38 +1,37 @@
 <x-layout.app>
   <div class="flex flex-col">
-    <h1 class="text-center mx-auto text-3xl bg-blue-400 p-3 rounded-lg text-white font-bold">
+    <h1 class="p-3 mx-auto text-3xl font-bold text-center text-white bg-blue-400 rounded-lg">
       The personal finance club
     </h1>
 
-    <!-- ====== About Section Start -->
-    <section class="overflow-hidden mt-2">
+    <section class="mt-2 overflow-hidden">
       <div class="container">
 
-        <div class="flex flex-wrap justify-between items-center -mx-4">
+        <div class="flex flex-wrap items-center justify-between -mx-4">
 
-          <div class="flex items-center -mx-3 sm:-mx-4 w-full lg:w-6/12 px-4">
-            <div class="w-full xl:w-1/2 px-3 sm:px-4">
+          <div class="flex items-center w-full px-4 -mx-3 sm:-mx-4 lg:w-6/12">
+            <div class="w-full px-3 xl:w-1/2 sm:px-4">
               <div class="py-3 sm:py-4">
                 <img
                   src="https://d3v5ezchayoty7.cloudfront.net/wp-content/uploads/shutterstock_538414771-1.jpg"
                   alt=""
-                  class="rounded-2xl w-full"
+                  class="w-full rounded-2xl"
                 />
               </div>
               <div class="py-3 sm:py-4">
                 <img
                   src="https://www.niveshmarket.com/wp-content/uploads/2019/11/Personal-finance.jpg"
                   alt=""
-                  class="rounded-2xl w-full"
+                  class="w-full rounded-2xl"
                 />
               </div>
             </div>
-            <div class="w-full xl:w-1/2 px-3 sm:px-4">
-              <div class="my-4 relative z-10">
+            <div class="w-full px-3 xl:w-1/2 sm:px-4">
+              <div class="relative z-10 my-4">
                 <img
                   src="http://sunnyleand.com/wp-content/uploads/2018/01/manage-personal-finances-right.jpg"
                   alt=""
-                  class="rounded-2xl w-full"
+                  class="w-full rounded-2xl"
                 />
                 <span class="absolute -right-7 -bottom-7 z-[-1]">
                         <svg
@@ -608,53 +607,27 @@
             </div>
           </div>
 
-          <div class="w-full lg:w-1/2 xl:w-5/12 px-4">
+          <div class="w-full px-4 lg:w-1/2 xl:w-5/12">
             <div class="mt-10 lg:mt-0">
-               <span class="font-semibold text-lg text-primary mb-2 block">
+               <span class="block mb-2 text-lg font-semibold text-primary">
                Why Choose Us
                </span>
-              <h2 class="font-bold text-3xl sm:text-4xl text-dark mb-8">
+              <h2 class="mb-8 text-3xl font-bold sm:text-4xl text-dark">
                 Make managing personal finances easy.
               </h2>
-              <p class="text-base text-body-color mb-8">
+              <p class="mb-8 text-base text-body-color">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid beatae facilis illum ipsum
                 molestias officiis perferendis perspiciatis quibusdam unde.
               </p>
               <a
                 href="{{ route('user.dashboard') }}"
-                class="
-                  py-4
-                  px-10
-                  lg:px-8
-                  xl:px-10
-                  inline-flex
-                  items-center
-                  justify-center
-                  text-center text-white text-base
-                  bg-primary
-                  hover:bg-opacity-90
-                  font-normal
-                  rounded-lg
-                  "
+                class="inline-flex items-center justify-center px-10 py-4 text-base font-normal text-center text-white rounded-lg  lg:px-8 xl:px-10 bg-primary hover:bg-opacity-90"
               >
                 Get Started
               </a>
               <a
                 href="/demo"
-                class="
-                  py-4
-                  px-10
-                  lg:px-8
-                  xl:px-10
-                  inline-flex
-                  items-center
-                  justify-center
-                  text-center text-white text-base
-                  bg-primary
-                  hover:bg-opacity-90
-                  font-normal
-                  rounded-lg
-                  "
+                class="inline-flex items-center justify-center px-10 py-4 text-base font-normal text-center text-white rounded-lg  lg:px-8 xl:px-10 bg-primary hover:bg-opacity-90"
               >
                 See a live Demo
               </a>
@@ -665,7 +638,6 @@
 
       </div>
     </section>
-    <!-- ====== About Section End -->
 
   </div>
 </x-layout.app>

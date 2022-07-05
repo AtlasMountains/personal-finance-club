@@ -4,12 +4,12 @@
   :userAccounts="$userAccounts"
 >
 
-  <h1 class="font-bold text-3xl">create a new account</h1>
+  <h1 class="text-3xl font-bold">create a new account</h1>
   <x-forms.form>
 
     <x-forms.input
       for="account_name"
-      :value="old('account_name)'"
+      :value="old('account_name')"
     >
       account name
     </x-forms.input>
