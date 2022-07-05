@@ -24,7 +24,7 @@ class EmailVerificationController extends Controller
         if (RateLimiter::tooManyAttempts($key, 3)) {
             return back()->withErrors(['max_attempts' => __('auth.attempts_max')]);
         }
-//        $request->user()->sendEmailVerificationNotification();
+        $request->user()->sendEmailVerificationNotification();
         RateLimiter::hit($key, 3600);
         return back()->with(['message' => 'email send']);
     }

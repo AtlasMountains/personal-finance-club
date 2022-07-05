@@ -8,6 +8,12 @@ class UserDashboardController extends Controller
 {
     public function index()
     {
-        return view('user.dashboard');
+        $family = auth()->user()->family;
+        $data = [
+            'family' => $family,
+            'familyAccounts' => $family->accounts,
+            'userAccounts' => auth()->user()->accounts,
+        ];
+        return view('user.dashboard', $data);
     }
 }

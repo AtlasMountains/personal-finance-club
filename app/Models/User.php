@@ -42,4 +42,18 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $attributes = [
+        'family_id' => null
+    ];
+
+    public function accounts()
+    {
+        return $this->hasMany(Account::class);
+    }
+
+    public function family()
+    {
+        return $this->belongsTo(Family::class);
+    }
 }

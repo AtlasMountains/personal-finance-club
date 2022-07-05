@@ -14,7 +14,6 @@ Along the way I added [AlpineJS](https://alpinejs.dev/) for functionality with a
 
 After the general layout, navigation & a few pages (responsive and with a dark mode), I made an authentication system with email verification.
 Expanded on that with rate limiting emails, login & registration attempts, using both route limiters and custom-made limiters in the controllers. (here I hit my first bigger problem more details below).
-And implemented job queuing for increased performance, user experience and security.
 
 ## What I used
 
@@ -65,7 +64,7 @@ After lots of work on the routing and views it was time to learn controllers, fo
 limiting & job queuing.
 
 I build an authentication system where you can register, login, verify email address, tested locally
-using [mailtrap](https://mailtrap.io/)
+using [Mailtrap](https://mailtrap.io/)
 
 - view
   - login & registration page with server validation
@@ -75,7 +74,7 @@ using [mailtrap](https://mailtrap.io/)
 - routing
   - used standard middleware like (auth, verified, guest)
 
-#### the first expansion to the authentication system and the first big problem
+#### Expanding to the authentication system and the first big problem
 
 After I had the basic authentication system with email verification, I wanted to limit the amount of emails sent to
 protect against spammers. And while we're at it, I also limited the amount of login and registration attempts both per ip
@@ -94,12 +93,7 @@ This is where I hit my first big problem, there are two types of rate limiters, 
 
 After this I installed [laravel-debugbar](https://github.com/barryvdh/laravel-debugbar), cleaned-up & refactored some code and updated composer.
 
-#### the second expansion to the authentication system
-
-To increase the performance of the site, and user experience I implemented queuing and made email sending a job.
-
-- jobs
-- queuing
-- workers
+### Testing
 
 ## Where to go from here
+ Implementing queuing for better user experience, so users don't have to wait until emails are sent.

@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\auth\EmailVerificationController;
 use App\Http\Controllers\auth\LogoutController;
 use App\Http\Controllers\auth\UserDashboardController;
 use App\Http\Controllers\auth\UserLoginController;
 use App\Http\Controllers\auth\UserRegisterController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,7 +20,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'home')->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/account', [AccountController::class, 'index'])->name('account');
 
 //only for guests if auth redirect home
 Route::group(['middleware' => 'guest'], function () {
@@ -47,8 +50,11 @@ Route::group(['middleware' => ['auth', 'if_verified_redirect'], 'as' => 'verific
 // only for logged-in users
 Route::group(['middleware' => 'auth', 'as' => 'user.'], function () {
 
+    Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
+
     Route::get('/dashboard', [UserDashboardController::class, 'index'])
         ->middleware('verified')
         ->name('dashboard');
-    Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
+
+    Route::resource('account',AccountController::class);
 });
