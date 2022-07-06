@@ -1,4 +1,4 @@
-@props(['for', 'type' => 'text','value'=>''])
+@props(['for', 'type' => 'text', 'value'=>'', 'step'=>''])
 
 <div {{ $attributes->merge(['class' => 'w-4/5 space-y-1']) }}>
 
@@ -11,6 +11,7 @@
          id="{{ $for }}"
          placeholder="{{ $slot }}"
          value="{{ $value }}"
+         step="{{ $step }}"
          class="
               mx-2 px-4 py-1 text-black border-2 border-gray-400 rounded block w-full
               focus:outline-none focus:border-secondary @error($for) border-red-500 @enderror">

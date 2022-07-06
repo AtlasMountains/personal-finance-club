@@ -3,8 +3,9 @@
 namespace Database\Factories;
 
 use App\Models\Account;
-use App\Models\TransactionTag;
-use App\Models\TransactionType;
+use App\Models\Category;
+use App\Models\Tag;
+use App\Models\Type;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,14 +20,29 @@ class TransactionFactory extends Factory
      */
     public function definition()
     {
+        $type = Type::all()->random();
+        switch ($type->id) {
+            case 1:
+                $amount = $this->faker->numberBetween(0, 1000);
+                break;
+
+            case 2:
+                $amount = $this->faker->numberBetween(-1000, 0);
+                break;
+
+            default:
+                $amount = $this->faker->numberBetween(-1000, 1000);
+                break;
+        }
         return [
-            'amount' => $this->faker->numberBetween(-1000, 1000),
+            'amount' => $amount,
             'recipient' => $this->faker->firstName(),
             'message' => $this->faker->sentence(),
-            'date' => $this->faker->dateTimeBetween((now()->startOfYear()), now()),
-            'transaction_type_id' => TransactionType::all()->random(),
+            'date' => $this->faker->dateTimeBetween((now()->subYears(2)), now()),
+            'type_id' => $type,
             'account_id' => Account::all()->random(),
-            'transaction_tag_id' => TransactionTag::all()->random(),
+            'tag_id' => Tag::all()->random(),
+            'category_id' => Category::all()->random()
         ];
     }
 }

@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TransactionTag extends Model
+class Category extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'tag'
+        'category'
     ];
 
-    public function transactions()
+    public function Transactions()
     {
         return $this->hasMany(Transaction::class);
     }

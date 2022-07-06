@@ -612,7 +612,7 @@
                <span class="block mb-2 text-lg font-semibold text-primary">
                Why Choose Us
                </span>
-              <h2 class="mb-8 text-3xl font-bold sm:text-4xl text-dark">
+              <h2 class="mb-8 text-3xl font-bold sm:text-4xl text-dark dark:text-white">
                 Make managing personal finances easy.
               </h2>
               <p class="mb-8 text-base text-body-color">
@@ -621,13 +621,13 @@
               </p>
               <a
                 href="{{ route('user.dashboard') }}"
-                class="inline-flex items-center justify-center px-10 py-4 text-base font-normal text-center text-white rounded-lg  lg:px-8 xl:px-10 bg-primary hover:bg-opacity-90"
+                class="inline-flex items-center justify-center px-10 py-4 text-base font-normal text-center text-white rounded-lg lg:px-8 xl:px-10 bg-primary hover:bg-opacity-90"
               >
                 Get Started
               </a>
               <a
                 href="/demo"
-                class="inline-flex items-center justify-center px-10 py-4 text-base font-normal text-center text-white rounded-lg  lg:px-8 xl:px-10 bg-primary hover:bg-opacity-90"
+                class="inline-flex items-center justify-center px-10 py-4 text-base font-normal text-center text-white rounded-lg lg:px-8 xl:px-10 bg-primary hover:bg-opacity-90"
               >
                 See a live Demo
               </a>

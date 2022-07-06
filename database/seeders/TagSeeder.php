@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\TransactionTag;
+use App\Models\Tag;
 use Illuminate\Database\Seeder;
 
-class TransactionTagSeeder extends Seeder
+class TagSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,7 +16,7 @@ class TransactionTagSeeder extends Seeder
     {
         $tags = ['bathroom', 'kitchen', 'christmas'];
         foreach ($tags as $tag) {
-            TransactionTag::create([
+            Tag::create([
                 'tag' => $tag
             ]);
         }

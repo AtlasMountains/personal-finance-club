@@ -1,6 +1,6 @@
 <header
   x-data="{navbarOpen: false}"
-  class="flex items-center justify-center w-full py-4 mb-4 bg-white md:py-0 lg:mt-0 dark:bg-slate-700">
+  class="flex items-center justify-center w-full py-4 bg-white md:py-0 lg:mt-0 dark:bg-slate-700">
   <div class="relative flex items-center justify-between w-4/5 mx-4">
     <nav class="flex items-center justify-start w-full px-4 md:justify-between">
       <div>
@@ -50,7 +50,7 @@
             @auth
               <li
                 class="flex items-center justify-center py-3 md:py-0 hover:bg-gray-200 dark:hover:bg-slate-600 md:hover:bg-white md:hidden">
-                <x-navigation.link route="{{ route('user.dashboard') }}">
+                <x-navigation.link route="{{ route('user.account.index') }}">
                   {{__('dashboard') }}
                 </x-navigation.link>
               </li>
@@ -103,7 +103,7 @@
         @endguest
         @auth
 
-          <a href="{{ route('user.dashboard') }}"
+          <a href="{{ route('user.account.index') }}"
              class="py-3 text-base font-medium text-white transition rounded-lg bg-primary px-7 hover:bg-secondary">
             {{__('Dashboard') }}
           </a>

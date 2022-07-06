@@ -18,8 +18,9 @@ class DatabaseSeeder extends Seeder
             AccountTypeSeeder::class,
             UserSeeder::class,
             AccountSeeder::class,
-            TransactionTagSeeder::class,
-            TransactionTypeSeeder::class,
+            TagSeeder::class,
+            TypeSeeder::class,
+            CategorySeeder::class,
             TransactionSeeder::class,
         ]);
     }

@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/account', [AccountController::class, 'index'])->name('account');
+Route::view('/powergrid', 'powergrid-demo');
 
 //only for guests if auth redirect home
 Route::group(['middleware' => 'guest'], function () {
@@ -56,5 +57,5 @@ Route::group(['middleware' => 'auth', 'as' => 'user.'], function () {
         ->middleware('verified')
         ->name('dashboard');
 
-    Route::resource('account',AccountController::class);
+    Route::resource('account', AccountController::class)->middleware('verified');
 });

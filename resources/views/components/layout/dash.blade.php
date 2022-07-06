@@ -1,37 +1,47 @@
 <x-layout.app>
-  <h1 class="w-6/12 p-3 mx-auto mb-3 text-3xl text-center text-white bg-blue-400 rounded-lg">Dashboard</h1>
 
-  <div class="grid h-full grid-cols-5 bg-yellow-200">
-    <aside class="col-span-1">
+    <x-slot name='styles'>
+        @livewireStyles
+        @powerGridStyles
+    </x-slot>
+    <x-slot name='scripts'>
+        @livewireScripts
+        @powerGridScripts
+    </x-slot>
 
-      <div class="text-lg font-bold text-center">ROLE</div>
-      <ul class="pl-3 space-y-2">
-        <li class="">family
-          @if($family)
-            {{ $family->name }}
-            <ul>
-              @foreach($familyAccounts as $account)
-                <li class="ml-3">{{ $account->name }}</li>
-              @endforeach
+    <div class="flex flex-col h-fit md:flex-row">
+        <aside class="px-3 bg-cyan-600">
+
+            <div class="text-lg font-bold text-center">ROLE</div>
+            <ul class="pl-3 space-y-2">
+                <li class="">family
+                    @if ($family)
+                        {{ $family->name }}
+                        <ul>
+                            @foreach ($familyAccounts as $account)
+                                <li class="ml-3">
+                                    <a href="{{ route('user.account.show', $account) }}">{{ $account->name }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
+                </li>
+
+                <li class="">accounts
+                    <ul class="flex flex-col">
+                        @foreach ($userAccounts as $account)
+                            <li class="ml-3">
+                                <a href="{{ route('user.account.show', $account) }}">{{ $account->name }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </li>
             </ul>
-          @endif
-        </li>
+        </aside>
 
-        <li class="">accounts
-          <ul class="flex flex-col">
-            @foreach($userAccounts as $account)
-              <li class="ml-3">
-                <a href="">{{ $account->name }}</a>
-              </li>
-            @endforeach
-          </ul>
-        </li>
-      </ul>
-    </aside>
+        <section class="flex-1">
+            {{ $slot }}
+        </section>
 
-    <section class="flex flex-col items-center h-full col-span-4 bg-red-200">
-      {{ $slot }}
-    </section>
-
-  </div>
+    </div>
 </x-layout.app>

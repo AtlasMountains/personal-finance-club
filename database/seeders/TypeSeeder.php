@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\TransactionType;
+use App\Models\Type;
 use Illuminate\Database\Seeder;
 
-class TransactionTypeSeeder extends Seeder
+class TypeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,7 +16,7 @@ class TransactionTypeSeeder extends Seeder
     {
         $types = ['deposit', 'withdrawal', 'transfer'];
         foreach ($types as $type) {
-            TransactionType::create([
+            Type::create([
                 'type' => $type
             ]);
         }

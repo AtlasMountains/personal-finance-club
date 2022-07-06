@@ -14,30 +14,32 @@ class Transaction extends Model
         'recipient',
         'message',
         'date',
-        'transaction_type_id',
-        'transaction_tag_id',
+        'type_id',
+        'tag_id',
+        'category_id'
     ];
 
     protected $attributes = [
-        'transaction_tag_id' => null
+        'tag_id' => null,
+        'category_id' => null
     ];
 
-    public function TransactionType()
+    public function Type()
     {
-        return $this->belongsTo(TransactionType::class);
+        return $this->belongsTo(Type::class);
     }
 
-    public function tag()
+    public function Tag()
     {
-        return $this->belongsTo(TransactionTag::class);
+        return $this->belongsTo(Tag::class);
     }
 
-    public function category()
+    public function Category()
     {
-        return $this->belongsTo(TransactionCategory::class);
+        return $this->belongsTo(Category::class);
     }
 
-    public function account()
+    public function Account()
     {
         return $this->belongsTo(Account::class);
     }

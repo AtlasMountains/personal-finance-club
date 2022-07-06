@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TransactionCategory extends Model
+class Type extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'category'
+        'type'
     ];
 
-    public function transactions()
+    public function Transactions()
     {
         return $this->hasMany(Transaction::class);
     }

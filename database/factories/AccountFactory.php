@@ -20,7 +20,7 @@ class AccountFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->iban(),
+            'name' => $this->faker->word(),
             'user_id' => User::all()->random(),
             'account_type_id' => AccountType::all()->random(),
             'family_id' => Family::all()->random(),

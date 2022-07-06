@@ -1,3 +1,5 @@
 <footer class="mx-auto">
-copyright Mathias Theys
+    <p class="dark:text-white">
+        copyright Mathias Theys
+    </p>
 </footer>

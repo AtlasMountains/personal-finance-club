@@ -11,6 +11,9 @@ class Account extends Model
 
     protected $fillable = [
         'name',
+        'user_id',
+        'account_type_id',
+        'family_id',
         'start_balance',
         'alert',
     ];
@@ -21,6 +24,10 @@ class Account extends Model
         'alert' => 0,
     ];
 
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }
 
     public function accountType()
     {
