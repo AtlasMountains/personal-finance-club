@@ -22,4 +22,9 @@ class Family extends Model
     {
         return $this->hasMany(Account::class);
     }
+
+    public function usersWithAccounts()
+    {
+        return User::whereBelongsTo($this)->with('accounts')->get();
+    }
 }

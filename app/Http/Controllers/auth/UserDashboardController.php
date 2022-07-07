@@ -8,7 +8,7 @@ class UserDashboardController extends Controller
 {
     public function index()
     {
-        //TODO  dashboard
-        return redirect()->route('user.account.index');
+        $data = ['user' => auth()->user()];
+        return view('users.dashboard', $data);
     }
 }

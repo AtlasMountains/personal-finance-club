@@ -4,8 +4,8 @@
         <x-accountNav />
 
         <div class="flex flex-col items-center justify-center flex-1 mt-3 md:mt-0">
-
             <div class="flex flex-wrap w-full gap-16 justify-evenly">
+
                 <div class="p-3 text-lg text-center bg-white rounded shadow">
                     <svg class="w-24 h-24 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
@@ -37,8 +37,8 @@
                 </a>
 
             </div>
-
         </div>
 
     </div>
+
 </x-layout.app>

@@ -41,8 +41,7 @@
                         @auth
                             <li
                                 class="flex items-center justify-center py-3 md:py-0 hover:bg-gray-200 dark:hover:bg-slate-600 md:hover:bg-white md:hidden">
-                                <x-navigation.link class="focus:outline-red-500"
-                                    route="{{ route('user.account.index') }}">
+                                <x-navigation.link class="focus:outline-red-500" route="{{ route('user.dashboard') }}">
                                     {{ __('dashboard') }}
                                 </x-navigation.link>
                             </li>
@@ -97,7 +96,7 @@
                 @endguest
                 @auth
 
-                    <a href="{{ route('user.account.index') }}"
+                    <a href="{{ route('user.dashboard') }}"
                         class="py-3 text-base font-medium text-white transition rounded-lg bg-primary px-7 hover:bg-secondary focus:bg-secondary">
                         {{ __('Dashboard') }}
                     </a>

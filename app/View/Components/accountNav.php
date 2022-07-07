@@ -10,15 +10,17 @@ class accountNav extends Component
 {
     public User $user;
     public Family $family;
+    public $familyUsersWithAccounts;
 
     public function __construct()
     {
         $this->user = auth()->user();
         $this->family = $this->user->family;
+        $this->familyUsersWithAccounts = $this->family->usersWithAccounts();
     }
 
     public function render()
     {
-        return view('components.account-nav');
+        return view('components.accountNav');
     }
 }
