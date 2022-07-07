@@ -126,6 +126,7 @@ final class transactions extends PowerGridComponent
                 ->makeInputDatePicker(),
 
             Column::make('AMOUNT', 'amount')
+                ->sortable()
                 ->makeInputRange(),
 
             Column::make('RECIPIENT', 'recipient')

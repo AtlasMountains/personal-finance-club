@@ -1,9 +1,5 @@
-<x-layout.dash :family="$family" :familyAccounts="$familyAccounts" :userAccounts="$userAccounts">
+<x-layout.dash>
 
-    <div class="w-full">
-
-        <livewire:transactions :account='$account'>
-
-    </div>
+    <livewire:transactions :account='$account'>
 
 </x-layout.dash>

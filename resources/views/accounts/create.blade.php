@@ -1,6 +1,7 @@
-<x-layout.dash :family="$family" :familyAccounts="$familyAccounts" :userAccounts="$userAccounts">
+<x-layout.app>
 
-    <h1 class="text-3xl font-bold">create a new account</h1>
+
+    <h1 class="text-3xl font-bold dark:text-white">create a new account</h1>
     <x-forms.form action="{{ route('user.account.store') }}">
 
         <x-forms.input for="name" :value="old('name')">
@@ -29,4 +30,4 @@
         <x-forms.button type="submit">submit</x-forms.button>
 
     </x-forms.form>
-</x-layout.dash>
+</x-layout.app>

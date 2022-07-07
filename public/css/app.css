@@ -1004,6 +1004,10 @@ input:checked ~ .dot .active {
   margin-top: -0.5rem;
   margin-bottom: -0.5rem;
 }
+.mx-5 {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+}
 .mt-1 {
   margin-top: 0.25rem;
 }
@@ -1444,6 +1448,15 @@ input:checked ~ .dot .active {
 }
 .gap-2 {
   gap: 0.5rem;
+}
+.gap-5 {
+  gap: 1.25rem;
+}
+.gap-10 {
+  gap: 2.5rem;
+}
+.gap-16 {
+  gap: 4rem;
 }
 .gap-x-2 {
   -moz-column-gap: 0.5rem;
@@ -3505,6 +3518,11 @@ input#checkboxLabelFive:checked ~ .box {
   background-color: rgb(148 163 184 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-primary:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(48 86 211 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-opacity-90:hover {
   --tw-bg-opacity: 0.9;
 }
@@ -4982,6 +5000,10 @@ input#checkboxLabelFive:checked ~ .box {
 
   .md\:mt-0 {
     margin-top: 0px;
+  }
+
+  .md\:mt-5 {
+    margin-top: 1.25rem;
   }
 
   .md\:block {
