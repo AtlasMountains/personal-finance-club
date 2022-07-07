@@ -208,11 +208,11 @@
                                 molestias officiis perferendis perspiciatis quibusdam unde.
                             </p>
                             <a href="{{ route('user.dashboard') }}"
-                                class="inline-flex items-center justify-center px-10 py-4 text-base font-normal text-center text-white rounded-lg lg:px-8 xl:px-10 bg-primary hover:bg-opacity-90">
+                                class="inline-flex items-center justify-center px-10 py-4 text-base font-normal text-center text-white rounded-lg lg:px-8 xl:px-10 bg-primary hover:bg-secondary focus:bg-secondary">
                                 Get Started
                             </a>
-                            <a href="/demo"
-                                class="inline-flex items-center justify-center px-10 py-4 text-base font-normal text-center text-white rounded-lg lg:px-8 xl:px-10 bg-primary hover:bg-opacity-90">
+                            <a href="/powergrid"
+                                class="inline-flex items-center justify-center px-10 py-4 text-base font-normal text-center text-white rounded-lg lg:px-8 xl:px-10 bg-primary hover:bg-secondary focus:bg-secondary">
                                 See a live Demo
                             </a>
                         </div>

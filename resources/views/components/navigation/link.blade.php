@@ -1,12 +1,11 @@
-@props([
-'route'
-])
+@props(['route'])
 
-<a {{$attributes->merge([
-    'class'=>
-    'text-base font-medium text-dark px-2
+<a {{ $attributes->merge([
+    'class' => 'text-base font-medium text-dark px-2
     hover:text-secondary
-    dark:text-white dark:hover:text-secondary'])}}
-   href="{{$route}}">
-  {{$slot}}
+    dark:text-white dark:hover:text-secondary',
+]) }}
+    href="{{ $route }}">
+
+    {{ $slot }}
 </a>

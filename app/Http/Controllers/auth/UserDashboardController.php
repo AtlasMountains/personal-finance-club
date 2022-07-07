@@ -8,6 +8,7 @@ class UserDashboardController extends Controller
 {
     public function index()
     {
-
+        //TODO  dashboard
+        return redirect()->route('user.account.index');
     }
 }

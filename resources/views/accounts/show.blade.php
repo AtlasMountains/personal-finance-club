@@ -1,5 +1,7 @@
 <x-layout.dash>
 
-    <livewire:transactions :account='$account'>
+    <div class="w-full p-10 mx-auto">
+        <livewire:transactions :account='$account'>
+    </div>
 
 </x-layout.dash>
