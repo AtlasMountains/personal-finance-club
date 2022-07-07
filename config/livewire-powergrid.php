@@ -28,8 +28,8 @@ return [
          * https://github.com/snapappointments/bootstrap-select
          */
         'bootstrap-select' => [
-            'js'  => 'https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js',
-            'css' => 'https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/css/bootstrap-select.min.css',
+            // 'js'  => 'https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js',
+            // 'css' => 'https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/css/bootstrap-select.min.css',
         ],
         /*
          * https://flatpickr.js.org
@@ -83,7 +83,8 @@ return [
     |
     */
 
-    'alpinejs_cdn' => 'https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js',
+    'alpinejs_cdn' => null,
+    // 'https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js',
 
     /*
     |--------------------------------------------------------------------------

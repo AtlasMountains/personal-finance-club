@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Account;
 use App\Models\Category;
 use App\Models\Tag;
 use App\Models\transaction;

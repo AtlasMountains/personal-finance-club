@@ -6,6 +6,9 @@
     @if (isset($styles))
         {{ $styles }}
     @endif
+    @if (isset($scripts))
+        {{ $scripts }}
+    @endif
 </head>
 
 <body x-data="{ 'darkMode': false }" :class="darkMode ? 'bg-dark' : 'bg-gray-200'" class="antialiased" x-init="darkMode = JSON.parse(localStorage.getItem('darkMode'));
@@ -25,9 +28,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
 
         </div>
     </div>
-    @if (isset($scripts))
-        {{ $scripts }}
-    @endif
+
 </body>
 
 </html>
