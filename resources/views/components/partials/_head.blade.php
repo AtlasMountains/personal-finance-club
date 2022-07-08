@@ -4,7 +4,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
 <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-@wireUiScripts
+<wireui:scripts />
 <script defer src="{{ asset('js/app.js') }}"></script>
 
 <title>{{ config('app.name') }}</title>

@@ -5,11 +5,11 @@
 
         <div x-data="{ showFamilies: false }">
             <button @click="showFamilies =! showFamilies">
-                Family Accounts
+                {{ trans('Family Accounts') }}
             </button>
 
             @if (isset($family))
-                <ul class="overflow-auto h-3/4 absolute z-10 m-4 space-y-2 bg-white rounded shadow min-w-[100px] tansition text-center"
+                <ul class="overflow-auto max-h-96 absolute z-10 m-4 space-y-2 bg-white rounded shadow-2xl min-w-[100px] tansition text-center"
                     x-show="showFamilies" @click.outside="showFamilies = false">
                     @foreach ($familyUsersWithAccounts as $user)
                         <div class="bg-secondary">{{ $user->first_name }}, {{ $user->last_name }}</div>
@@ -30,7 +30,7 @@
 
         <div x-data="{ showUserAccounts: false }">
             <button @click="showUserAccounts =! showUserAccounts">
-                Your accounts
+                {{ trans('Your accounts') }}
             </button>
 
             <ul class="absolute m-4 space-y-2 bg-white z-10 rounded shadow min-w-[100px] tansition text-center"

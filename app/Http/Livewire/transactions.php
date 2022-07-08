@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Category;
 use App\Models\Tag;
-use App\Models\transaction;
+use App\Models\Transaction;
 use App\Models\Type;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
@@ -24,7 +24,9 @@ final class transactions extends PowerGridComponent
 {
     public $account;
 
-    public string $sortField = 'date';
+    public string $primaryKey = 'transactions.id';
+
+    public string $sortField = 'transactions.date';
 
     public string $sortDirection = 'desc';
 
@@ -67,7 +69,7 @@ final class transactions extends PowerGridComponent
      */
     public function datasource(): Builder
     {
-        return transaction::query()->whereBelongsTo($this->account)
+        return Transaction::query()->whereBelongsTo($this->account)
             ->join('tags', 'tags.id', '=', 'tag_id')
             ->join('types', 'types.id', '=', 'type_id')
             ->join('categories', 'categories.id', '=', 'category_id')
@@ -103,6 +105,7 @@ final class transactions extends PowerGridComponent
     public function addColumns(): PowerGridEloquent
     {
         return PowerGrid::eloquent()
+            ->addColumn('id')
             ->addColumn('amount')
             ->addColumn('recipient')
             // ->addColumn('message')
@@ -129,6 +132,8 @@ final class transactions extends PowerGridComponent
     public function columns(): array
     {
         return [
+            Column::make('ID', 'id'),
+
             Column::make('DATE', 'date_formatted', 'date')
                 ->searchable()
                 ->sortable()

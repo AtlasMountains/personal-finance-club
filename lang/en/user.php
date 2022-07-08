@@ -12,5 +12,7 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-    'welcome_dashboard' => 'Welcome :firstName in your dashboard',
+    'welcome_profile' => 'Welcome :firstName :lastName',
+    'subtitle_profile' => 'you can change your data here',
+
 ];
