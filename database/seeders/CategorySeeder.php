@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class CategorySeeder extends Seeder
@@ -19,11 +18,11 @@ class CategorySeeder extends Seeder
             'housing', 'utilities', 'transportation',
             'food', 'clothing', 'healthcare', 'insurance',
             'household', 'personal', 'debt', 'retirement',
-            'education', 'savings', 'gifts', 'entertainment'
+            'education', 'savings', 'gifts', 'entertainment',
         ];
         foreach ($categories as $category) {
             Category::create([
-                'category' => $category
+                'category' => $category,
             ]);
         }
     }

@@ -59,7 +59,7 @@ class RouteServiceProvider extends ServiceProvider
             return Limit::perMinute(5000);
         });
 
-////      rate limiter for verification emails by user
+        ////      rate limiter for verification emails by user
 //        RateLimiter::for('verification_emails', function (Request $request) {
 //            return Limit::perHour(3, 4)
 //                ->by('verification_emails.' . $request->user()->id)

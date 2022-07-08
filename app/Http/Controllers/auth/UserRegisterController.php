@@ -14,15 +14,16 @@ class UserRegisterController extends Controller
 {
     public function index(Request $request)
     {
-        $key = 'register.' . $request->ip();
+        $key = 'register.'.$request->ip();
         $remaining = RateLimiter::retriesLeft($key, 3);
         $wait_time = now()->addSeconds(RateLimiter::availableIn($key))->diffForHumans();
+
         return view('auth.register', compact('remaining', 'wait_time'));
     }
 
     public function store(UserCreateRequest $request)
     {
-        $key = 'register.' . $request->ip();
+        $key = 'register.'.$request->ip();
         if (RateLimiter::tooManyAttempts($key, 3)) {
             return back()->withErrors(['max_attempts' => trans('auth.attempts_max')]);
         }
@@ -37,6 +38,7 @@ class UserRegisterController extends Controller
 //        limit registrations by ip decay per 3 hours
         RateLimiter::hit($key, 3 * 3600);
         auth()->attempt($request->only('email', 'password'));
+
         return redirect()->route('user.dashboard');
     }
 }

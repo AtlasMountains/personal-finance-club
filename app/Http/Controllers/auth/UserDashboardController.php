@@ -9,6 +9,7 @@ class UserDashboardController extends Controller
     public function index()
     {
         $data = ['user' => auth()->user()];
+
         return view('users.dashboard', $data);
     }
 }

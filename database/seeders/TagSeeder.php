@@ -17,7 +17,7 @@ class TagSeeder extends Seeder
         $tags = ['bathroom', 'kitchen', 'christmas'];
         foreach ($tags as $tag) {
             Tag::create([
-                'tag' => $tag
+                'tag' => $tag,
             ]);
         }
     }

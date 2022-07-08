@@ -9,31 +9,33 @@ use Illuminate\Support\Facades\RateLimiter;
 
 class EmailVerificationController extends Controller
 {
-
     public function index(Request $request)
     {
-        $key = 'verification_emails.' . $request->user()->id;
+        $key = 'verification_emails.'.$request->user()->id;
         $wait_time = now()->addSeconds(RateLimiter::availableIn($key))->diffForHumans();
         $remaining = RateLimiter::retriesLeft($key, 3);
+
         return view('auth.verify-email', compact('remaining', 'wait_time'));
     }
 
     public function send(Request $request)
     {
-        $key = 'verification_emails.' . $request->user()->id;
+        $key = 'verification_emails.'.$request->user()->id;
         if (RateLimiter::tooManyAttempts($key, 3)) {
             return back()->withErrors(['max_attempts' => __('auth.attempts_max')]);
         }
         $request->user()->sendEmailVerificationNotification();
         RateLimiter::hit($key, 3600);
+
         return back()->with(['message' => 'email send']);
     }
 
     public function fulfill(EmailVerificationRequest $request)
     {
-        $key = 'verification_emails.' . $request->user()->id;
+        $key = 'verification_emails.'.$request->user()->id;
         $request->fulfill();
         RateLimiter::clear($key);
+
         return redirect()->route('user.dashboard');
     }
 }

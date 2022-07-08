@@ -8,7 +8,9 @@ use Livewire\Component;
 class dashboard extends Component
 {
     public $firstName;
+
     public $lastName;
+
     public $email;
 
     public function mount()
@@ -21,19 +23,21 @@ class dashboard extends Component
     public function updatedfirstName()
     {
         User::where('id', '=', auth()->user()->id)->update([
-            'first_name' => $this->firstName
+            'first_name' => $this->firstName,
         ]);
     }
+
     public function updatedlastName()
     {
         User::where('id', '=', auth()->user()->id)->update([
-            'last_name' => $this->lastName
+            'last_name' => $this->lastName,
         ]);
     }
+
     public function updatedemail()
     {
         User::where('id', '=', auth()->user()->id)->update([
-            'email' => $this->email
+            'email' => $this->email,
         ]);
     }
 

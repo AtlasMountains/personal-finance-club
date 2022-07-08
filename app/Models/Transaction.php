@@ -16,12 +16,12 @@ class Transaction extends Model
         'date',
         'type_id',
         'tag_id',
-        'category_id'
+        'category_id',
     ];
 
     protected $attributes = [
         'tag_id' => null,
-        'category_id' => null
+        'category_id' => null,
     ];
 
     public function Type()

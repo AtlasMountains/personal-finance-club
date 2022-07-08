@@ -34,6 +34,7 @@ class TransactionFactory extends Factory
                 $amount = $this->faker->numberBetween(-1000, 1000);
                 break;
         }
+
         return [
             'amount' => $amount,
             'recipient' => $this->faker->firstName(),
@@ -42,7 +43,7 @@ class TransactionFactory extends Factory
             'type_id' => $type,
             'account_id' => Account::all()->random(),
             'tag_id' => Tag::all()->random(),
-            'category_id' => Category::all()->random()
+            'category_id' => Category::all()->random(),
         ];
     }
 }

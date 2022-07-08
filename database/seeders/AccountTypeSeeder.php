@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\AccountType;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class AccountTypeSeeder extends Seeder
@@ -18,7 +17,7 @@ class AccountTypeSeeder extends Seeder
         $types = ['checking', 'saving', 'credit'];
         foreach ($types as $type) {
             AccountType::create([
-                'type' => $type
+                'type' => $type,
             ]);
         }
     }

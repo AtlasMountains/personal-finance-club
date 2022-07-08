@@ -10,7 +10,7 @@ class RedirectIfVerified
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @param \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
@@ -19,6 +19,7 @@ class RedirectIfVerified
         if (auth()->user()->email_verified_at) {
             return redirect()->route('user.dashboard');
         }
+
         return $next($request);
     }
 }

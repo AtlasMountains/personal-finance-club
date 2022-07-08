@@ -8,10 +8,10 @@ use Illuminate\Http\Request;
 
 class AccountController extends Controller
 {
-
     public function index()
     {
         $data = [];
+
         return view('accounts.index', $data);
     }
 
@@ -24,6 +24,7 @@ class AccountController extends Controller
             'userAccounts' => auth()->user()->accounts,
             'types' => AccountType::all(),
         ];
+
         return view('accounts.create', $data);
     }
 
@@ -33,15 +34,15 @@ class AccountController extends Controller
             'name' => ['required', 'unique:accounts'],
             'balance' => ['nullable', 'numeric'],
             'alert' => ['nullable', 'numeric'],
-            'type' => 'required'
+            'type' => 'required',
         ]);
 
         Account::create([
             'name' => $request->name,
             'user_id' => auth()->user()->id,
             'account_type_id' => $request->type,
-            'start_balance' => (int)($request->balance * 100),
-            'alert' => (int)($request->alert * 100),
+            'start_balance' => (int) ($request->balance * 100),
+            'alert' => (int) ($request->alert * 100),
         ]);
     }
 
@@ -53,15 +54,16 @@ class AccountController extends Controller
             'familyAccounts' => $user->family->accounts,
             'userAccounts' => $user->accounts,
             'types' => AccountType::all(),
-            'account' => $account
+            'account' => $account,
         ];
+
         return view('accounts.show', $data);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -72,8 +74,8 @@ class AccountController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -84,7 +86,7 @@ class AccountController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

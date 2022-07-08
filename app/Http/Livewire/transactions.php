@@ -6,17 +6,26 @@ use App\Models\Category;
 use App\Models\Tag;
 use App\Models\transaction;
 use App\Models\Type;
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
-use PowerComponents\LivewirePowerGrid\Rules\{Rule, RuleActions};
+use Illuminate\Support\Carbon;
+use PowerComponents\LivewirePowerGrid\Button;
+use PowerComponents\LivewirePowerGrid\Column;
+use PowerComponents\LivewirePowerGrid\Exportable;
+use PowerComponents\LivewirePowerGrid\Footer;
+use PowerComponents\LivewirePowerGrid\Header;
+use PowerComponents\LivewirePowerGrid\PowerGrid;
+use PowerComponents\LivewirePowerGrid\PowerGridComponent;
+use PowerComponents\LivewirePowerGrid\PowerGridEloquent;
+use PowerComponents\LivewirePowerGrid\Rules\Rule;
+use PowerComponents\LivewirePowerGrid\Rules\RuleActions;
 use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
-use PowerComponents\LivewirePowerGrid\{Button, Column, Exportable, Footer, Header, PowerGrid, PowerGridComponent, PowerGridEloquent};
 
 final class transactions extends PowerGridComponent
 {
-
     public $account;
+
     public string $sortField = 'date';
+
     public string $sortDirection = 'desc';
 
     use ActionButton;
@@ -152,7 +161,7 @@ final class transactions extends PowerGridComponent
             Column::make('CATEGORY', 'category')
                 ->searchable()
                 ->sortable()
-                ->makeInputSelect(Category::all(), 'category')
+                ->makeInputSelect(Category::all(), 'category'),
         ];
     }
 

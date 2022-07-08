@@ -17,7 +17,7 @@ class TypeSeeder extends Seeder
         $types = ['deposit', 'withdrawal', 'transfer'];
         foreach ($types as $type) {
             Type::create([
-                'type' => $type
+                'type' => $type,
             ]);
         }
     }

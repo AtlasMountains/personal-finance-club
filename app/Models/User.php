@@ -44,7 +44,7 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     protected $attributes = [
-        'family_id' => null
+        'family_id' => null,
     ];
 
     public function accounts()

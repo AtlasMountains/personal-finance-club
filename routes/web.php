@@ -26,7 +26,6 @@ Route::view('/powergrid', 'powergrid-demo');
 
 //only for guests if auth redirect home
 Route::group(['middleware' => 'guest'], function () {
-
     Route::get('/login', [UserLoginController::class, 'index'])->name('login');
     Route::post('/login', [UserLoginController::class, 'store'])->middleware('throttle:login');
 
@@ -36,7 +35,6 @@ Route::group(['middleware' => 'guest'], function () {
 
 // email verification only for auth redirect login & if already verified redirect dashboard
 Route::group(['middleware' => ['auth', 'if_verified_redirect'], 'as' => 'verification.'], function () {
-
     Route::get('/email/verify', [EmailVerificationController::class, 'index'])
         ->name('notice');
 
@@ -50,7 +48,6 @@ Route::group(['middleware' => ['auth', 'if_verified_redirect'], 'as' => 'verific
 
 // only for logged-in users
 Route::group(['middleware' => 'auth', 'as' => 'user.'], function () {
-
     Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
     Route::get('/dashboard', [UserDashboardController::class, 'index'])

@@ -9,7 +9,9 @@ use Illuminate\View\Component;
 class accountNav extends Component
 {
     public User $user;
+
     public Family $family;
+
     public $familyUsersWithAccounts;
 
     public function __construct()
