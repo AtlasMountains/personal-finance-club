@@ -1,8 +1,8 @@
 <x-layout.app>
 
-    <h1 class="text-3xl font-bold text-center dark:text-white">create a new account</h1>
+    <h1 class="text-3xl font-bold text-center dark:text-white">Edit account: {{ $account->name }}</h1>
 
-    <x-forms.form action="{{ route('user.account.update', $account) }}">
+    <x-forms.form action="{{ route('user.account.update', $account) }}" class="md:w-3/5 mx-auto">
         @method('PUT')
         <x-forms.input for="name" :value="$account->name">
             account name

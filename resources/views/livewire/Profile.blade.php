@@ -9,6 +9,6 @@
     <div class="w-3/5 pt-2 mx-auto space-y-2">
         <x-input wire:model.lazy='firstName' icon="user" right-icon="pencil" label="{{ __('first name') }}" />
         <x-input wire:model.lazy='lastName' icon="user" right-icon="pencil" label="{{ __('last name') }}" />
-        <x-input wire:model.lazy='email' icon="user" right-icon="pencil" label="{{ __('email') }}" />
+        <x-input wire:model.lazy='email' icon="mail" right-icon="pencil" label="{{ __('email') }}" />
     </div>
 </section>

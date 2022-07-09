@@ -57,10 +57,9 @@ class Profile extends Component
 
     public function updatedemail()
     {
-        $this->notification()->confirm([
-            'title' => 'Are you Sure?',
-            'description' => 'Save the information?',
-            'icon' => 'question',
+        $this->dialog()->confirm([
+            'title' => 'Change email?',
+            'description' => 'Are you sure you want to change the email?',
             'accept' => [
                 'label' => 'Yes, save it',
                 'method' => 'saveEmail',

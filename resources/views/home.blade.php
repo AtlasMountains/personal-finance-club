@@ -1,6 +1,6 @@
 <x-layout.app>
     <div class="flex flex-col pt-3">
-        <h1 class="p-3 mx-auto text-3xl font-bold text-center text-white bg-blue-400 rounded-lg">
+        <h1 class="p-3 mx-auto text-3xl font-bold text-center text-white bg-primary-500 rounded-lg">
             The personal finance club
         </h1>
 
@@ -202,7 +202,7 @@
                             <h2 class="mb-8 text-3xl font-bold sm:text-4xl text-dark dark:text-white">
                                 Make managing personal finances easy.
                             </h2>
-                            <p class="mb-8 text-base text-body-color">
+                            <p class="mb-8 text-base text-body-color dark:text-gray-300">
                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid beatae
                                 facilis illum ipsum
                                 molestias officiis perferendis perspiciatis quibusdam unde.

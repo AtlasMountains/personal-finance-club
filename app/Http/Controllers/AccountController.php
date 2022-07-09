@@ -50,21 +50,21 @@ class AccountController extends Controller
         return view('accounts.edit', $data);
     }
 
-    public function update(accountCreateRequest $request, Account $account)
+    public function update(Request $request, Account $account)
     {
+        $this->validate($request, [
+            'name' => ['required'],
+            'balance' => ['nullable', 'numeric'],
+            'alert' => ['nullable', 'numeric'],
+            'type' => 'required',
+        ]);
+
         $account->update([
             'name' => $request->name,
             'slug' => SlugService::createSlug(Account::class, 'slug', $request->name),
             'account_type_id' => $request->type,
             'alert' => (int) ($request->alert * 100),
         ]);
-
-        return redirect()->route('user.dashboard');
-    }
-
-    public function destroy(Account $account)
-    {
-        $account->delete();
 
         return redirect()->route('user.dashboard');
     }

@@ -1,8 +1,6 @@
 <x-layout.app>
     <div class="flex flex-col h-full">
 
-        <x-accountNav />
-
         <div class="flex flex-col items-center justify-center flex-1 mt-3 md:mt-0">
             <div class="flex flex-wrap w-full gap-16 justify-evenly">
 

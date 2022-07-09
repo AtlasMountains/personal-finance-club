@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Account;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
@@ -14,7 +14,7 @@ class Accounts extends Component
 
     public User $user;
 
-    public Collection $accounts;
+    public $accounts;
 
     public function mount()
     {
@@ -22,8 +22,9 @@ class Accounts extends Component
         $this->accounts = auth()->user()->accountsWithTypes;
     }
 
-    public function deleteRequest(Account $account)
+    public function deleteRequest($accountId)
     {
+        $account = Account::findOrFail($accountId);
         $this->dialog()->confirm([
             'title' => 'Delete account: ' . $account->name . '?',
             'description' => 'deleting the account wil also delete all transactions belonging to this account',
@@ -31,7 +32,7 @@ class Accounts extends Component
             'accept' => [
                 'label' => 'Yes, delete everything',
                 'method' => 'deleteAccount',
-                'params' => $account,
+                'params' => $accountId,
             ],
             'reject' => [
                 'label' => 'No, cancel',
@@ -48,12 +49,14 @@ class Accounts extends Component
         );
     }
 
-    public function deleteAccount(Account $account)
+    public function deleteAccount($accountId)
     {
+        $account = Account::findOrFail($accountId);
         $account->delete();
+        $this->accounts = $this->accounts->except($accountId);
         $this->notification()->success(
             $title = 'Account:' . $account->name . ' deleted',
-            $description = 'Your profile was successfully deleted'
+            $description = 'Your account and all transactions belonging to this account are deleted'
         );
     }
 

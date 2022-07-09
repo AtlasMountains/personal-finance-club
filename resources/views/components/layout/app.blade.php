@@ -12,7 +12,7 @@
 $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))">
 
     <div :class="{ 'dark': darkMode === true }">
-        <div class="flex flex-col h-screen bg-gray-200 dark:bg-dark">
+        <div class="flex flex-col h-screen bg-gray-200 dark:bg-slate-900">
             <div id="navbar">
                 <x-partials._nav />
             </div>

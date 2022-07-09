@@ -8,7 +8,8 @@
         <p class="px-3 py-0.5 tracking-wide text-center">You don't have any personal accounts yet please create one</p>
     @else
         <table class="w-full rounded-lg shadow py-2">
-            <thead class="bg-gray-200 border-2 border-slate-500">
+            <thead
+                class="bg-gray-200 border-2 border-slate-500 dark:bg-slate-500 dark:border-gray-400 dark:text-gray-200">
                 <tr>
                     <th class="p-3 text-sm font-semibold tracking-wide text-left">name</th>
                     <th class="w-20 p-3 text-sm font-semibold tracking-wide text-left">type</th>
@@ -19,27 +20,28 @@
 
             <tbody>
                 @foreach ($accounts as $account)
-                    <tr class="{{ $loop->index % 2 ? 'bg-gray-200' : 'bg-white' }}">
+                    <tr
+                        class="{{ $loop->index % 2 ? 'bg-gray-200 dark:bg-slate-500' : 'bg-white dark:bg-slate-400' }}">
                         <td class="p-3 text-sm font-bold">
                             <a href="{{ route('user.account.show', $account) }}"
-                                class="px-3 py-0.5 hover:bg-secondary-500 focus:bg-secondary-500 rounded-lg bg-red-500 text-white">
+                                class="px-3 py-0.5 hover:bg-secondary-500 focus:bg-secondary-500 dark:hover:bg-secondary-700 dark:focus:bg-secondary-700 rounded-lg bg-red-500 bg-opacity-60 text-gray-100">
                                 {{ $account->name }}
                             </a>
                         </td>
-                        <td class="p-3 text-sm">
+                        <td class="p-3 text-sm dark:text-gray-100">
                             {{ $account->accountType->type }}
                         </td>
 
                         <td class="p-3 text-sm">
                             <a href="{{ route('user.account.edit', $account) }}">
                                 <x-icon name="pencil" solid="true"
-                                    class="w-6 h-6 hover:text-primary-500 focus:text-primary-500" />
+                                    class="w-6 h-6 hover:text-primary-500 focus:text-primary-500 dark:hover:text-white dark:focus:text-white" />
                             </a>
                         </td>
                         <td class="p-3 text-sm">
-                            <button wire:click.debounce.150ms="deleteRequest({{ $account }})">
+                            <button wire:click="deleteRequest({{ $account->id }})">
                                 <x-icon name="trash" solid="true"
-                                    class="w-10 h-10 text-red-500 cursor-pointer hover:text-secondary-500" />
+                                    class="w-10 h-10 text-red-500 cursor-pointer hover:text-secondary-500 focus:text-secondary-500 dark:hover:text-secondary-700 dark:focus:text-secondary-700" />
                             </button>
                         </td>
                     </tr>
@@ -50,7 +52,7 @@
 
     <div class="flex w-full">
         <a href="{{ route('user.account.create') }}"
-            class="p-3 ml-auto text-lg text-center text-white bg-red-500 hover:bg-secondary-500 rounded-lg shadow">
+            class="p-3 ml-auto text-lg text-center text-white bg-red-500 hover:bg-secondary-500 rounded-lg shadow dark:hover:bg-secondary-700 dark:focus:bg-secondary-700">
             <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                 mlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

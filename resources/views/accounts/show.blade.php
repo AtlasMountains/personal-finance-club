@@ -1,4 +1,5 @@
 <x-layout.power>
+
     <h1 class="text-2xl font-semibold px-3 text-center">
         {{ $account->name }}
     </h1>

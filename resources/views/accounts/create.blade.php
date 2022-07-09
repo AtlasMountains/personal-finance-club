@@ -1,10 +1,8 @@
 <x-layout.app>
 
-    <x-accountNav />
-
     <h1 class="text-3xl font-bold text-center dark:text-white">create a new account</h1>
 
-    <x-forms.form action="{{ route('user.account.store') }}">
+    <x-forms.form action="{{ route('user.account.store') }}" class="md:w-3/5 mx-auto">
 
         <x-forms.input for="name" :value="old('name')">
             account name
