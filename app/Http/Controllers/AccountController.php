@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\accountCreateRequest;
 use App\Models\Account;
 use App\Models\AccountType;
 use Illuminate\Http\Request;
@@ -10,33 +11,16 @@ class AccountController extends Controller
 {
     public function index()
     {
-        $data = [];
-
-        return view('accounts.index', $data);
+        return redirect()->route('user.dashboard');
     }
 
     public function create()
     {
-        $family = auth()->user()->family;
-        $data = [
-            'family' => $family,
-            'familyAccounts' => $family->accounts,
-            'userAccounts' => auth()->user()->accounts,
-            'types' => AccountType::all(),
-        ];
-
-        return view('accounts.create', $data);
+        return view('accounts.create', ['types' => AccountType::all()]);
     }
 
-    public function store(Request $request)
+    public function store(accountCreateRequest $request)
     {
-        $this->validate($request, [
-            'name' => ['required', 'unique:accounts'],
-            'balance' => ['nullable', 'numeric'],
-            'alert' => ['nullable', 'numeric'],
-            'type' => 'required',
-        ]);
-
         Account::create([
             'name' => $request->name,
             'user_id' => auth()->user()->id,
@@ -44,19 +28,17 @@ class AccountController extends Controller
             'start_balance' => (int) ($request->balance * 100),
             'alert' => (int) ($request->alert * 100),
         ]);
+        return redirect()->route('user.dashboard');
     }
 
     public function show(Account $account)
     {
         $user = auth()->user();
         $data = [
-            'family' => $user->family,
-            'familyAccounts' => $user->family->accounts,
             'userAccounts' => $user->accounts,
             'types' => AccountType::all(),
             'account' => $account,
         ];
-
         return view('accounts.show', $data);
     }
 

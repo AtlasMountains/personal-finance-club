@@ -10,7 +10,7 @@ class accountNav extends Component
 {
     public User $user;
 
-    public Family $family;
+    public ?Family $family;
 
     public $familyUsersWithAccounts;
 
@@ -18,7 +18,7 @@ class accountNav extends Component
     {
         $this->user = auth()->user();
         $this->family = $this->user->family;
-        $this->familyUsersWithAccounts = $this->family->usersWithAccounts();
+        $this->familyUsersWithAccounts = $this->family?->usersWithAccounts();
     }
 
     public function render()

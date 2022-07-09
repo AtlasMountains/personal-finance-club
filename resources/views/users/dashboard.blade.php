@@ -4,24 +4,17 @@
         <x-accountNav />
 
         <div class="flex-1 mt-3">
-            <div class="grid grid-cols-2 grid-rows-2 gap-5">
+            <div class="grid gap-4 px-4 md:grid-cols-2 lg:grid-cols-3">
 
-                <div class="bg-green-500">
+                <div class="p-2 bg-gray-100 rounded shadow dark:bg-slate-600">
                     <livewire:profile />
                 </div>
-                <div class="bg-red-500">
-                    red
+                <div class="p-2 bg-gray-100 rounded shadow dark:bg-slate-600">
+                    <livewire:accounts />
                 </div>
-
-                <div class="bg-yellow-500">
-                    yellow
-                </div>
-
-                <div class="bg-blue-500">blue</div>
+                <div class="p-2 bg-green-500 rounded shadow">family</div>
 
             </div>
-
-
         </div>
 
     </div>

@@ -16,6 +16,7 @@ class Account extends Model
         'family_id',
         'start_balance',
         'alert',
+        'user_position',
     ];
 
     protected $attributes = [

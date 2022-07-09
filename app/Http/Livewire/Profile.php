@@ -18,7 +18,7 @@ class Profile extends Component
 
     protected $rules = [
         'firstName' => 'required|alpha|max:125',
-        'lastName' => 'required|alpha|max:125',
+        'lastName' => 'required|string|max:125',
         'email' => 'required|email|max:125|unique:users',
     ];
 

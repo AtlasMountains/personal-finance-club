@@ -24,6 +24,7 @@ return new class extends Migration
             $table->foreignIdFor(Family::class)->nullable()->constrained();
             $table->integer('start_balance');
             $table->integer('alert');
+            $table->unsignedInteger('user_position');
             $table->timestamps();
         });
     }

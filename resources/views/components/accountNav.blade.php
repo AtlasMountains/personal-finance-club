@@ -8,7 +8,7 @@
                 {{ trans('Family Accounts') }}
             </button>
 
-            @if (isset($family))
+            @if (!is_null($family))
                 <ul class="overflow-auto max-h-96 absolute z-10 m-4 space-y-2 bg-white rounded shadow-2xl min-w-[100px] tansition text-center"
                     x-show="showFamilies" @click.outside="showFamilies = false">
                     @foreach ($familyUsersWithAccounts as $user)
@@ -24,7 +24,6 @@
                         <hr>
                     @endforeach
                 </ul>
-
             @endif
         </div>
 
