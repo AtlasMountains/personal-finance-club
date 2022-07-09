@@ -1,4 +1,7 @@
 <x-layout.dash>
+    <x-notifications />
+    <x-dialog />
+
     <div class="flex flex-col h-full">
 
         <x-accountNav />

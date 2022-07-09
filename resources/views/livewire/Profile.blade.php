@@ -1,7 +1,4 @@
 <section class="pb-3 mx-auto space-y-1">
-
-    <x-notifications z-index="z-50" />
-
     <div>
         <h1 class="text-lg font-semibold text-center dark:text-white">
             {{ trans('user.welcome_profile', ['firstName' => $firstName, 'lastName' => $lastName]) }}

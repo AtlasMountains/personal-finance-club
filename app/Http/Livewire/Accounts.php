@@ -13,35 +13,28 @@ class Accounts extends Component
     use Actions;
 
     public User $user;
+
     public Collection $accounts;
 
     public function mount()
     {
         $this->user = auth()->user();
-        $this->accounts = auth()->user()->accounts;
+        $this->accounts = auth()->user()->accountsWithTypes;
     }
 
-    public function deleteRequest($accountId)
+    public function deleteRequest(Account $account)
     {
-        $name = Account::findOrFail($accountId)->name;
         $this->dialog()->confirm([
-            'title' => 'Delete account: ' . $name . '?',
+            'title' => 'Delete account: ' . $account->name . '?',
             'description' => 'deleting the account wil also delete all transactions belonging to this account',
             'acceptLabel' => 'Yes, delete it',
-            'method'      => 'save',
-            'params'      => 'Saved',
-        ]);
-        $this->notification()->confirm([
-            'title' => 'Delete account:' . $name . '?',
-            'description' => 'deleting the account wil also delete all transactions belonging to this account',
-            'icon' => 'question',
             'accept' => [
                 'label' => 'Yes, delete everything',
                 'method' => 'deleteAccount',
-                'params' => $accountId,
+                'params' => $account,
             ],
             'reject' => [
-                'label'  => 'No, cancel',
+                'label' => 'No, cancel',
                 'method' => 'cancelDelete',
             ],
         ]);
@@ -55,11 +48,11 @@ class Accounts extends Component
         );
     }
 
-    public function deleteAccount($accountId)
+    public function deleteAccount(Account $account)
     {
-        Account::findOrFail($accountId)->delete();
+        $account->delete();
         $this->notification()->success(
-            $title = 'Account deleted',
+            $title = 'Account:' . $account->name . ' deleted',
             $description = 'Your profile was successfully deleted'
         );
     }

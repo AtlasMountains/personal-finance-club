@@ -53,5 +53,5 @@ Route::group(['middleware' => 'auth', 'as' => 'user.'], function () {
         ->middleware('verified')
         ->name('dashboard');
 
-    Route::resource('account', AccountController::class)->middleware('verified');
+    Route::resource('account', AccountController::class)->middleware('verified')->except(['index']);
 });

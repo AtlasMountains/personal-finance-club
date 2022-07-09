@@ -19,12 +19,12 @@ return new class extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('slug')->nullable();
             $table->foreignIdFor(User::class)->constrained();
             $table->foreignIdFor(AccountType::class)->constrained();
             $table->foreignIdFor(Family::class)->nullable()->constrained();
             $table->integer('start_balance');
             $table->integer('alert');
-            $table->unsignedInteger('user_position');
             $table->timestamps();
         });
     }

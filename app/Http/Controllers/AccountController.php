@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\accountCreateRequest;
+use App\Models\Type;
 use App\Models\Account;
 use App\Models\AccountType;
 use Illuminate\Http\Request;
+use App\Http\Requests\accountCreateRequest;
+use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class AccountController extends Controller
 {
@@ -39,14 +41,25 @@ class AccountController extends Controller
         return view('accounts.show', $data);
     }
 
-    public function edit($account)
+    public function edit(Account $account)
     {
-        return view('accounts.edit');
+        $data = [
+            'account' => $account,
+            'types' => Type::all(),
+        ];
+        return view('accounts.edit', $data);
     }
 
-    public function update(Request $request, $id)
+    public function update(accountCreateRequest $request, Account $account)
     {
-        //
+        $account->update([
+            'name' => $request->name,
+            'slug' => SlugService::createSlug(Account::class, 'slug', $request->name),
+            'account_type_id' => $request->type,
+            'alert' => (int) ($request->alert * 100),
+        ]);
+
+        return redirect()->route('user.dashboard');
     }
 
     public function destroy(Account $account)

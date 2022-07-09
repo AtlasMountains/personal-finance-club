@@ -2,15 +2,18 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Account extends Model
 {
+    use Sluggable;
     use HasFactory;
 
     protected $fillable = [
         'name',
+        'slug',
         'user_id',
         'account_type_id',
         'family_id',
@@ -25,9 +28,18 @@ class Account extends Model
         'alert' => 0,
     ];
 
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'name',
+            ],
+        ];
+    }
+
     public function getRouteKeyName()
     {
-        return 'name';
+        return 'slug';
     }
 
     public function accountType()

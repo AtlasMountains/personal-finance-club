@@ -12,11 +12,11 @@
                 <ul class="overflow-auto max-h-96 absolute z-10 m-4 space-y-2 bg-white rounded shadow-2xl min-w-[100px] tansition text-center"
                     x-show="showFamilies" @click.outside="showFamilies = false">
                     @foreach ($familyUsersWithAccounts as $user)
-                        <div class="bg-secondary">{{ $user->first_name }}, {{ $user->last_name }}</div>
+                        <div class="bg-secondary-500">{{ $user->first_name }}, {{ $user->last_name }}</div>
                         @foreach ($user->accounts as $account)
                             <li class="px-5 rounded">
                                 <a href="{{ route('user.account.show', $account) }}"
-                                    class="hover:text-secondary focus:text-secondary">
+                                    class="hover:text-secondary-500 focus:text-secondary-500">
                                     {{ $account->name }}
                                 </a>
                             </li>
@@ -37,7 +37,7 @@
                 @foreach ($user->accounts as $account)
                     <li class="px-3 rounded">
                         <a href="{{ route('user.account.show', $account) }}"
-                            class="hover:text-secondary focus:text-secondary">
+                            class="hover:text-secondary-500 focus:text-secondary-500">
                             {{ $account->name }}
                         </a>
                     </li>
