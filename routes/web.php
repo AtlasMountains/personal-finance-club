@@ -22,7 +22,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/account', [AccountController::class, 'index'])->name('account');
-Route::view('/powergrid', 'powergrid-demo');
 
 //only for guests if auth redirect home
 Route::group(['middleware' => 'guest'], function () {

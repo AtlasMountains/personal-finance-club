@@ -14,7 +14,7 @@
          step="{{ $step }}"
          class="
               mx-2 px-4 py-1 text-black border-2 border-gray-400 rounded block w-full
-              focus:outline-none focus:border-secondary @error($for) border-red-500 @enderror">
+              focus:outline-none focus:border-secondary-500 @error($for) border-red-500 @enderror">
   @error($for)
   <div class="pl-2 text-red-500">
     {{$message}}

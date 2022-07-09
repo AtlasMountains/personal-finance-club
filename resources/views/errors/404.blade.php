@@ -24,7 +24,7 @@
 <div :class="{'dark' : darkMode === true}">
 
   <!-- ====== Error 404 Section Start -->
-  <section class="flex flex-col items-center h-screen bg-primary dark:bg-dark">
+  <section class="flex flex-col items-center h-screen bg-primary-500 dark:bg-dark">
     <h2 class="pt-24 font-bold text-white mb-2 text-[50px] sm:text-[80px] md:text-[100px] leading-none ">
       404
     </h2>
@@ -36,7 +36,7 @@
       {{ __('The page you are looking for, it maybe deleted') }}
     </p>
     <x-navigation.link route="{{route('home')}}"
-                       class="px-6 py-6 bg-white border-4 rounded-lg shadow-lg border-secondary dark:bg-slate-700">
+                       class="px-6 py-6 bg-white border-4 rounded-lg shadow-lg border-secondary-500 dark:bg-slate-700">
       {{ __('Go To Home') }}
     </x-navigation.link>
   </section>

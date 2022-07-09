@@ -196,7 +196,7 @@
 
                     <div class="w-full px-4 lg:w-1/2 xl:w-5/12">
                         <div class="mt-10 lg:mt-0">
-                            <span class="block mb-2 text-lg font-semibold text-primary">
+                            <span class="block mb-2 text-lg font-semibold text-primary-500">
                                 Why Choose Us
                             </span>
                             <h2 class="mb-8 text-3xl font-bold sm:text-4xl text-dark dark:text-white">
@@ -208,11 +208,11 @@
                                 molestias officiis perferendis perspiciatis quibusdam unde.
                             </p>
                             <a href="{{ route('user.dashboard') }}"
-                                class="inline-flex items-center justify-center px-10 py-4 text-base font-normal text-center text-white rounded-lg lg:px-8 xl:px-10 bg-primary hover:bg-secondary focus:bg-secondary">
+                                class="inline-flex items-center justify-center px-10 py-4 text-base font-normal text-center text-white rounded-lg lg:px-8 xl:px-10 bg-primary-500 hover:bg-secondary-500 focus:bg-secondary-500">
                                 Get Started
                             </a>
-                            <a href="/powergrid"
-                                class="inline-flex items-center justify-center px-10 py-4 text-base font-normal text-center text-white rounded-lg lg:px-8 xl:px-10 bg-primary hover:bg-secondary focus:bg-secondary">
+                            <a href=""
+                                class="inline-flex items-center justify-center px-10 py-4 text-base font-normal text-center text-white rounded-lg lg:px-8 xl:px-10 bg-primary-500 hover:bg-secondary-500 focus:bg-secondary-500">
                                 See a live Demo
                             </a>
                         </div>

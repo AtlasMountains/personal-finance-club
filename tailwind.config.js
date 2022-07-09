@@ -22,12 +22,12 @@ module.exports = {
   },
 
   plugins: [
-    require("./plugin"),
+    // require("./plugin"),
+    require("@tailwindcss/typography"),
+    require("@tailwindcss/aspect-ratio"),
     require("@tailwindcss/forms")({
       strategy: "class",
     }),
-    require("@tailwindcss/typography"),
-    require("@tailwindcss/aspect-ratio"),
   ],
 
   darkMode: "class",

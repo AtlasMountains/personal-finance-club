@@ -8,6 +8,7 @@
   }
 }
 
+/* 
 .snap {
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
@@ -128,4 +129,4 @@ input#checkboxLabelFive:checked ~ .box {
     rgba(255, 255, 255, 0.08) 0%,
     rgba(196, 196, 196, 0) 100%
   );
-}
+} */

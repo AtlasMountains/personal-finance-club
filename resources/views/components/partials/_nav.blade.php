@@ -5,14 +5,14 @@
             <div>
                 <button @click="navbarOpen = !navbarOpen" :class="navbarOpen && 'navbarTogglerActive'" id="navbarToggler"
                     class="block absolute right-0 top-1/2 -translate-y-1/2
-                md:hidden focus:ring-2 ring-primary px-3 py-[6px] rounded-lg bg-secondary">
+                md:hidden focus:ring-2 ring-primary-500 px-3 py-[6px] rounded-lg bg-secondary-500">
 
                     <span class="relative w-[30px] h-[2px] my-[6px] block bg-dark"></span>
                     <span class="relative w-[30px] h-[2px] my-[6px] block bg-dark"></span>
                     <span class="relative w-[30px] h-[2px] my-[6px] block bg-dark"></span>
                 </button>
                 <div :class="!navbarOpen && 'hidden'" id="navbarCollapse"
-                    class="absolute z-50 flex flex-col items-center justify-center py-5 text-3xl bg-white border-2 rounded-lg shadow-2xl top-16 right-4 left-4 border-secondary md:block md:w-full md:static md:border-0 md:bg-white md:shadow-none dark:bg-slate-700">
+                    class="absolute z-50 flex flex-col items-center justify-center py-5 text-3xl bg-white border-2 rounded-lg shadow-2xl top-16 right-4 left-4 border-secondary-500 md:block md:w-full md:static md:border-0 md:bg-white md:shadow-none dark:bg-slate-700">
 
                     <ul class="block w-full text-center md:flex md:items-center md:justify-center">
 
@@ -51,7 +51,7 @@
                                 <form action="{{ route('user.logout') }}" method="post">
                                     @csrf
                                     <button type="submit"
-                                        class="px-2 text-base font-medium text-dark md:hidden hover:text-secondary dark:text-white dark:hover:text-secondary">
+                                        class="px-2 text-base font-medium text-dark md:hidden hover:text-secondary-500 dark:text-white dark:hover:text-secondary-500">
                                         {{ __('logout') }}
                                     </button>
                                 </form>
@@ -97,14 +97,14 @@
                 @auth
 
                     <a href="{{ route('user.dashboard') }}"
-                        class="py-3 text-base font-medium text-white transition rounded-lg bg-primary px-7 hover:bg-secondary focus:bg-secondary">
+                        class="py-3 text-base font-medium text-white transition rounded-lg bg-primary-500 px-7 hover:bg-secondary-500 focus:bg-secondary-500">
                         {{ __('Dashboard') }}
                     </a>
 
                     <form action="{{ route('user.logout') }}" method="post">
                         @csrf
                         <button type="submit"
-                            class="hidden px-2 text-base font-medium text-dark md:inline hover:text-secondary dark:text-white dark:hover:text-secondary">
+                            class="hidden px-2 text-base font-medium text-dark md:inline hover:text-secondary-500 dark:text-white dark:hover:text-secondary-500">
                             <span class="flex justify-center">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                     xmlns="http://www.w3.org/2000/svg">
