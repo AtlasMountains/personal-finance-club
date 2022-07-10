@@ -32,10 +32,12 @@ class AccountController extends Controller
     public function show(Account $account)
     {
         $user = auth()->user();
+        $transactions = $user->accountsWithTypesAndTransactions;
         $data = [
             'userAccounts' => $user->accounts,
             'types' => AccountType::all(),
             'account' => $account,
+            'transactions' => $transactions,
         ];
 
         return view('accounts.show', $data);

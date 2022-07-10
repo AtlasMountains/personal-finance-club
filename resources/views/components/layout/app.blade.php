@@ -20,9 +20,9 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
             <main class="flex-1">
                 {{ $slot }}
             </main>
-
-            <x-partials._footer />
-
+            <div class="w-full text-center dark:bg-slate-900">
+                <x-partials._footer />
+            </div>
         </div>
     </div>
 

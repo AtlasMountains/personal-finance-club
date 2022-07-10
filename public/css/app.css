@@ -2183,6 +2183,9 @@ video {
 .pr-7 {
   padding-right: 1.75rem;
 }
+.pb-10 {
+  padding-bottom: 2.5rem;
+}
 .pt-24 {
   padding-top: 6rem;
 }
@@ -4212,6 +4215,11 @@ input#checkboxLabelFive:checked ~ .box {
   background-color: rgb(51 65 85 / var(--tw-bg-opacity));
 }
 
+.dark .dark\:bg-slate-900 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(15 23 42 / var(--tw-bg-opacity));
+}
+
 .dark .dark\:bg-gray-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(209 213 219 / var(--tw-bg-opacity));
@@ -4225,11 +4233,6 @@ input#checkboxLabelFive:checked ~ .box {
 .dark .dark\:bg-slate-400 {
   --tw-bg-opacity: 1;
   background-color: rgb(148 163 184 / var(--tw-bg-opacity));
-}
-
-.dark .dark\:bg-slate-900 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(15 23 42 / var(--tw-bg-opacity));
 }
 
 .dark .dark\:bg-gray-600 {
@@ -4732,6 +4735,11 @@ input#checkboxLabelFive:checked ~ .box {
   background-color: rgb(51 65 85 / var(--tw-bg-opacity));
 }
 
+.dark .dark\:hover\:bg-gray-200:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+}
+
 .dark .dark\:hover\:bg-slate-600:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(71 85 105 / var(--tw-bg-opacity));
@@ -4890,6 +4898,11 @@ input#checkboxLabelFive:checked ~ .box {
 .dark .dark\:hover\:text-secondary-700:hover {
   --tw-text-opacity: 1;
   color: rgb(51 65 85 / var(--tw-text-opacity));
+}
+
+.dark .dark\:hover\:text-black:hover {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
 .dark .dark\:hover\:text-secondary-500:hover {
@@ -5083,6 +5096,11 @@ input#checkboxLabelFive:checked ~ .box {
   background-color: rgb(51 65 85 / var(--tw-bg-opacity));
 }
 
+.dark .dark\:focus\:bg-gray-200:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+}
+
 .dark .dark\:focus\:text-white:focus {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -5091,6 +5109,11 @@ input#checkboxLabelFive:checked ~ .box {
 .dark .dark\:focus\:text-secondary-700:focus {
   --tw-text-opacity: 1;
   color: rgb(51 65 85 / var(--tw-text-opacity));
+}
+
+.dark .dark\:focus\:text-black:focus {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
 .dark .dark\:focus\:text-slate-500:focus {
@@ -5659,6 +5682,10 @@ input#checkboxLabelFive:checked ~ .box {
 
   .lg\:w-1\/2 {
     width: 50%;
+  }
+
+  .lg\:w-3\/5 {
+    width: 60%;
   }
 
   .lg\:w-1\/4 {

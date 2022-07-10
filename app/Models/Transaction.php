@@ -17,6 +17,7 @@ class Transaction extends Model
         'type_id',
         'tag_id',
         'category_id',
+        'account_id',
     ];
 
     protected $attributes = [

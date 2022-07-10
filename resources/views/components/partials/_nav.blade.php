@@ -5,11 +5,11 @@
             <div>
                 <button @click="navbarOpen = !navbarOpen" :class="navbarOpen && 'navbarTogglerActive'" id="navbarToggler"
                     class="block absolute right-0 top-1/2 -translate-y-1/2
-                md:hidden focus:ring-2 ring-primary-500 px-3 py-[6px] rounded-lg bg-secondary-500">
+                md:hidden focus:ring-2 ring-primary-500 px-3 py-[6px] rounded-lg bg-gray-300 dark:bg-slate-400">
 
-                    <span class="relative w-[30px] h-[2px] my-[6px] block bg-dark"></span>
-                    <span class="relative w-[30px] h-[2px] my-[6px] block bg-dark"></span>
-                    <span class="relative w-[30px] h-[2px] my-[6px] block bg-dark"></span>
+                    <span class="relative w-[30px] h-[2px] my-[6px] block bg-slate-700"></span>
+                    <span class="relative w-[30px] h-[2px] my-[6px] block bg-slate-700"></span>
+                    <span class="relative w-[30px] h-[2px] my-[6px] block bg-slate-700"></span>
                 </button>
                 <div :class="!navbarOpen && 'hidden'" id="navbarCollapse"
                     class="absolute z-50 flex flex-col items-center justify-center py-5 text-3xl bg-white border-2 rounded-lg shadow-2xl top-16 right-4 left-4 border-secondary-500 md:block md:w-full md:static md:border-0 md:bg-white md:shadow-none dark:bg-slate-700">

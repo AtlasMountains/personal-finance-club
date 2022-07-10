@@ -2,22 +2,23 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Category;
 use App\Models\Tag;
-use App\Models\Transaction;
 use App\Models\Type;
-use Illuminate\Database\Eloquent\Builder;
+use App\Models\Category;
+use App\Models\Transaction;
+use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
-use PowerComponents\LivewirePowerGrid\Exportable;
 use PowerComponents\LivewirePowerGrid\Footer;
 use PowerComponents\LivewirePowerGrid\Header;
 use PowerComponents\LivewirePowerGrid\PowerGrid;
-use PowerComponents\LivewirePowerGrid\PowerGridComponent;
-use PowerComponents\LivewirePowerGrid\PowerGridEloquent;
+use PowerComponents\LivewirePowerGrid\Exportable;
 use PowerComponents\LivewirePowerGrid\Rules\Rule;
+use PowerComponents\LivewirePowerGrid\PowerGridEloquent;
 use PowerComponents\LivewirePowerGrid\Rules\RuleActions;
+use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
 
 final class TransactionsTable extends PowerGridComponent
@@ -69,6 +70,12 @@ final class TransactionsTable extends PowerGridComponent
      */
     public function datasource(): Builder
     {
+        // TODO tag=Null not showing or showing but not search able
+
+        // return $this->account->transactions->with('type', 'tag', 'category');
+        // return Transaction::query()->whereBelongsTo($this->account)->with('type', 'tag', 'category');
+
+        // old version
         return Transaction::query()->whereBelongsTo($this->account)
             ->join('tags', 'tags.id', '=', 'tag_id')
             ->join('types', 'types.id', '=', 'type_id')
@@ -108,11 +115,19 @@ final class TransactionsTable extends PowerGridComponent
             ->addColumn('id')
             ->addColumn('amount')
             ->addColumn('recipient')
-            // ->addColumn('message')
-            ->addColumn('date_formatted', fn (transaction $model) => Carbon::parse($model->date)->format('d/m/Y H:i:s'))
+            ->addColumn('message', function (Transaction $model) {
+                return Str::words($model->message, 4); //Gets the first x words
+            })
+            ->addColumn('date_formatted', fn (transaction $model) => Carbon::parse($model->date)->format('d/m/Y H:i'))
             ->addColumn('type')
             ->addColumn('tag')
             ->addColumn('category');
+
+        //  ->addColumn('date_formatted', fn (transaction $model) => Carbon::parse($model->date)->format('d/m/Y H:i'))
+        // 
+        // ->addColumn('type', fn ($transaction) => $transaction->type->type) //from the type model display the type name
+        // ->addColumn('tag', fn ($transaction) => $transaction->tag?->tag ?: 'Null')
+        // ->addColumn('category', fn ($transaction) => $transaction->category?->category ?: 'Null');
     }
 
     /*
@@ -148,10 +163,9 @@ final class TransactionsTable extends PowerGridComponent
                 ->searchable()
                 ->makeInputText(),
 
-            // Column::make('MESSAGE', 'message')
-            //     ->sortable()
-            //     ->searchable()
-            //     ->makeInputText(),
+            Column::make('MESSAGE', 'message')
+                ->searchable()
+                ->makeInputText(),
 
             Column::make('TYPE', 'type')
                 ->searchable()
@@ -184,19 +198,19 @@ final class TransactionsTable extends PowerGridComponent
      * @return array<int, Button>
      */
 
-    public function actions(): array
-    {
-        return [
-            Button::make('edit', 'Edit')
-                ->class('bg-indigo-500 cursor-pointer text-white px-3 py-2.5 m-1 rounded text-sm')
-                ->route('transaction.edit', ['transaction' => 'id']),
+    // public function actions(): array
+    // {
+    //     return [
+    //         Button::make('edit', 'Edit')
+    //             ->class('bg-indigo-500 cursor-pointer text-white px-3 py-2.5 m-1 rounded text-sm')
+    //             ->route('transaction.edit', ['transaction' => 'id']),
 
-            Button::make('destroy', 'Delete')
-                ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
-                ->route('transaction.destroy', ['transaction' => 'id'])
-                ->method('delete')
-        ];
-    }
+    //         Button::make('destroy', 'Delete')
+    //             ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
+    //             ->route('transaction.destroy', ['transaction' => 'id'])
+    //             ->method('delete')
+    //     ];
+    // }
 
     /*
     |--------------------------------------------------------------------------

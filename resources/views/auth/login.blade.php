@@ -1,5 +1,5 @@
 <x-layout.app xmlns="http://www.w3.org/1999/html">
-    <div class="flex flex-col items-center justify-center h-full">
+    <div class="flex flex-col items-center justify-center h-full mx-auto md:w-3/5">
         <x-forms.form class="dark:my-0">
 
             <h1 class="text-3xl font-bold text-center dark:text-white">
@@ -43,8 +43,7 @@
             @endif
 
             <div>
-                <a href="{{ route('register') }}"
-                    class="text-sm text-body-color dark:text-gray-200">
+                <a href="{{ route('register') }}" class="text-sm text-body-color dark:text-gray-200">
                     {{ __('no account yet? sign up') }}
                 </a>
             </div>
