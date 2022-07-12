@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\accountCreateRequest;
 use App\Models\Account;
 use App\Models\AccountType;
-use App\Models\Type;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Http\Request;
 
@@ -52,7 +51,7 @@ class AccountController extends Controller
     {
         $data = [
             'account' => $account,
-            'types' => Type::all(),
+            'types' => AccountType::all(),
         ];
 
         return view('accounts.edit', $data);

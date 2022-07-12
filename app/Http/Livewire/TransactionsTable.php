@@ -110,7 +110,7 @@ final class TransactionsTable extends PowerGridComponent
             ->addColumn('message', function (Transaction $model) {
                 return Str::words($model->message, 2); //Gets the first x words
             })
-            ->addColumn('date_formatted', fn(transaction $model) => Carbon::parse($model->date)->format('d/m/Y H:i'))
+            ->addColumn('date_formatted', fn (transaction $model) => Carbon::parse($model->date)->format('d/m/Y H:i'))
             ->addColumn('type')
             ->addColumn('tag')
             ->addColumn('category');
