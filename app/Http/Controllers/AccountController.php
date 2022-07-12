@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Type;
+use App\Http\Requests\accountCreateRequest;
 use App\Models\Account;
 use App\Models\AccountType;
-use Illuminate\Http\Request;
-use App\Http\Requests\accountCreateRequest;
+use App\Models\Type;
 use Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Http\Request;
 
 class AccountController extends Controller
 {
+    public function index()
+    {
+        return redirect(route('user.dashboard'));
+    }
+
     public function create()
     {
         return view('accounts.create', ['types' => AccountType::all()]);
@@ -49,6 +54,7 @@ class AccountController extends Controller
             'account' => $account,
             'types' => Type::all(),
         ];
+
         return view('accounts.edit', $data);
     }
 

@@ -9,22 +9,39 @@ use App\Models\Transaction;
 use App\Models\Type;
 use Carbon\Carbon;
 use Livewire\Component;
+use WireUi\Traits\Actions;
 
 class Transactions extends Component
 {
+    use Actions;
+
     public $types;
+
     public $tags;
+
     public $categories;
+
     public $amount;
+
     public $recipient;
+
     public $description;
+
     public $tag;
+
     public $type;
+
     public $category;
+
     public Account $account;
+
     public $date;
+
     public $time;
+
     public $showForm = false;
+
+    protected $listeners = ['deleteTransaction' => 'deleteRequest'];
 
     protected $rules = [
         'amount' => ['required', 'numeric'],
@@ -84,12 +101,44 @@ class Transactions extends Component
 
     public function updateTransaction()
     {
-        # code...
+        // code...
     }
 
-    public function deleteTransaction()
+    public function deleteRequest($params)
     {
-        # code...
+        $transaction = Transaction::findOrFail($params)->first();
+        $this->dialog()->confirm([
+            'title' => 'Delete transaction: ' . $transaction->id . '?',
+            'description' => 'deleting the transaction is irreversible',
+            'acceptLabel' => 'Yes, delete it',
+            'accept' => [
+                'label' => 'Yes, delete everything',
+                'method' => 'deleteTransaction',
+                'params' => $transaction,
+            ],
+            'reject' => [
+                'label' => 'No, cancel',
+                'method' => 'cancelDelete',
+            ],
+        ]);
+    }
+
+    public function deleteTransaction(Transaction $transaction)
+    {
+        $transaction->delete();
+        $this->notification()->success(
+            $title = 'Transaction:' . $transaction->id . ' deleted',
+            $description = 'Your transaction is deleted'
+        );
+        $this->emit('transactionDeleted');
+    }
+
+    public function cancelDelete()
+    {
+        $this->notification()->warning(
+            $title = 'Action canceled',
+            $description = 'the transaction was not deleted'
+        );
     }
 
     public function close()

@@ -4,7 +4,6 @@ namespace App\Http\Livewire;
 
 use App\Models\Account;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
@@ -26,7 +25,7 @@ class Accounts extends Component
     {
         $account = Account::findOrFail($accountId);
         $this->dialog()->confirm([
-            'title' => 'Delete account: ' . $account->name . '?',
+            'title' => 'Delete account: '.$account->name.'?',
             'description' => 'deleting the account wil also delete all transactions belonging to this account',
             'acceptLabel' => 'Yes, delete it',
             'accept' => [
@@ -55,7 +54,7 @@ class Accounts extends Component
         $account->delete();
         $this->accounts = $this->accounts->except($accountId);
         $this->notification()->success(
-            $title = 'Account:' . $account->name . ' deleted',
+            $title = 'Account:'.$account->name.' deleted',
             $description = 'Your account and all transactions belonging to this account are deleted'
         );
     }

@@ -2,23 +2,22 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Tag;
-use App\Models\Type;
 use App\Models\Category;
+use App\Models\Tag;
 use App\Models\Transaction;
-use Illuminate\Support\Str;
-use Illuminate\Support\Carbon;
+use App\Models\Type;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
+use PowerComponents\LivewirePowerGrid\Exportable;
 use PowerComponents\LivewirePowerGrid\Footer;
 use PowerComponents\LivewirePowerGrid\Header;
 use PowerComponents\LivewirePowerGrid\PowerGrid;
-use PowerComponents\LivewirePowerGrid\Exportable;
-use PowerComponents\LivewirePowerGrid\Rules\Rule;
+use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 use PowerComponents\LivewirePowerGrid\PowerGridEloquent;
 use PowerComponents\LivewirePowerGrid\Rules\RuleActions;
-use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
 
 final class TransactionsTable extends PowerGridComponent
@@ -70,16 +69,10 @@ final class TransactionsTable extends PowerGridComponent
      */
     public function datasource(): Builder
     {
-        // TODO tag=Null not showing or showing but not search able
-
-        // return $this->account->transactions->with('type', 'tag', 'category');
-        // return Transaction::query()->whereBelongsTo($this->account)->with('type', 'tag', 'category');
-
-        // old version
         return Transaction::query()->whereBelongsTo($this->account)
-            ->join('tags', 'tags.id', '=', 'tag_id')
-            ->join('types', 'types.id', '=', 'type_id')
-            ->join('categories', 'categories.id', '=', 'category_id')
+            ->join('tags', 'tags.id', '=', 'tag_id', 'left outer')
+            ->join('types', 'types.id', '=', 'type_id', 'left outer')
+            ->join('categories', 'categories.id', '=', 'category_id', 'left outer')
             ->select('transactions.*', 'categories.category as category', 'tags.tag as tag', 'types.type as type');
     }
 
@@ -90,7 +83,6 @@ final class TransactionsTable extends PowerGridComponent
     | Configure here relationships to be used by the Search and Table Filters.
     |
     */
-
     /**
      * Relationship search.
      *
@@ -116,18 +108,12 @@ final class TransactionsTable extends PowerGridComponent
             ->addColumn('amount')
             ->addColumn('recipient')
             ->addColumn('message', function (Transaction $model) {
-                return Str::words($model->message, 4); //Gets the first x words
+                return Str::words($model->message, 2); //Gets the first x words
             })
-            ->addColumn('date_formatted', fn (transaction $model) => Carbon::parse($model->date)->format('d/m/Y H:i'))
+            ->addColumn('date_formatted', fn(transaction $model) => Carbon::parse($model->date)->format('d/m/Y H:i'))
             ->addColumn('type')
             ->addColumn('tag')
             ->addColumn('category');
-
-        //  ->addColumn('date_formatted', fn (transaction $model) => Carbon::parse($model->date)->format('d/m/Y H:i'))
-        // 
-        // ->addColumn('type', fn ($transaction) => $transaction->type->type) //from the type model display the type name
-        // ->addColumn('tag', fn ($transaction) => $transaction->tag?->tag ?: 'Null')
-        // ->addColumn('category', fn ($transaction) => $transaction->category?->category ?: 'Null');
     }
 
     /*
@@ -191,26 +177,29 @@ final class TransactionsTable extends PowerGridComponent
     | Enable the method below only if the Routes below are defined in your app.
     |
     */
-
     /**
      * PowerGrid transaction Action Buttons.
      *
      * @return array<int, Button>
      */
+    public function actions(): array
+    {
+        return [
+            Button::make('destroy', 'Delete')
+                ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
+                ->emit('deleteTransaction', ['id' => 'id']),
+        ];
+    }
 
-    // public function actions(): array
-    // {
-    //     return [
-    //         Button::make('edit', 'Edit')
-    //             ->class('bg-indigo-500 cursor-pointer text-white px-3 py-2.5 m-1 rounded text-sm')
-    //             ->route('transaction.edit', ['transaction' => 'id']),
-
-    //         Button::make('destroy', 'Delete')
-    //             ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
-    //             ->route('transaction.destroy', ['transaction' => 'id'])
-    //             ->method('delete')
-    //     ];
-    // }
+    // listen to more than defaults
+    protected function getListeners(): array
+    {
+        return array_merge(
+            parent::getListeners(),
+            [
+                'transactionDeleted' => '$refresh',
+            ]);
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -230,7 +219,6 @@ final class TransactionsTable extends PowerGridComponent
     public function actionRules(): array
     {
        return [
-
            //Hide button edit for ID 1
             Rule::button('edit')
                 ->when(fn($transaction) => $transaction->id === 1)
