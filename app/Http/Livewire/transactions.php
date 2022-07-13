@@ -108,7 +108,7 @@ class Transactions extends Component
     {
         $transaction = Transaction::findOrFail($params)->first();
         $this->dialog()->confirm([
-            'title' => 'Delete transaction: ' . $transaction->id . '?',
+            'title' => 'Delete transaction: '.$transaction->id.'?',
             'description' => 'deleting the transaction is irreversible',
             'acceptLabel' => 'Yes, delete it',
             'accept' => [
@@ -127,7 +127,7 @@ class Transactions extends Component
     {
         $transaction->delete();
         $this->notification()->success(
-            $title = 'Transaction:' . $transaction->id . ' deleted',
+            $title = 'Transaction:'.$transaction->id.' deleted',
             $description = 'Your transaction is deleted'
         );
         $this->emit('transactionDeleted');

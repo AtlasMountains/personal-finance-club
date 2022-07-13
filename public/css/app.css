@@ -1879,10 +1879,6 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(209 213 219 / var(--tw-bg-opacity));
 }
-.bg-indigo-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(99 102 241 / var(--tw-bg-opacity));
-}
 .bg-red-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(220 38 38 / var(--tw-bg-opacity));
@@ -2034,6 +2030,10 @@ video {
 .bg-blue-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(59 130 246 / var(--tw-bg-opacity));
+}
+.bg-indigo-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(99 102 241 / var(--tw-bg-opacity));
 }
 .bg-violet-500 {
   --tw-bg-opacity: 1;
@@ -5270,16 +5270,18 @@ input#checkboxLabelFive:checked ~ .box {
     height: 8rem;
   }
 
-  .sm\:h-auto {
-    height: auto;
-  }
-
   .sm\:h-6 {
     height: 1.5rem;
   }
 
   .sm\:max-h-60 {
     max-height: 15rem;
+  }
+
+  .sm\:min-h-max {
+    min-height: -webkit-max-content;
+    min-height: -moz-max-content;
+    min-height: max-content;
   }
 
   .sm\:w-1\/2 {
@@ -5332,6 +5334,10 @@ input#checkboxLabelFive:checked ~ .box {
 
   .sm\:max-w-6xl {
     max-width: 72rem;
+  }
+
+  .sm\:max-w-7xl {
+    max-width: 80rem;
   }
 
   .sm\:flex-1 {

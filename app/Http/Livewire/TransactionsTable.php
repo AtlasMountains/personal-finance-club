@@ -19,18 +19,18 @@ use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 use PowerComponents\LivewirePowerGrid\PowerGridEloquent;
 use PowerComponents\LivewirePowerGrid\Rules\RuleActions;
 use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
+use WireUi\Traits\Actions;
 
 final class TransactionsTable extends PowerGridComponent
 {
-    public $account;
+    use Actions;
+    use ActionButton;
 
-    public string $primaryKey = 'transactions.id';
+    public $account;
 
     public string $sortField = 'transactions.date';
 
     public string $sortDirection = 'desc';
-
-    use ActionButton;
 
     /*
     |--------------------------------------------------------------------------
@@ -53,14 +53,6 @@ final class TransactionsTable extends PowerGridComponent
                 ->showRecordCount(),
         ];
     }
-
-    /*
-    |--------------------------------------------------------------------------
-    |  Datasource
-    |--------------------------------------------------------------------------
-    | Provides data to your Table using a Model or Collection
-    |
-    */
 
     /**
      * PowerGrid datasource.
@@ -108,7 +100,7 @@ final class TransactionsTable extends PowerGridComponent
             ->addColumn('amount')
             ->addColumn('recipient')
             ->addColumn('message', function (Transaction $model) {
-                return Str::words($model->message, 2); //Gets the first x words
+                return Str::limit($model->message, 10); //Gets the first x words
             })
             ->addColumn('date_formatted', fn (transaction $model) => Carbon::parse($model->date)->format('d/m/Y H:i'))
             ->addColumn('type')
@@ -170,13 +162,6 @@ final class TransactionsTable extends PowerGridComponent
         ];
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Actions Method
-    |--------------------------------------------------------------------------
-    | Enable the method below only if the Routes below are defined in your app.
-    |
-    */
     /**
      * PowerGrid transaction Action Buttons.
      *

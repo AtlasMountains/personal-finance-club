@@ -20,12 +20,14 @@ class Account extends Model
         'start_balance',
         'alert',
         'user_position',
+        'position',
     ];
 
     protected $attributes = [
         'family_id' => null,
         'start_balance' => 0,
         'alert' => 0,
+        'position' => 0,
     ];
 
     public function sluggable(): array
