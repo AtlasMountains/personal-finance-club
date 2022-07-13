@@ -99,11 +99,6 @@ class Transactions extends Component
         $this->reset(['amount', 'recipient', 'description', 'tag', 'type', 'category']);
     }
 
-    public function updateTransaction()
-    {
-        // code...
-    }
-
     public function deleteRequest($params)
     {
         $transaction = Transaction::findOrFail($params)->first();

@@ -26,8 +26,8 @@ class AccountController extends Controller
             'name' => $request->name,
             'user_id' => auth()->user()->id,
             'account_type_id' => $request->type,
-            'start_balance' => (int) ($request->balance * 100),
-            'alert' => (int) ($request->alert * 100),
+            'start_balance' => (int)($request->balance * 100),
+            'alert' => (int)($request->alert * 100),
             'position' => auth()->user()->accounts->max('position') + 1,
         ]);
 
@@ -71,7 +71,7 @@ class AccountController extends Controller
             'name' => $request->name,
             'slug' => SlugService::createSlug(Account::class, 'slug', $request->name),
             'account_type_id' => $request->type,
-            'alert' => (int) ($request->alert * 100),
+            'alert' => (int)($request->alert * 100),
         ]);
 
         return redirect()->route('user.dashboard');

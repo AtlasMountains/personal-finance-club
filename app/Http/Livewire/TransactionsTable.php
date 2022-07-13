@@ -112,7 +112,7 @@ final class TransactionsTable extends PowerGridComponent
             ->addColumn('message', function (Transaction $model) {
                 return Str::limit($model->message, 10); //Gets the first x words
             })
-            ->addColumn('date_formatted', fn (transaction $model) => Carbon::parse($model->date)->format('d/m/Y H:i'))
+            ->addColumn('date_formatted', fn(transaction $model) => Carbon::parse($model->date)->format('d/m/Y H:i'))
             ->addColumn('type')
             ->addColumn('tag')
             ->addColumn('category');
@@ -205,10 +205,17 @@ final class TransactionsTable extends PowerGridComponent
         } else {
             $this->dialog()->confirm([
                 'title' => 'Delete multiple transactions?',
-                'description' => 'Are you sure you want to delete the following transactions: '.implode(',', $ids),
+                'description' => 'Are you sure you want to delete the following transactions: ' . implode(',', $ids),
                 'accept' => [
                     'label' => 'Yes, delete them all',
                     'method' => 'bulkDeleteConfirmed',
+                ],
+                'reject' => [
+                    'label' => 'No, cancel',
+                    'method' => 'cancelDelete',
+                ],
+                'onTimeout' => [
+                    'method' => 'cancelDelete',
                 ],
             ]);
         }
@@ -221,6 +228,14 @@ final class TransactionsTable extends PowerGridComponent
             Transaction::find($id)->delete();
         }
         $this->notification()->success('Successfully deleted', 'All transactions where Deleted');
+    }
+
+    public function cancelDelete()
+    {
+        $this->notification()->warning(
+            $title = 'Action canceled',
+            $description = 'the transactions were not deleted'
+        );
     }
 
     /*
