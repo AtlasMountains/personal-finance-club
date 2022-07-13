@@ -18,14 +18,14 @@ class Accounts extends Component
     public function mount()
     {
         $this->user = auth()->user();
-        $this->accounts = auth()->user()->accountsWithTypes()->orderBy('position', 'asc')->get();
+//        $this->accounts = auth()->user()->accountsWithTypes()->orderBy('position', 'asc')->get();
     }
 
     public function deleteRequest($accountId)
     {
         $account = Account::findOrFail($accountId);
         $this->dialog()->confirm([
-            'title' => 'Delete account: ' . $account->name . '?',
+            'title' => 'Delete account: '.$account->name.'?',
             'description' => 'deleting the account wil also delete all transactions belonging to this account',
             'acceptLabel' => 'Yes, delete it',
             'accept' => [
@@ -59,7 +59,7 @@ class Accounts extends Component
         $account->delete();
         $this->accounts = $this->accounts->except($accountId);
         $this->notification()->success(
-            $title = 'Account:' . $account->name . ' deleted',
+            $title = 'Account:'.$account->name.' deleted',
             $description = 'Your account and all transactions belonging to this account are deleted'
         );
     }
@@ -67,13 +67,14 @@ class Accounts extends Component
     public function updateAccountOrder($accounts)
     {
         foreach ($accounts as $account) {
-            Account::find($account['value'])->update(['position' => $account['order']]);
+            $this->accounts->find($account['value'])->update(['position' => $account['order']]);
         }
     }
 
     public function render()
     {
         $this->accounts = auth()->user()->accountsWithTypes()->orderBy('position', 'asc')->get();
+
         return view('livewire.accounts');
     }
 }
