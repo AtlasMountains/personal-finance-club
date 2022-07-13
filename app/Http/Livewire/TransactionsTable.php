@@ -54,6 +54,16 @@ final class TransactionsTable extends PowerGridComponent
         ];
     }
 
+    public function header(): array
+    {
+        return [
+            Button::add('bulk-delete')
+                ->caption(__('Delete Selected'))
+                ->class('cursor-pointer block bg-red-500 text-white px-2 py-1 rounded-lg shadow-lg')
+                ->emit('bulkDelete', []),
+        ];
+    }
+
     /**
      * PowerGrid datasource.
      *
@@ -183,7 +193,34 @@ final class TransactionsTable extends PowerGridComponent
             parent::getListeners(),
             [
                 'transactionDeleted' => '$refresh',
+                'bulkDelete' => 'bulkDelete',
             ]);
+    }
+
+    public function bulkDelete()
+    {
+        $ids = $this->checkboxValues;
+        if (empty($ids)) {
+            $this->notification()->error('Error not deleted', 'You did not select any records');
+        } else {
+            $this->dialog()->confirm([
+                'title' => 'Delete multiple transactions?',
+                'description' => 'Are you sure you want to delete the following transactions: '.implode(',', $ids),
+                'accept' => [
+                    'label' => 'Yes, delete them all',
+                    'method' => 'bulkDeleteConfirmed',
+                ],
+            ]);
+        }
+    }
+
+    public function bulkDeleteConfirmed()
+    {
+        $ids = $this->checkboxValues;
+        foreach ($ids as $id) {
+            Transaction::find($id)->delete();
+        }
+        $this->notification()->success('Successfully deleted', 'All transactions where Deleted');
     }
 
     /*

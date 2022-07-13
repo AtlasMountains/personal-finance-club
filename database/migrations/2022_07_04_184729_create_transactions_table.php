@@ -28,6 +28,7 @@ return new class extends Migration
             $table->foreignIdFor(Category::class)->nullable()->constrained();
             $table->foreignIdFor(Account::class)->constrained();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

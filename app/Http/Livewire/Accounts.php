@@ -15,13 +15,13 @@ class Accounts extends Component
 
     public $accounts;
 
-    public function mount()
+    public function mount(): void
     {
         $this->user = auth()->user();
 //        $this->accounts = auth()->user()->accountsWithTypes()->orderBy('position', 'asc')->get();
     }
 
-    public function deleteRequest($accountId)
+    public function deleteRequest($accountId): void
     {
         $account = Account::findOrFail($accountId);
         $this->dialog()->confirm([
@@ -40,7 +40,7 @@ class Accounts extends Component
         ]);
     }
 
-    public function cancelDelete()
+    public function cancelDelete(): void
     {
         $this->notification()->warning(
             $title = 'Action canceled',
@@ -48,14 +48,14 @@ class Accounts extends Component
         );
     }
 
-    public function deleteAccount($accountId)
+    public function deleteAccount($accountId): void
     {
         $account = Account::findOrFail($accountId);
 
         auth()->user()->accounts()
             ->where('position', '>', $account->position)
             ->update(['position' => \DB::RAW('position - 1')]);
-
+        $account->transactions()->delete();
         $account->delete();
         $this->accounts = $this->accounts->except($accountId);
         $this->notification()->success(
@@ -64,7 +64,7 @@ class Accounts extends Component
         );
     }
 
-    public function updateAccountOrder($accounts)
+    public function updateAccountOrder($accounts): void
     {
         foreach ($accounts as $account) {
             $this->accounts->find($account['value'])->update(['position' => $account['order']]);

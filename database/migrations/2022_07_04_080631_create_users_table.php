@@ -25,7 +25,7 @@ return new class extends Migration
             $table->foreignIdFor(Family::class)->nullable()->constrained();
             $table->rememberToken();
             $table->timestamps();
-            $table->softDeletes();
+            $table->softdeletes();
         });
     }
 

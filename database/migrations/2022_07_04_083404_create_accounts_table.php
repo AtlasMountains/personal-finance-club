@@ -27,6 +27,7 @@ return new class extends Migration
             $table->integer('start_balance');
             $table->integer('alert');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

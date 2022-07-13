@@ -5,11 +5,13 @@ namespace App\Models;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Account extends Model
 {
     use Sluggable;
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'name',
