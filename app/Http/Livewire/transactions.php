@@ -15,6 +15,10 @@ class Transactions extends Component
 {
     use Actions;
 
+    public $tagModal;
+    public $showModel;
+    public $newTag;
+
     public $types;
 
     public $tags;
@@ -52,6 +56,7 @@ class Transactions extends Component
         'type' => ['required', 'numeric', 'integer'],
         'category' => ['nullable', 'numeric', 'integer'],
         'tag' => ['nullable', 'numeric', 'integer'],
+        'newTag' => ['required', 'string', 'max:10'],
     ];
 
     public function mount(Account $account)
@@ -62,7 +67,7 @@ class Transactions extends Component
         $this->time = $now->format('h:i');
         $this->types = Type::all();
         $this->categories = Category::all();
-        $this->tags = Tag::all();
+        $this->tags = auth()->user()->tags;
     }
 
     public function updatedAmount()
@@ -74,6 +79,22 @@ class Transactions extends Component
         } else {
             $this->types = $this->types->except(Type::find(2)->id);
         }
+    }
+
+    public function saveTag()
+    {
+        $this->validateOnly('newTag');
+        $tag = Tag::firstOrCreate(['tag' => $this->newTag]);
+        if (!auth()->user()->tags->contains($tag)) {
+            auth()->user()->tags()->attach($tag->id);
+        }
+
+        $this->notification()->success(
+            $title = 'tag added',
+            $description = 'the tag was added to your list of tags'
+        );
+        $this->showModel = false;
+        $this->mount($this->account);
     }
 
     public function createTransaction()
@@ -103,7 +124,7 @@ class Transactions extends Component
     {
         $transaction = Transaction::findOrFail($params)->first();
         $this->dialog()->confirm([
-            'title' => 'Delete transaction: '.$transaction->id.'?',
+            'title' => 'Delete transaction: ' . $transaction->id . '?',
             'description' => 'deleting the transaction is irreversible',
             'acceptLabel' => 'Yes, delete it',
             'accept' => [
@@ -122,7 +143,7 @@ class Transactions extends Component
     {
         $transaction->delete();
         $this->notification()->success(
-            $title = 'Transaction:'.$transaction->id.' deleted',
+            $title = 'Transaction:' . $transaction->id . ' deleted',
             $description = 'Your transaction is deleted'
         );
         $this->emit('transactionDeleted');
@@ -136,7 +157,7 @@ class Transactions extends Component
         );
     }
 
-    public function close()
+    public function closeTransactionForm()
     {
         $this->showForm = false;
     }

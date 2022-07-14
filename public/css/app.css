@@ -930,9 +930,9 @@ video {
   margin-left: auto;
   margin-right: auto;
 }
-.-mx-4 {
-  margin-left: -1rem;
-  margin-right: -1rem;
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 .-mx-3 {
   margin-left: -0.75rem;
@@ -949,10 +949,6 @@ video {
 .my-5 {
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
-}
-.mx-4 {
-  margin-left: 1rem;
-  margin-right: 1rem;
 }
 .my-\[6px\] {
   margin-top: 6px;
@@ -1379,6 +1375,9 @@ video {
      -moz-appearance: none;
           appearance: none;
 }
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -1387,9 +1386,6 @@ video {
 }
 .grid-cols-7 {
   grid-template-columns: repeat(7, minmax(0, 1fr));
-}
-.grid-cols-1 {
-  grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 .flex-row {
   flex-direction: row;
@@ -1444,6 +1440,10 @@ video {
 }
 .gap-2 {
   gap: 0.5rem;
+}
+.gap-x-4 {
+  -moz-column-gap: 1rem;
+       column-gap: 1rem;
 }
 .gap-x-2 {
   -moz-column-gap: 0.5rem;
@@ -1851,6 +1851,10 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(99 102 241 / var(--tw-bg-opacity));
 }
+.bg-slate-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(51 65 85 / var(--tw-bg-opacity));
+}
 .bg-red-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(239 68 68 / var(--tw-bg-opacity));
@@ -1870,10 +1874,6 @@ video {
 .bg-gray-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
-}
-.bg-slate-700 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(51 65 85 / var(--tw-bg-opacity));
 }
 .bg-gray-300 {
   --tw-bg-opacity: 1;
@@ -4230,6 +4230,11 @@ input#checkboxLabelFive:checked ~ .box {
   background-color: rgb(15 23 42 / var(--tw-bg-opacity));
 }
 
+.dark .dark\:bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
 .dark .dark\:bg-gray-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(209 213 219 / var(--tw-bg-opacity));
@@ -4404,11 +4409,6 @@ input#checkboxLabelFive:checked ~ .box {
   background-color: rgb(226 232 240 / var(--tw-bg-opacity));
 }
 
-.dark .dark\:bg-white {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
 .dark .dark\:bg-opacity-60 {
   --tw-bg-opacity: 0.6;
 }
@@ -4438,6 +4438,11 @@ input#checkboxLabelFive:checked ~ .box {
   color: rgb(229 231 235 / var(--tw-text-opacity));
 }
 
+.dark .dark\:text-gray-100 {
+  --tw-text-opacity: 1;
+  color: rgb(243 244 246 / var(--tw-text-opacity));
+}
+
 .dark .dark\:text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
@@ -4446,11 +4451,6 @@ input#checkboxLabelFive:checked ~ .box {
 .dark .dark\:text-gray-400 {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
-}
-
-.dark .dark\:text-gray-100 {
-  --tw-text-opacity: 1;
-  color: rgb(243 244 246 / var(--tw-text-opacity));
 }
 
 .dark .dark\:text-slate-900 {

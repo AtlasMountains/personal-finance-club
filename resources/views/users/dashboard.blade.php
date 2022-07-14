@@ -12,9 +12,11 @@
         <div class="p-2 bg-gray-100 rounded shadow dark:bg-slate-600">
           <livewire:profile/>
         </div>
+
         <div class="p-2 bg-gray-100 rounded shadow dark:bg-slate-600">
           <livewire:accounts/>
         </div>
+
         <div class="p-2 bg-gray-100 rounded shadow dark:bg-slate-600">
           <div class="flex flex-col w-full text-center">
             <h1 class="text-lg font-semibold text-center dark:text-white">Family</h1>
