@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\Account;
 use App\Models\Category;
-use App\Models\Tag;
 use App\Models\Type;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -34,16 +33,20 @@ class TransactionFactory extends Factory
                 $amount = $this->faker->numberBetween(-1000, 1000);
                 break;
         }
-
+        $account = Account::all()->random();
+        $tag = null;
+        if ($account->user->Tags->isNotEmpty()) {
+            $tag = $account->user->Tags->random();
+        }
         return [
             'amount' => $amount,
             'recipient' => $this->faker->firstName(),
             'message' => $this->faker->sentence(4),
             'date' => $this->faker->dateTimeBetween((now()->subYears(2)), now()),
             'type_id' => $type,
-            'account_id' => Account::all()->random(),
-            'tag_id' => Tag::all()->random(),
+            'account_id' => $account,
             'category_id' => Category::all()->random(),
+            'tag_id' => $tag->id,
         ];
     }
 }

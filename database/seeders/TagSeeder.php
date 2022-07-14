@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class TagSeeder extends Seeder
 {
@@ -14,10 +16,12 @@ class TagSeeder extends Seeder
      */
     public function run()
     {
-        $tags = ['bathroom', 'kitchen', 'christmas'];
+        Tag::factory(50)->create();
+        $tags = Tag::all();
         foreach ($tags as $tag) {
-            Tag::create([
-                'tag' => $tag,
+            DB::table('tag_user')->insert([
+                'tag_id' => $tags->random()->id,
+                'user_id' => User::all()->random()->id
             ]);
         }
     }

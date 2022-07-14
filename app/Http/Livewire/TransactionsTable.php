@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\Models\Category;
-use App\Models\Tag;
 use App\Models\Transaction;
 use App\Models\Type;
 use Illuminate\Database\Eloquent\Builder;
@@ -163,7 +162,7 @@ final class TransactionsTable extends PowerGridComponent
             Column::make('TAG', 'tag')
                 ->searchable()
                 ->sortable()
-                ->makeInputSelect(Tag::all(), 'tag'),
+                ->makeInputSelect(auth()->user()->tags, 'tag'),
 
             Column::make('CATEGORY', 'category')
                 ->searchable()
