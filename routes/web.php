@@ -5,6 +5,7 @@ use App\Http\Controllers\auth\EmailVerificationController;
 use App\Http\Controllers\auth\LogoutController;
 use App\Http\Controllers\auth\UserDashboardController;
 use App\Http\Controllers\auth\UserLoginController;
+use App\Http\Controllers\auth\UserPasswordResetController;
 use App\Http\Controllers\auth\UserRegisterController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,20 @@ Route::group(['middleware' => 'guest'], function () {
     Route::post('/register', [UserRegisterController::class, 'store'])->middleware('throttle:register');
 });
 
+// password reset
+Route::group(['middleware' => ['guest']], function () {
+
+    Route::get('/forgot-password', [UserPasswordResetController::class, 'index'])
+        ->name('password.request');
+    Route::post('/forgot-password', [UserPasswordResetController::class, 'sendEmail']);
+
+    Route::get('/reset-password/{token}', [UserPasswordResetController::class, 'resetForm'])
+        ->name('password.reset');
+
+    Route::post('/reset-password', [UserPasswordResetController::class, 'resetPassword'])
+        ->name('password.update');
+});
+
 // email verification only for auth redirect login & if already verified redirect dashboard
 Route::group(['middleware' => ['auth', 'if_verified_redirect'], 'as' => 'verification.'], function () {
     Route::get('/email/verify', [EmailVerificationController::class, 'index'])
@@ -53,6 +68,7 @@ Route::group(['middleware' => 'auth', 'as' => 'user.'], function () {
         ->middleware('verified')
         ->name('dashboard');
 
-    Route::resource('account', AccountController::class)->middleware('verified')
+    Route::resource('account', AccountController::class)
+        ->middleware('verified')
         ->except(['index', 'destroy']);
 });

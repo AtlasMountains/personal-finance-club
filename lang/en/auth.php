@@ -21,6 +21,7 @@ return [
     'throttle_wait' => 'Please wait, you can try again in :wait_time.',
     'emails_available' => ':remaining Available verification emails',
     'more_emails_after' => 'You can send more emails :wait_time',
-    'login_available' => ':remaining login attempt available|:remaining login attempts available',
+    'login_available' => ':remaining attempt available|:remaining attempts available',
     'register_available' => 'You can register :remaining more time|You can register :remaining more times',
+    'reset_password_body' => 'If you have forgotten your password. You can request a password reset email.',
 ];
