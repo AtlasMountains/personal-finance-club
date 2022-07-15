@@ -33,6 +33,19 @@ Route::group(['middleware' => 'guest'], function () {
     Route::post('/register', [UserRegisterController::class, 'store'])->middleware('throttle:register');
 });
 
+// email verification only for auth redirect login & if already verified redirect dashboard
+Route::group(['middleware' => ['auth', 'if_verified_redirect'], 'as' => 'verification.'], function () {
+    Route::get('/email/verify', [EmailVerificationController::class, 'index'])
+        ->name('notice');
+
+    Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'fulfill'])
+        ->middleware('signed')
+        ->name('verify');
+
+    Route::post('/email/verification-notification', [EmailVerificationController::class, 'send'])
+        ->name('send');
+});
+
 // password reset
 Route::group(['middleware' => ['guest']], function () {
 
@@ -45,19 +58,6 @@ Route::group(['middleware' => ['guest']], function () {
 
     Route::post('/reset-password', [UserPasswordResetController::class, 'resetPassword'])
         ->name('password.update');
-});
-
-// email verification only for auth redirect login & if already verified redirect dashboard
-Route::group(['middleware' => ['auth', 'if_verified_redirect'], 'as' => 'verification.'], function () {
-    Route::get('/email/verify', [EmailVerificationController::class, 'index'])
-        ->name('notice');
-
-    Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'fulfill'])
-        ->middleware('signed')
-        ->name('verify');
-
-    Route::post('/email/verification-notification', [EmailVerificationController::class, 'send'])
-        ->name('send');
 });
 
 // only for logged-in users

@@ -211,10 +211,6 @@
                  class="inline-flex items-center justify-center px-10 py-4 text-base font-normal text-center text-white rounded-lg lg:px-8 xl:px-10 bg-primary-500 hover:bg-secondary-500 focus:bg-secondary-500">
                 Get Started
               </a>
-              {{--              <a href=""--}}
-              {{--                 class="inline-flex items-center justify-center px-10 py-4 text-base font-normal text-center text-white rounded-lg lg:px-8 xl:px-10 bg-primary-500 hover:bg-secondary-500 focus:bg-secondary-500">--}}
-              {{--                See a live Demo--}}
-              {{--              </a>--}}
             </div>
           </div>
 

@@ -41,7 +41,8 @@
             @auth
               <li
                 class="flex items-center justify-center py-3 md:py-0 hover:bg-gray-200 dark:hover:bg-slate-600 md:hover:bg-white md:hidden">
-                <x-navigation.link class="focus:outline-red-500" route="{{ route('user.dashboard') }}">
+                <x-navigation.link class="focus:outline-red-500"
+                                   route="{{ route('user.dashboard') }}">
                   {{ __('dashboard') }}
                 </x-navigation.link>
               </li>

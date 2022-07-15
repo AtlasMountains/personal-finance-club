@@ -6,21 +6,26 @@ use App\Http\Requests\accountCreateRequest;
 use App\Models\Account;
 use App\Models\AccountType;
 use Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 class AccountController extends Controller
 {
-    public function index()
+    public function index(): Redirector|Application|RedirectResponse
     {
         return redirect(route('user.dashboard'));
     }
 
-    public function create()
+    public function create(): Factory|View|Application
     {
         return view('accounts.create', ['types' => AccountType::all()]);
     }
 
-    public function store(accountCreateRequest $request)
+    public function store(accountCreateRequest $request): RedirectResponse
     {
         Account::create([
             'name' => $request->name,
@@ -34,7 +39,7 @@ class AccountController extends Controller
         return redirect()->route('user.dashboard');
     }
 
-    public function show(Account $account)
+    public function show(Account $account): Factory|View|Application
     {
         $user = auth()->user();
         $transactions = $user->accountsWithTypesAndTransactions;
@@ -48,7 +53,7 @@ class AccountController extends Controller
         return view('accounts.show', $data);
     }
 
-    public function edit(Account $account)
+    public function edit(Account $account): Factory|View|Application
     {
         $data = [
             'account' => $account,
@@ -58,7 +63,7 @@ class AccountController extends Controller
         return view('accounts.edit', $data);
     }
 
-    public function update(Request $request, Account $account)
+    public function update(Request $request, Account $account): RedirectResponse
     {
         $this->validate($request, [
             'name' => ['required'],

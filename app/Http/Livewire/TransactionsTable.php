@@ -15,6 +15,7 @@ use PowerComponents\LivewirePowerGrid\Header;
 use PowerComponents\LivewirePowerGrid\PowerGrid;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 use PowerComponents\LivewirePowerGrid\PowerGridEloquent;
+use PowerComponents\LivewirePowerGrid\Rules\Rule;
 use PowerComponents\LivewirePowerGrid\Rules\RuleActions;
 use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
 use WireUi\Traits\Actions;
@@ -175,20 +176,6 @@ final class TransactionsTable extends PowerGridComponent
         ];
     }
 
-    /**
-     * PowerGrid transaction Action Buttons.
-     *
-     * @return array<int, Button>
-     */
-    public function actions(): array
-    {
-        return [
-            Button::make('destroy', 'Delete')
-                ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
-                ->emit('deleteTransaction', ['id' => 'id']),
-        ];
-    }
-
     // listen to more than defaults
     protected function getListeners(): array
     {
@@ -204,20 +191,17 @@ final class TransactionsTable extends PowerGridComponent
     {
         $ids = $this->checkboxValues;
         if (empty($ids)) {
-            $this->notification()->error('Error not deleted', 'You did not select any records');
+            $this->notification()->info('Nothing selected', 'You did not select any records');
         } else {
             $this->dialog()->confirm([
                 'title' => 'Delete multiple transactions?',
-                'description' => 'Are you sure you want to delete the following transactions: ' . implode(',', $ids),
+                'description' => 'Are you sure you want to delete the following transactions: ' . implode(', ', $ids),
                 'accept' => [
                     'label' => 'Yes, delete them all',
                     'method' => 'bulkDeleteConfirmed',
                 ],
                 'reject' => [
                     'label' => 'No, cancel',
-                    'method' => 'cancelDelete',
-                ],
-                'onTimeout' => [
                     'method' => 'cancelDelete',
                 ],
             ]);
@@ -231,6 +215,7 @@ final class TransactionsTable extends PowerGridComponent
             Transaction::find($id)->delete();
         }
         $this->notification()->success('Successfully deleted', 'All transactions where Deleted');
+        $this->checkboxValues = [];
     }
 
     public function cancelDelete()
@@ -241,13 +226,19 @@ final class TransactionsTable extends PowerGridComponent
         );
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Actions Rules
-    |--------------------------------------------------------------------------
-    | Enable the method below to configure Rules for your Table and Action Buttons.
-    |
-    */
+    /**
+     * PowerGrid transaction Action Buttons.
+     *
+     * @return array<int, Button>
+     */
+    public function actions(): array
+    {
+        return [
+            Button::make('destroy', 'Delete')
+                ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
+                ->emit('deleteTransaction', ['id' => 'id']),
+        ];
+    }
 
     /**
      * PowerGrid transaction Action Rules.
@@ -255,15 +246,13 @@ final class TransactionsTable extends PowerGridComponent
      * @return array<int, RuleActions>
      */
 
-    /*
     public function actionRules(): array
     {
-       return [
-           //Hide button edit for ID 1
-            Rule::button('edit')
-                ->when(fn($transaction) => $transaction->id === 1)
+        return [
+            //Hide button delete for users not owning the account
+            Rule::button('destroy')
+                ->when(fn($transaction) => $transaction->account->user->id !== auth()->user()->id)
                 ->hide(),
         ];
     }
-    */
 }
