@@ -2,7 +2,7 @@
   <x-notifications/>
   <x-dialog/>
 
-  <div class="flex flex-col h-full">
+  <div class="flex flex-col h-full dark:bg-slate-700">
 
     {{-- <x-accountNav /> --}}
 
@@ -22,7 +22,7 @@
             <h1 class="text-lg font-semibold text-center dark:text-white">Family</h1>
             <p class="text-center text-gray-600 dark:text-gray-400">manage your family</p>
           </div>
-          <p class="text-lg m-32 py-5 font-bold text-white bg-slate-700 rounded-lg shadow-lg text-center">
+          <p class="text-lg m-16 xl:m-32 py-5 font-bold text-white bg-slate-700 rounded-lg shadow-lg text-center">
             coming soon
           </p>
         </div>

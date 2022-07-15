@@ -918,6 +918,9 @@ video {
 .m-1 {
   margin: 0.25rem;
 }
+.m-16 {
+  margin: 4rem;
+}
 .my-3 {
   margin-top: 0.75rem;
   margin-bottom: 0.75rem;
@@ -5553,6 +5556,10 @@ input#checkboxLabelFive:checked ~ .box {
     position: static;
   }
 
+  .md\:m-32 {
+    margin: 8rem;
+  }
+
   .md\:mt-0 {
     margin-top: 0px;
   }
@@ -5689,6 +5696,10 @@ input#checkboxLabelFive:checked ~ .box {
 
 @media (min-width: 1024px) {
 
+  .lg\:m-32 {
+    margin: 8rem;
+  }
+
   .lg\:-mx-8 {
     margin-left: -2rem;
     margin-right: -2rem;
@@ -5734,6 +5745,10 @@ input#checkboxLabelFive:checked ~ .box {
 }
 
 @media (min-width: 1280px) {
+
+  .xl\:m-32 {
+    margin: 8rem;
+  }
 
   .xl\:w-1\/2 {
     width: 50%;
