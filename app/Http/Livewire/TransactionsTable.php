@@ -7,7 +7,6 @@ use App\Models\Transaction;
 use App\Models\Type;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Str;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Exportable;
@@ -27,6 +26,8 @@ final class TransactionsTable extends PowerGridComponent
 
     public $account;
 
+    public string $primaryKey = 'transactions.id';
+
     public string $sortField = 'transactions.date';
 
     public string $sortDirection = 'desc';
@@ -43,10 +44,12 @@ final class TransactionsTable extends PowerGridComponent
         $this->showCheckBox();
 
         return [
-            Exportable::make('export')
-                ->striped()
+            Exportable::make('Transactions')
+                ->striped('#A6ACCD')
                 ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV),
-            Header::make()->showSearchInput(),
+            Header::make()
+                ->showSearchInput()
+                ->showToggleColumns(),
             Footer::make()
                 ->showPerPage()
                 ->showRecordCount(),
@@ -108,9 +111,10 @@ final class TransactionsTable extends PowerGridComponent
             ->addColumn('id')
             ->addColumn('amount')
             ->addColumn('recipient')
-            ->addColumn('message', function (Transaction $model) {
-                return Str::limit($model->message, 10); //Gets the first x words
-            })
+            ->addColumn('message')
+//        , function (Transaction $model) {
+//                return Str::limit($model->message, 10); //Gets the first x words/chars
+//            })
             ->addColumn('date_formatted', fn(transaction $model) => Carbon::parse($model->date)->format('d/m/Y H:i'))
             ->addColumn('type')
             ->addColumn('tag')
@@ -191,7 +195,7 @@ final class TransactionsTable extends PowerGridComponent
         return array_merge(
             parent::getListeners(),
             [
-                'transactionDeleted' => '$refresh',
+                'transactionsChanged' => '$refresh',
                 'bulkDelete' => 'bulkDelete',
             ]);
     }

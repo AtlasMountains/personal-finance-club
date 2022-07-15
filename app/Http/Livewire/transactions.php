@@ -16,7 +16,9 @@ class Transactions extends Component
     use Actions;
 
     public $tagModal;
+
     public $showModel;
+
     public $newTag;
 
     public $types;
@@ -87,6 +89,8 @@ class Transactions extends Component
         $tag = Tag::firstOrCreate(['tag' => $this->newTag]);
         if (!auth()->user()->tags->contains($tag)) {
             auth()->user()->tags()->attach($tag->id);
+            $this->tags->push($tag);
+            $this->emit('newTagAdded'); //refresh the transactions table
         }
 
         $this->notification()->success(
@@ -94,12 +98,20 @@ class Transactions extends Component
             $description = 'the tag was added to your list of tags'
         );
         $this->showModel = false;
-        $this->mount($this->account);
     }
 
     public function createTransaction()
     {
-        $this->validate();
+        $this->validate([
+            'amount' => ['required', 'numeric'],
+            'recipient' => ['required', 'string', 'max:128'],
+            'description' => ['required', 'string', 'max:128'],
+            'date' => ['required', 'string'],
+            'time' => ['required', 'string'],
+            'type' => ['required', 'numeric', 'integer'],
+            'category' => ['nullable', 'numeric', 'integer'],
+            'tag' => ['nullable', 'numeric', 'integer'],
+        ]);
         $trans = Transaction::create([
             'amount' => $this->amount,
             'recipient' => $this->recipient,
@@ -110,7 +122,8 @@ class Transactions extends Component
             'date' => Carbon::createMidnightDate($this->date)->setTimeFromTimeString($this->time),
             'account_id' => $this->account->id,
         ]);
-        $this->close();
+        $this->closeTransactionForm();
+        $this->emit('transactionsChanged');
         sleep(1);
         $this->resetForm();
     }
@@ -146,7 +159,7 @@ class Transactions extends Component
             $title = 'Transaction:' . $transaction->id . ' deleted',
             $description = 'Your transaction is deleted'
         );
-        $this->emit('transactionDeleted');
+        $this->emit('transactionsChanged');
     }
 
     public function cancelDelete()
