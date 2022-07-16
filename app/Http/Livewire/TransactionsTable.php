@@ -250,7 +250,9 @@ final class TransactionsTable extends PowerGridComponent
         return [
             //Hide button delete for users not owning the account
             Rule::button('destroy')
-                ->when(fn ($transaction) => $transaction->account->user->id !== auth()->user()->id)
+                ->when(function () {
+                    return $this->account->user->id !== auth()->user()->id;
+                })
                 ->hide(),
         ];
     }

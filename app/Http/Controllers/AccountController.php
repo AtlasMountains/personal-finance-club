@@ -39,6 +39,13 @@ class AccountController extends Controller
     public function show(Account $account): Factory|View|Application
     {
         $user = auth()->user();
+        if (($account->user_id !== $user->id) && ! isset($user->family)) {
+            abort(403, 'this is not your account, and you are not in a family');
+        }
+        if (isset($user->family) && ! $user->family->users->contains($account->user)) {
+            abort(403, 'this is account is not from a family member');
+        }
+
         $transactions = $user->accountsWithTypesAndTransactions;
         $data = [
             'userAccounts' => $user->accounts,
@@ -52,6 +59,11 @@ class AccountController extends Controller
 
     public function edit(Account $account): Factory|View|Application
     {
+        $user = auth()->user();
+        if ($account->user_id !== $user->id) {
+            abort_unless($account->user->family->created_by === $user->id, 403);
+        }
+
         $data = [
             'account' => $account,
             'types' => AccountType::all(),
@@ -62,6 +74,14 @@ class AccountController extends Controller
 
     public function update(Request $request, Account $account): RedirectResponse
     {
+        $user = auth()->user();
+        if (($account->user_id !== $user->id) && ! isset($user->family)) {
+            abort(403, 'this is not your account, and you are not in a family');
+        }
+        if (isset($user->family) && ! $user->family->users->contains($account->user)) {
+            abort(403, 'this is account is not from a family member');
+        }
+
         $this->validate($request, [
             'name' => ['required'],
             'balance' => ['nullable', 'numeric'],

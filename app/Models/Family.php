@@ -11,9 +11,7 @@ class Family extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = [
-        'name',
-    ];
+    protected $fillable = ['name', 'created_by'];
 
     public function users()
     {
