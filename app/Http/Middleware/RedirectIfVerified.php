@@ -12,7 +12,7 @@ class RedirectIfVerified
     /**
      * Handle an incoming request. if user has verified email redirect dashboard
      *
-     * @param Request $request
+     * @param  Request  $request
      * @param Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return Response|RedirectResponse
      */

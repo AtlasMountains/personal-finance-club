@@ -17,7 +17,7 @@ class UserLoginController extends Controller
 
     public function index(Request $request): Factory|View|Application
     {
-        $key = 'login.' . $request->ip();
+        $key = 'login.'.$request->ip();
         $remaining = RateLimiter::retriesLeft($key, $this->maxAttempts);
         $wait_time = now()->addSeconds(RateLimiter::availableIn($key))->diffForHumans();
 
@@ -26,16 +26,17 @@ class UserLoginController extends Controller
 
     public function store(UserLoginRequest $request): RedirectResponse
     {
-        $key = 'login.' . $request->ip();
+        $key = 'login.'.$request->ip();
         if (RateLimiter::tooManyAttempts($key, $this->maxAttempts)) {
             return back()->withInput()->withErrors(['max_attempts' => trans('auth.attempts_max')]);
         }
 
         RateLimiter::hit($key);
-        if (!auth()->attempt($request->only('email', 'password'), $request->remember)) {
+        if (! auth()->attempt($request->only('email', 'password'), $request->remember)) {
             return back()->withInput()->withErrors(['status' => trans('auth.failed')]);
         }
         RateLimiter::resetAttempts($key);
+
         return redirect()->route('user.dashboard');
     }
 }

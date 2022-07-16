@@ -48,7 +48,6 @@ Route::group(['middleware' => ['auth', 'if_verified_redirect'], 'as' => 'verific
 
 // password reset
 Route::group(['middleware' => ['guest']], function () {
-
     Route::get('/forgot-password', [UserPasswordResetController::class, 'index'])
         ->name('password.request');
     Route::post('/forgot-password', [UserPasswordResetController::class, 'sendEmail']);

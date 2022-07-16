@@ -12,6 +12,7 @@ class UserDashboardController extends Controller
     public function index(): Factory|View|Application
     {
         $data = ['user' => auth()->user()];
+
         return view('users.dashboard', $data);
     }
 }

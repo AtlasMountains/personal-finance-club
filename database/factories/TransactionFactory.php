@@ -38,6 +38,7 @@ class TransactionFactory extends Factory
         if ($account->user->Tags->isNotEmpty()) {
             $tag = $account->user->Tags->random();
         }
+
         return [
             'amount' => $amount,
             'recipient' => $this->faker->firstName(),

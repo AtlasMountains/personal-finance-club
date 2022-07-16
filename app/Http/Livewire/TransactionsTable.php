@@ -116,7 +116,7 @@ final class TransactionsTable extends PowerGridComponent
 //        , function (Transaction $model) {
 //                return Str::limit($model->message, 10); //Gets the first x words/chars
 //            })
-            ->addColumn('date_formatted', fn(transaction $model) => Carbon::parse($model->date)->format('d/m/Y H:i'))
+            ->addColumn('date_formatted', fn (transaction $model) => Carbon::parse($model->date)->format('d/m/Y H:i'))
             ->addColumn('type')
             ->addColumn('tag')
             ->addColumn('category');
@@ -195,7 +195,7 @@ final class TransactionsTable extends PowerGridComponent
         } else {
             $this->dialog()->confirm([
                 'title' => 'Delete multiple transactions?',
-                'description' => 'Are you sure you want to delete the following transactions: ' . implode(', ', $ids),
+                'description' => 'Are you sure you want to delete the following transactions: '.implode(', ', $ids),
                 'accept' => [
                     'label' => 'Yes, delete them all',
                     'method' => 'bulkDeleteConfirmed',
@@ -245,13 +245,12 @@ final class TransactionsTable extends PowerGridComponent
      *
      * @return array<int, RuleActions>
      */
-
     public function actionRules(): array
     {
         return [
             //Hide button delete for users not owning the account
             Rule::button('destroy')
-                ->when(fn($transaction) => $transaction->account->user->id !== auth()->user()->id)
+                ->when(fn ($transaction) => $transaction->account->user->id !== auth()->user()->id)
                 ->hide(),
         ];
     }

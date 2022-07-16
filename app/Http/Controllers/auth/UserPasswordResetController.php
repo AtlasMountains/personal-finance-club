@@ -27,6 +27,7 @@ class UserPasswordResetController extends Controller
         $status = Password::sendResetLink(
             $request->only('email')
         );
+
         return $status === Password::RESET_LINK_SENT
             ? back()->with(['status' => __($status)])
             : back()->withErrors(['email' => __($status)]);
@@ -49,7 +50,7 @@ class UserPasswordResetController extends Controller
             $request->only('email', 'password', 'password_confirmation', 'token'),
             function ($user, $password) {
                 $user->forceFill([
-                    'password' => Hash::make($password)
+                    'password' => Hash::make($password),
                 ])->setRememberToken(Str::random(60));
 
                 $user->save();
