@@ -47,7 +47,7 @@ class TransactionFactory extends Factory
             'type_id' => $type,
             'account_id' => $account,
             'category_id' => Category::all()->random(),
-            'tag_id' => $tag->id,
+            'tag_id' => $tag?->id,
         ];
     }
 }

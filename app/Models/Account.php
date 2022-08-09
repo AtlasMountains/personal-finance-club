@@ -18,7 +18,6 @@ class Account extends Model
         'slug',
         'user_id',
         'account_type_id',
-        'family_id',
         'start_balance',
         'alert',
         'user_position',
@@ -26,7 +25,6 @@ class Account extends Model
     ];
 
     protected $attributes = [
-        'family_id' => null,
         'start_balance' => 0,
         'alert' => 0,
         'position' => 0,

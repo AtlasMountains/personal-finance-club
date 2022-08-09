@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('families', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('created_by');
+            $table->string('head');
             $table->timestamps();
             $table->softDeletes();
         });

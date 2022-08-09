@@ -7,6 +7,7 @@ use App\Http\Controllers\auth\UserDashboardController;
 use App\Http\Controllers\auth\UserLoginController;
 use App\Http\Controllers\auth\UserPasswordResetController;
 use App\Http\Controllers\auth\UserRegisterController;
+use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,7 +34,7 @@ Route::group(['middleware' => 'guest'], function () {
     Route::post('/register', [UserRegisterController::class, 'store'])->middleware('throttle:register');
 });
 
-// email verification only for auth redirect login & if already verified redirect dashboard
+// email verification only for auth, redirect login & if already verified redirect dashboard
 Route::group(['middleware' => ['auth', 'if_verified_redirect'], 'as' => 'verification.'], function () {
     Route::get('/email/verify', [EmailVerificationController::class, 'index'])
         ->name('notice');
@@ -63,11 +64,14 @@ Route::group(['middleware' => ['guest']], function () {
 Route::group(['middleware' => 'auth', 'as' => 'user.'], function () {
     Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
-    Route::get('/dashboard', [UserDashboardController::class, 'index'])
-        ->middleware('verified')
-        ->name('dashboard');
+    Route::group(['middleware' => 'verified'], function () {
+        Route::get('/dashboard', [UserDashboardController::class, 'index'])
+            ->name('dashboard');
 
-    Route::resource('account', AccountController::class)
-        ->middleware('verified')
-        ->except(['index', 'destroy']);
+        Route::resource('account', AccountController::class)
+            ->except(['index', 'destroy']);
+
+        Route::resource('family', FamilyController::class)
+            ->except('index');
+    });
 });
