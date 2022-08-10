@@ -27,10 +27,14 @@ class AccountController extends Controller
 
     public function store(accountCreateRequest $request): RedirectResponse
     {
+        if ($request->addFamily) {
+            $familyId = auth()->user()->family_id;
+        }
         Account::create($request->validated() + [
             'user_id' => auth()->user()->id,
             'account_type_id' => $request->type,
             'position' => auth()->user()->accounts->max('position') + 1,
+            'family_id' => $familyId ?? null,
         ]);
 
         return redirect()->route('user.dashboard');
