@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Account;
 use App\Models\Family;
+use App\Models\User;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -41,7 +42,7 @@ class FamilyController extends Controller
         auth()->user()->family()->associate($family);
         auth()->user()->save();
         foreach ($request->accounts as $account) {
-            Account::findorfail((int) $account)->update(['family_id' => $family->id]);
+            Account::findorfail((int)$account)->update(['family_id' => $family->id]);
         }
 
         return redirect()->route('user.dashboard');
@@ -50,7 +51,7 @@ class FamilyController extends Controller
     public function edit(Family $family): View|Factory|Response|Application
     {
         //verify if user is allowed to edit the family
-        if ((int) $family->head !== auth()->user()->id) {
+        if ((int)$family->head !== auth()->user()->id) {
             abort(404); //deny as not found
         }
 
@@ -60,7 +61,7 @@ class FamilyController extends Controller
     public function update(Request $request, Family $family): RedirectResponse
     {
         //verify if user is allowed to edit the family
-        if ((int) $family->head !== auth()->user()->id) {
+        if ((int)$family->head !== auth()->user()->id) {
             abort(404); //deny as not found
         }
 
@@ -74,11 +75,19 @@ class FamilyController extends Controller
         ]);
 
         if ($request->users) {
-            foreach ($users as $user) {
-                Account::where('user_id', $user->id)->update(['family' => null]);
+            foreach ($request->users as $user) {
+                $userId = (int)$user;
+                if ($userId === (int)$family->head && count($family->users) !== 1) {
+                    return back()->withErrors('cant delete head of family if there are other members');
+                }
+                Account::where('user_id', $userId)->update(['family_id' => null]);
+                $userModel = User::findOrFail($userId)->family()->dissociate();
+                $userModel->save();
             }
         }
-
+        if (count($family->fresh()->users) === 0) {
+            $family->delete();
+        }
         return redirect()->route('user.dashboard');
     }
 

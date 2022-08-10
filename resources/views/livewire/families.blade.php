@@ -27,7 +27,6 @@
 
     <ul class="text-lg mx-16 py-5 my-5 font-bold text-white bg-slate-700 rounded-lg shadow-lg text-center">
       <li>---add member---</li>
-      <li>---change head---</li>
       <li>---leave family---</li>
     </ul>
 

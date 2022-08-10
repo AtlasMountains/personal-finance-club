@@ -13,7 +13,19 @@
     </x-forms.input>
 
     <h2 class="text-xl text-body-color dark:text-white">manage family members</h2>
-    <p class="text-xs m-0 p-0 text-gray-500 dark:text-gray-400">select members of the family you wish to kick out</p>
+
+    <label for="head" class="text-sm dark:text-gray-400">change the head of the family</label>
+    <select name="head" id="head" class="text-center pr-7 pl-2 py-2 bg-white rounded shadow">
+      @foreach($family->users as $user)
+        <option value="{{ $user->id }}"
+                @if((int)$user->id === (int)$family->head) selected @endif >
+          {{ $user->first_name }} {{ $user->last_name }}</option>
+      @endforeach
+    </select>
+
+    <p class="text-xs m-0 p-0 text-gray-500 dark:text-gray-400">
+      select members of the family you wish to kick out
+    </p>
     <ul class="text-center px-3 text-body-color dark:text-gray-200">
       @foreach($family->users as $user)
         <li>
