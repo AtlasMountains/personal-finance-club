@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Account;
 use App\Models\Family;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -15,6 +16,7 @@ class FamilyController extends Controller
     public function index(): view
     {
         $accounts = auth()->user()->family->accountsWithTypes;
+
         return view('family.index', compact('accounts'));
     }
 
@@ -28,7 +30,7 @@ class FamilyController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'unique:families'],
+            'name' => ['required'],
         ]);
 
         $family = Family::create([
@@ -38,53 +40,50 @@ class FamilyController extends Controller
 
         auth()->user()->family()->associate($family);
         auth()->user()->save();
-
         foreach ($request->accounts as $account) {
-            Account::findorfail($account)->update(['family_id' => $family->id]);
+            Account::findorfail((int) $account)->update(['family_id' => $family->id]);
         }
 
         return redirect()->route('user.dashboard');
     }
 
-    public function edit(Family $family): Factory|View|Application
+    public function edit(Family $family): View|Factory|Response|Application
     {
-//        $user = auth()->user();
-//        if ($account->user_id !== $user->id) {
-//            abort_unless($account->user->family->created_by === $user->id, 403);
-//        }
-//
-//        $data = [
-//            'account' => $account,
-//            'types' => AccountType::all(),
-//        ];
-//
-//        return view('accounts.edit', $data);
+        //verify if user is allowed to edit the family
+        if ((int) $family->head !== auth()->user()->id) {
+            abort(404); //deny as not found
+        }
+
+        return view('family.edit', compact('family'));
     }
 
     public function update(Request $request, Family $family): RedirectResponse
     {
-//        $user = auth()->user();
-//        if (($account->user_id !== $user->id) && !isset($user->family)) {
-//            abort(403, 'this is not your account, and you are not in a family');
-//        }
-//        if (isset($user->family) && !$user->family->users->contains($account->user)) {
-//            abort(403, 'this is account is not from a family member');
-//        }
-//
-//        $this->validate($request, [
-//            'name' => ['required'],
-//            'balance' => ['nullable', 'numeric'],
-//            'alert' => ['nullable', 'numeric'],
-//            'type' => 'required',
-//        ]);
-//
-//        $account->update([
-//            'name' => $request->name,
-//            'slug' => SlugService::createSlug(Account::class, 'slug', $request->name),
-//            'account_type_id' => $request->type,
-//            'alert' => (int)($request->alert * 100),
-//        ]);
-//
-//        return redirect()->route('user.dashboard');
+        //verify if user is allowed to edit the family
+        if ((int) $family->head !== auth()->user()->id) {
+            abort(404); //deny as not found
+        }
+
+        $this->validate($request, [
+            'name' => ['required', 'max:125'],
+            'users' => ['nullable'],
+        ]);
+
+        $family->update([
+            'name' => $request->name,
+        ]);
+
+        if ($request->users) {
+            foreach ($users as $user) {
+                Account::where('user_id', $user->id)->update(['family' => null]);
+            }
+        }
+
+        return redirect()->route('user.dashboard');
+    }
+
+    public function show(): RedirectResponse
+    {
+        return redirect()->route('user.dashboard');
     }
 }

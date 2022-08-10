@@ -37,4 +37,9 @@ class Family extends Model
         //todo check relation
         return $this->hasMany(User::class)->with('accounts');
     }
+
+    public function usersWithAccountsAndTypes()
+    {
+        return $this->hasMany(User::class)->with('accountsWithTypes');
+    }
 }

@@ -22,6 +22,7 @@ class Account extends Model
         'alert',
         'user_position',
         'position',
+        'family_id',
     ];
 
     protected $attributes = [
