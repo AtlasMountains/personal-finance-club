@@ -985,6 +985,14 @@ video {
   margin-left: 0.125rem;
   margin-right: 0.125rem;
 }
+.my-16 {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+.mx-5 {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+}
 .mt-1 {
   margin-top: 0.25rem;
 }
@@ -1053,6 +1061,9 @@ video {
 }
 .mr-4 {
   margin-right: 1rem;
+}
+.mb-5 {
+  margin-bottom: 1.25rem;
 }
 .block {
   display: block;
@@ -2182,6 +2193,10 @@ video {
 .px-2\.5 {
   padding-left: 0.625rem;
   padding-right: 0.625rem;
+}
+.px-16 {
+  padding-left: 4rem;
+  padding-right: 4rem;
 }
 .pr-4 {
   padding-right: 1rem;
@@ -3756,6 +3771,16 @@ input#checkboxLabelFive:checked ~ .box {
   color: rgb(15 23 42 / var(--tw-text-opacity));
 }
 
+.hover\:text-primary-200:hover {
+  --tw-text-opacity: 1;
+  color: rgb(199 210 254 / var(--tw-text-opacity));
+}
+
+.hover\:text-primary-300:hover {
+  --tw-text-opacity: 1;
+  color: rgb(165 180 252 / var(--tw-text-opacity));
+}
+
 .hover\:underline:hover {
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
@@ -3994,6 +4019,16 @@ input#checkboxLabelFive:checked ~ .box {
 .focus\:text-primary-800:focus {
   --tw-text-opacity: 1;
   color: rgb(55 48 163 / var(--tw-text-opacity));
+}
+
+.focus\:text-primary-200:focus {
+  --tw-text-opacity: 1;
+  color: rgb(199 210 254 / var(--tw-text-opacity));
+}
+
+.focus\:text-primary-300:focus {
+  --tw-text-opacity: 1;
+  color: rgb(165 180 252 / var(--tw-text-opacity));
 }
 
 .focus\:underline:focus {
@@ -5766,6 +5801,11 @@ input#checkboxLabelFive:checked ~ .box {
 
   .xl\:m-32 {
     margin: 8rem;
+  }
+
+  .xl\:my-32 {
+    margin-top: 8rem;
+    margin-bottom: 8rem;
   }
 
   .xl\:w-1\/2 {

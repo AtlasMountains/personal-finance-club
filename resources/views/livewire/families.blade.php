@@ -12,6 +12,22 @@
           <x-icon name="pencil" solid="true"
                   class="inline w-6 h-6"/>
         </a>
+
+        <div x-data="{ open: false }">
+          <button
+            x-on:click="open = ! open"
+            class="text-center text-gray-600 dark:text-gray-400 hover:text-primary-500
+        focus:text-primary-500 dark:hover:text-white dark:focus:text-white">
+            invite a member
+            <x-icon name="user-add" solid="true"
+                    class="inline w-6 h-6"/>
+          </button>
+          <form wire:submit.prevent="inviteMember" x-show="open" class="mx-auto space-y-1">
+            <x-input icon="mail" label="Email" placeholder="email" type="email" wire:model.lazy="email"/>
+            <x-button positive label="invite" type="submit"/>
+          </form>
+        </div>
+
       @else
         <form action="{{ route('user.leaveFamily') }}" method="post">
           @csrf
@@ -28,18 +44,17 @@
   </div>
 
   @if(!$family)
-    <ul class="text-lg m-16 xl:m-32 py-5 font-bold text-white bg-slate-700 rounded-lg shadow-lg text-center">
+    <ul
+      class="text-lg my-16 xl:my-32 mx-5 py-5 space-y-1 font-bold text-white bg-slate-700 rounded-lg shadow-lg text-center">
       <li>
-        <a href="{{ route("user.family.create") }}">create a family</a>
+        <a href="{{ route("user.family.create") }}" class="focus:text-primary-300 hover:text-primary-300">
+          create a family
+          <x-icon name="user-group" class=" inline w-6 h-6"/>
+        </a>
       </li>
-      <li>---join a family---</li>
+      <li class="text-base">ask the head of a family to invite you</li>
     </ul>
   @else
-
-    <ul class="text-lg mx-16 py-5 my-5 font-bold text-white bg-slate-700 rounded-lg shadow-lg text-center">
-      <li>---add member---</li>
-      <li>---leave family---</li>
-    </ul>
 
     @foreach($family->usersWithAccountsAndTypes as $user)
       @if(count($user->accountsWithTypes))

@@ -10,7 +10,7 @@
 
     <p class="text-body-color dark:text-gray-200">Select all account you want to be part of the family</p>
     @foreach($accounts as $account)
-      <p class="text-center p-3">
+      <p class="text-center px-3">
         <label class="text-body-color dark:text-gray-200"> {{$account->name}}
           <input type="checkbox" value="{{$account->id}}" name="accounts[]" checked></input>
         </label>
