@@ -2,7 +2,7 @@
   <x-notifications/>
   <x-dialog/>
 
-  <div class="flex flex-col h-full dark:bg-slate-700">
+  <div class="flex flex-col h-full dark:bg-slate-900">
 
     {{--    <x-accountNav/>--}}
 

@@ -2,6 +2,21 @@
 
   <div class="flex flex-col w-full text-center">
     <h1 class="text-lg font-semibold text-center dark:text-white">Family {{ $family?->name }}</h1>
+
+    @if(count($invites))
+      <ul
+        class="text-lg mx-5 py-5 space-y-1 font-bold text-white bg-slate-700 rounded-lg shadow-lg text-center">
+        <p>you have been invited to join {{ Illuminate\Support\Str::plural('family', $invites) }}</p>
+        @foreach($invites as $invite)
+          <li>
+            {{ \App\Models\Family::find($invite['data']['familyId'])->name }}
+            <x-button icon="check" positive label="Join" wire:click="joinFamily({{ $invite }})"/>
+            <x-button icon="trash" negative wire:click="deleteNotification({{ $invite }})"/>
+          </li>
+        @endforeach
+      </ul>
+    @endif
+
     @if($family)
       @if(auth()->user()->id === (int)$family->head)
         <a
@@ -22,6 +37,7 @@
             <x-icon name="user-add" solid="true"
                     class="inline w-6 h-6"/>
           </button>
+
           <form wire:submit.prevent="inviteMember" x-show="open" class="mx-auto space-y-1">
             <x-input icon="mail" label="Email" placeholder="email" type="email" wire:model.lazy="email"/>
             <x-button positive label="invite" type="submit"/>
