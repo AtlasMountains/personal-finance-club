@@ -83,7 +83,7 @@ class AccountController extends Controller
             abort(403, 'this is not your account, and you are not in a family');
         }
         if (isset($user->family) && !$user->family->users->contains($account->user)) {
-            abort(403, 'this is account is not from a family member');
+            abort(403, 'this account is not from a family member');
         }
 
         $this->validate($request, [
@@ -93,11 +93,16 @@ class AccountController extends Controller
             'type' => 'required',
         ]);
 
+        if ($request->addFamily === 'on') {
+            $familyId = $user->family->id;
+        }
+
         $account->update([
             'name' => $request->name,
             'slug' => SlugService::createSlug(Account::class, 'slug', $request->name),
             'account_type_id' => $request->type,
             'alert' => (int)($request->alert * 100),
+            'family_id' => $familyId ?? null,
         ]);
 
         return redirect()->route('user.dashboard');
