@@ -3,23 +3,34 @@
   <div class="flex flex-col w-full text-center">
     <h1 class="text-lg font-semibold text-center dark:text-white">Family {{ $family?->name }}</h1>
     @if($family)
-      <a
-        href="{{ route('user.family.edit', $family) }}"
-        class="text-center text-gray-600 dark:text-gray-400 hover:text-primary-500 focus:text-primary-500 dark:hover:text-white dark:focus:text-white">manage
-        your family
-        <x-icon name="pencil" solid="true"
-                class="inline w-6 h-6"/>
-      </a>
-    @else
-      <p class="text-center text-gray-600 dark:text-gray-400">manage your family
-      </p>
+      @if(auth()->user()->id === (int)$family->head)
+        <a
+          href="{{ route('user.family.edit', $family) }}"
+          class="text-center text-gray-600 dark:text-gray-400 hover:text-primary-500
+        focus:text-primary-500 dark:hover:text-white dark:focus:text-white">
+          manage your family
+          <x-icon name="pencil" solid="true"
+                  class="inline w-6 h-6"/>
+        </a>
+      @else
+        <form action="{{ route('user.leaveFamily') }}" method="post">
+          @csrf
+          <button type="submit"
+                  class="text-center text-gray-600 dark:text-gray-400 hover:text-primary-500
+                focus:text-primary-500 dark:hover:text-white dark:focus:text-white">
+            Leave Family
+            <x-icon name="user-remove"
+                    class="inline w-6 h-6"/>
+          </button>
+        </form>
+      @endif
     @endif
   </div>
 
   @if(!$family)
     <ul class="text-lg m-16 xl:m-32 py-5 font-bold text-white bg-slate-700 rounded-lg shadow-lg text-center">
       <li>
-        <a href="{{route("user.family.create")}}">create a family</a>
+        <a href="{{ route("user.family.create") }}">create a family</a>
       </li>
       <li>---join a family---</li>
     </ul>

@@ -51,17 +51,16 @@ class FamilyController extends Controller
     public function edit(Family $family): View|Factory|Response|Application
     {
         //verify if user is allowed to edit the family
-        if ((int)$family->head !== auth()->user()->id) {
+        if ((int)$family->head !== auth()->user()->id || $family->deleted_at !== null) {
             abort(404); //deny as not found
         }
-
         return view('family.edit', compact('family'));
     }
 
     public function update(Request $request, Family $family): RedirectResponse
     {
         //verify if user is allowed to edit the family
-        if ((int)$family->head !== auth()->user()->id) {
+        if ((int)$family->head !== auth()->user()->id || $family->deleted_at !== null) {
             abort(404); //deny as not found
         }
 
@@ -73,21 +72,42 @@ class FamilyController extends Controller
         $family->update([
             'name' => $request->name,
         ]);
-
         if ($request->users) {
             foreach ($request->users as $user) {
                 $userId = (int)$user;
-                if ($userId === (int)$family->head && count($family->users) !== 1) {
+                if ($userId === (int)$family->head && count($family->users) > 1) {
                     return back()->withErrors('cant delete head of family if there are other members');
                 }
-                Account::where('user_id', $userId)->update(['family_id' => null]);
-                $userModel = User::findOrFail($userId)->family()->dissociate();
-                $userModel->save();
+                $this->removeAccountsFromFamilyOnLeave($userId);
             }
         }
         if (count($family->fresh()->users) === 0) {
             $family->delete();
         }
+
+        return redirect()->route('user.dashboard');
+    }
+
+    private function removeAccountsFromFamilyOnLeave($userId)
+    {
+        Account::where('user_id', $userId)->update(['family_id' => null]);
+        $userModel = User::findOrFail($userId)->family()->dissociate();
+        $userModel->save();
+
+    }
+
+    public function leave(Family $family): RedirectResponse
+    {
+        //verify if user is allowed to leave the family
+        if ((int)$family->head === auth()->user()->id || $family->deleted_at !== null) {
+            abort(404); //deny as not found
+        }
+
+        $user = auth()->user();
+        $this->removeAccountsFromFamilyOnLeave($user->id);
+        $user->family()->dissociate();
+        $user->save();
+
         return redirect()->route('user.dashboard');
     }
 

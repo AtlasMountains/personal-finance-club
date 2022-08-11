@@ -73,5 +73,7 @@ Route::group(['middleware' => 'auth', 'as' => 'user.'], function () {
 
         Route::resource('family', FamilyController::class)
             ->except('index');
+        Route::post('family/leave', [FamilyController::class, 'leave'])
+            ->name('leaveFamily');
     });
 });

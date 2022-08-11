@@ -31,11 +31,11 @@ class AccountController extends Controller
             $familyId = auth()->user()->family_id;
         }
         Account::create($request->validated() + [
-            'user_id' => auth()->user()->id,
-            'account_type_id' => $request->type,
-            'position' => auth()->user()->accounts->max('position') + 1,
-            'family_id' => $familyId ?? null,
-        ]);
+                'user_id' => auth()->user()->id,
+                'account_type_id' => $request->type,
+                'position' => auth()->user()->accounts->max('position') + 1,
+                'family_id' => $familyId ?? null,
+            ]);
 
         return redirect()->route('user.dashboard');
     }
@@ -43,11 +43,11 @@ class AccountController extends Controller
     public function show(Account $account): Factory|View|Application
     {
         $user = auth()->user();
-        if (($account->user_id !== $user->id) && ! isset($user->family)) {
+        if (($account->user_id !== $user->id) && !isset($user->family)) {
             abort(403, 'this is not your account, and you are not in a family');
         }
-        if (isset($user->family) && ! $user->family->users->contains($account->user)) {
-            abort(403, 'this is account is not from a family member');
+        if (isset($user->family) && !$user->family->users->contains($account->user)) {
+            abort(403, 'this account is not from a family member');
         }
 
         $transactions = $user->accountsWithTypesAndTransactions;
@@ -79,10 +79,10 @@ class AccountController extends Controller
     public function update(Request $request, Account $account): RedirectResponse
     {
         $user = auth()->user();
-        if (($account->user_id !== $user->id) && ! isset($user->family)) {
+        if (($account->user_id !== $user->id) && !isset($user->family)) {
             abort(403, 'this is not your account, and you are not in a family');
         }
-        if (isset($user->family) && ! $user->family->users->contains($account->user)) {
+        if (isset($user->family) && !$user->family->users->contains($account->user)) {
             abort(403, 'this is account is not from a family member');
         }
 
@@ -97,7 +97,7 @@ class AccountController extends Controller
             'name' => $request->name,
             'slug' => SlugService::createSlug(Account::class, 'slug', $request->name),
             'account_type_id' => $request->type,
-            'alert' => (int) ($request->alert * 100),
+            'alert' => (int)($request->alert * 100),
         ]);
 
         return redirect()->route('user.dashboard');
