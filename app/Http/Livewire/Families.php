@@ -60,26 +60,18 @@ class Families extends Component
                     $title = 'User already invited',
                     $description = 'the user already has an invitation to join your family',
                 );
+                $error = true;
             } else {
                 $user->notify(new InviteFamilyMember($this->family->id));
-                $this->notification()->success(
-                    $title = 'Invite send',
-                    $description = 'an invite to join the family was send,
-            if the user does not have an account please ask them to make an account first',
-                );
             }
-        } else {
-            $this->cancel();
         }
-
-    }
-
-    public function cancel(): void
-    {
-        $this->notification()->warning(
-            $title = 'Action canceled',
-            $description = 'no invite was send'
-        );
+        if (!isset($error)) {
+            $this->notification()->success(
+                $title = 'Invite send',
+                $description = 'an invite to join the family was send,
+            if the user does not have an account please ask them to make an account first',
+            );
+        }
     }
 
     public function deleteNotification(DatabaseNotification $invite)
