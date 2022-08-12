@@ -8,11 +8,13 @@
         class="text-lg mx-5 py-5 space-y-1 font-bold text-white bg-slate-700 rounded-lg shadow-lg text-center">
         <p>you have been invited to join {{ Illuminate\Support\Str::plural('family', $invites) }}</p>
         @foreach($invites as $invite)
-          <li>
-            {{ \App\Models\Family::find($invite['data']['familyId'])->name }}
-            <x-button icon="check" positive label="Join" wire:click="joinFamily({{ $invite }})"/>
-            <x-button icon="trash" negative wire:click="deleteNotification({{ $invite }})"/>
-          </li>
+          @if($family = \App\Models\Family::find((int)$invite->data['familyId']))
+            <li>
+              {{ $family->name }}
+              <x-button icon="check" positive label="Join" wire:click="joinFamily({{ $invite }})"/>
+              <x-button icon="trash" negative wire:click="deleteNotification({{ $invite }})"/>
+            </li>
+          @endif
         @endforeach
       </ul>
     @endif

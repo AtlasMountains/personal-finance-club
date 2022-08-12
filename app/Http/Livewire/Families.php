@@ -33,7 +33,10 @@ class Families extends Component
 
     public function getNotifications()
     {
-        $this->invites = auth()->user()->notifications()->where('type', 'App\Notifications\InviteFamilyMember')->get() ?? null;
+        $this->invites = auth()->user()->notifications()
+            ->where('type', 'App\Notifications\InviteFamilyMember')
+            ->orderby('data')
+            ->get();
     }
 
     public function render(): Factory|View|Application
@@ -52,12 +55,19 @@ class Families extends Component
 
         $user = User::where('email', $this->email)->first();
         if ($user) {
-            $user->notify(new InviteFamilyMember($this->family->id));
-            $this->notification()->success(
-                $title = 'Invite send',
-                $description = 'an invite to join the family was send,
+            if (count($user->notifications->where('data', ['familyId' => $this->family->id]))) {
+                $this->notification()->error(
+                    $title = 'User already invited',
+                    $description = 'the user already has an invitation to join your family',
+                );
+            } else {
+                $user->notify(new InviteFamilyMember($this->family->id));
+                $this->notification()->success(
+                    $title = 'Invite send',
+                    $description = 'an invite to join the family was send,
             if the user does not have an account please ask them to make an account first',
-            );
+                );
+            }
         } else {
             $this->cancel();
         }

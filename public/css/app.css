@@ -915,9 +915,6 @@ video {
 .m-0 {
   margin: 0px;
 }
-.m-16 {
-  margin: 4rem;
-}
 .m-1 {
   margin: 0.25rem;
 }
@@ -949,13 +946,17 @@ video {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
 }
-.mx-16 {
-  margin-left: 4rem;
-  margin-right: 4rem;
-}
 .my-5 {
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
+}
+.mx-5 {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+}
+.my-16 {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
 }
 .my-\[6px\] {
   margin-top: 6px;
@@ -984,14 +985,6 @@ video {
 .mx-0\.5 {
   margin-left: 0.125rem;
   margin-right: 0.125rem;
-}
-.my-16 {
-  margin-top: 4rem;
-  margin-bottom: 4rem;
-}
-.mx-5 {
-  margin-left: 1.25rem;
-  margin-right: 1.25rem;
 }
 .mt-1 {
   margin-top: 0.25rem;
@@ -1062,9 +1055,6 @@ video {
 .mr-4 {
   margin-right: 1rem;
 }
-.mb-5 {
-  margin-bottom: 1.25rem;
-}
 .block {
   display: block;
 }
@@ -1125,11 +1115,11 @@ video {
 .h-0\.5 {
   height: 0.125rem;
 }
-.h-64 {
-  height: 16rem;
-}
 .h-8 {
   height: 2rem;
+}
+.h-64 {
+  height: 16rem;
 }
 .h-12 {
   height: 3rem;
@@ -1364,6 +1354,22 @@ video {
 .animate-linear-progress {
   -webkit-animation: linear-progress 2s linear infinite;
           animation: linear-progress 2s linear infinite;
+}
+@-webkit-keyframes pulse {
+
+  50% {
+    opacity: .5;
+  }
+}
+@keyframes pulse {
+
+  50% {
+    opacity: .5;
+  }
+}
+.animate-pulse {
+  -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+          animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 .cursor-pointer {
   cursor: pointer;
@@ -2190,13 +2196,13 @@ video {
   padding-top: 0.375rem;
   padding-bottom: 0.375rem;
 }
+.py-12 {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
 .px-2\.5 {
   padding-left: 0.625rem;
   padding-right: 0.625rem;
-}
-.px-16 {
-  padding-left: 4rem;
-  padding-right: 4rem;
 }
 .pr-4 {
   padding-right: 1rem;
@@ -3727,6 +3733,11 @@ input#checkboxLabelFive:checked ~ .box {
   color: rgb(99 102 241 / var(--tw-text-opacity));
 }
 
+.hover\:text-primary-300:hover {
+  --tw-text-opacity: 1;
+  color: rgb(165 180 252 / var(--tw-text-opacity));
+}
+
 .hover\:text-white:hover {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -3769,16 +3780,6 @@ input#checkboxLabelFive:checked ~ .box {
 .hover\:text-secondary-900:hover {
   --tw-text-opacity: 1;
   color: rgb(15 23 42 / var(--tw-text-opacity));
-}
-
-.hover\:text-primary-200:hover {
-  --tw-text-opacity: 1;
-  color: rgb(199 210 254 / var(--tw-text-opacity));
-}
-
-.hover\:text-primary-300:hover {
-  --tw-text-opacity: 1;
-  color: rgb(165 180 252 / var(--tw-text-opacity));
 }
 
 .hover\:underline:hover {
@@ -4001,6 +4002,11 @@ input#checkboxLabelFive:checked ~ .box {
   color: rgb(99 102 241 / var(--tw-text-opacity));
 }
 
+.focus\:text-primary-300:focus {
+  --tw-text-opacity: 1;
+  color: rgb(165 180 252 / var(--tw-text-opacity));
+}
+
 .focus\:text-white:focus {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -4019,16 +4025,6 @@ input#checkboxLabelFive:checked ~ .box {
 .focus\:text-primary-800:focus {
   --tw-text-opacity: 1;
   color: rgb(55 48 163 / var(--tw-text-opacity));
-}
-
-.focus\:text-primary-200:focus {
-  --tw-text-opacity: 1;
-  color: rgb(199 210 254 / var(--tw-text-opacity));
-}
-
-.focus\:text-primary-300:focus {
-  --tw-text-opacity: 1;
-  color: rgb(165 180 252 / var(--tw-text-opacity));
 }
 
 .focus\:underline:focus {
@@ -5358,12 +5354,6 @@ input#checkboxLabelFive:checked ~ .box {
     max-height: 15rem;
   }
 
-  .sm\:min-h-max {
-    min-height: -webkit-max-content;
-    min-height: -moz-max-content;
-    min-height: max-content;
-  }
-
   .sm\:w-1\/2 {
     width: 50%;
   }
@@ -5565,6 +5555,11 @@ input#checkboxLabelFive:checked ~ .box {
   .sm\:px-5 {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
+  }
+
+  .sm\:px-3 {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
   }
 
   .sm\:pr-3 {
@@ -5798,10 +5793,6 @@ input#checkboxLabelFive:checked ~ .box {
 }
 
 @media (min-width: 1280px) {
-
-  .xl\:m-32 {
-    margin: 8rem;
-  }
 
   .xl\:my-32 {
     margin-top: 8rem;
