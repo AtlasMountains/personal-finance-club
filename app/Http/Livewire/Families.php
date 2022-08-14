@@ -31,7 +31,7 @@ class Families extends Component
         $this->getNotifications();
     }
 
-    public function getNotifications()
+    public function getNotifications(): void
     {
         $this->invites = auth()->user()->notifications()
             ->where('type', 'App\Notifications\InviteFamilyMember')
@@ -44,15 +44,14 @@ class Families extends Component
         return view('livewire.families');
     }
 
-    public function updated($email)
+    public function updated($email): void
     {
         $this->validateOnly($email);
     }
 
-    public function inviteMember()
+    public function inviteMember(): void
     {
         $this->validate();
-
         $user = User::where('email', $this->email)->first();
         if ($user) {
             if (count($user->notifications->where('data', ['familyId' => $this->family->id]))) {
@@ -61,6 +60,14 @@ class Families extends Component
                     $description = 'the user already has an invitation to join your family',
                 );
                 $error = true;
+
+            } elseif ($user->family?->id === $this->family->id) {
+                $this->notification()->error(
+                    $title = 'User already a family member',
+                    $description = 'the user is already a family member',
+                );
+                $error = true;
+
             } else {
                 $user->notify(new InviteFamilyMember($this->family->id));
             }
@@ -74,7 +81,7 @@ class Families extends Component
         }
     }
 
-    public function deleteNotification(DatabaseNotification $invite)
+    public function deleteNotification(DatabaseNotification $invite): void
     {
         $invite->delete();
         $this->mount();
@@ -85,7 +92,7 @@ class Families extends Component
         );
     }
 
-    public function joinFamily(DatabaseNotification $invite)
+    public function joinFamily(DatabaseNotification $invite): void
     {
         $user = auth()->user();
         if ($user->family !== null) {
@@ -111,7 +118,5 @@ class Families extends Component
                 $description = 'All your accounts were added, change it by editing the account',
             );
         }
-
-
     }
 }
