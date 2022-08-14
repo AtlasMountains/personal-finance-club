@@ -55,8 +55,10 @@ class Accounts extends Component
         auth()->user()->accounts()
             ->where('position', '>', $account->position)
             ->update(['position' => \DB::RAW('position - 1')]);
+
         $account->transactions()->delete();
         $account->delete();
+
         $this->accounts = $this->accounts->except($accountId);
         $this->notification()->success(
             $title = 'Account:'.$account->name.' deleted',

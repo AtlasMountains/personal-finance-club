@@ -42,7 +42,7 @@ class UserRegisterController extends Controller
         ]);
 //        send email
         event(new Registered($user));
-//        limit registrations by ip decay per 3 hours
+//        limit registrations by ip decay per 1 hours
         RateLimiter::hit($key, $this->maxAttempts * 3600);
         auth()->attempt($request->only('email', 'password'));
 

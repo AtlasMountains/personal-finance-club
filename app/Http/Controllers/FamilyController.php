@@ -43,7 +43,7 @@ class FamilyController extends Controller
         auth()->user()->family()->associate($family);
         auth()->user()->save();
         foreach ($request->accounts as $account) {
-            Account::findorfail((int)$account)->update(['family_id' => $family->id]);
+            Account::findorfail((int) $account)->update(['family_id' => $family->id]);
         }
 
         return redirect()->route('user.dashboard');
@@ -52,16 +52,17 @@ class FamilyController extends Controller
     public function edit(Family $family): View|Factory|Response|Application
     {
         //verify if user is allowed to edit the family
-        if ((int)$family->head !== auth()->user()->id || $family->deleted_at !== null) {
+        if ((int) $family->head !== auth()->user()->id || $family->deleted_at !== null) {
             abort(404); //deny as not found
         }
+
         return view('family.edit', compact('family'));
     }
 
     public function update(Request $request, Family $family): RedirectResponse
     {
         //verify if user is allowed to edit the family
-        if ((int)$family->head !== auth()->user()->id || $family->deleted_at !== null) {
+        if ((int) $family->head !== auth()->user()->id || $family->deleted_at !== null) {
             abort(404); //deny as not found
         }
 
@@ -75,8 +76,8 @@ class FamilyController extends Controller
         ]);
         if ($request->users) {
             foreach ($request->users as $user) {
-                $userId = (int)$user;
-                if ($userId === (int)$family->head && count($family->users) > 1) {
+                $userId = (int) $user;
+                if ($userId === (int) $family->head && count($family->users) > 1) {
                     return back()->withErrors('cant delete head of family if there are other members');
                 }
                 $this->removeAccountsFromFamilyOnLeave($userId);
@@ -98,13 +99,12 @@ class FamilyController extends Controller
         Account::where('user_id', $userId)->update(['family_id' => null]);
         $userModel = User::findOrFail($userId)->family()->dissociate();
         $userModel->save();
-
     }
 
     public function leave(Family $family): RedirectResponse
     {
         //verify if user is allowed to leave the family
-        if ((int)$family->head === auth()->user()->id || $family->deleted_at !== null) {
+        if ((int) $family->head === auth()->user()->id || $family->deleted_at !== null) {
             abort(404); //deny as not found
         }
 

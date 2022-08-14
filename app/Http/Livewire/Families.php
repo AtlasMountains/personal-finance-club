@@ -18,7 +18,9 @@ class Families extends Component
     use Actions;
 
     public ?Family $family;
+
     public ?string $email = null;
+
     public ?Collection $invites = null;
 
     protected $rules = [
@@ -60,19 +62,17 @@ class Families extends Component
                     $description = 'the user already has an invitation to join your family',
                 );
                 $error = true;
-
             } elseif ($user->family?->id === $this->family->id) {
                 $this->notification()->error(
                     $title = 'User already a family member',
                     $description = 'the user is already a family member',
                 );
                 $error = true;
-
             } else {
                 $user->notify(new InviteFamilyMember($this->family->id));
             }
         }
-        if (!isset($error)) {
+        if (! isset($error)) {
             $this->notification()->success(
                 $title = 'Invite send',
                 $description = 'an invite to join the family was send,
