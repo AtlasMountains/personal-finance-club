@@ -4,8 +4,6 @@
 
   <div class="flex flex-col h-full dark:bg-slate-900">
 
-    {{--    <x-accountNav/>--}}
-
     <div class="flex-1 mt-3">
       <div class="grid gap-4 px-4 md:grid-cols-2 lg:grid-cols-3">
 

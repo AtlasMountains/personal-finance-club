@@ -22,15 +22,15 @@ class TransactionFactory extends Factory
         $type = Type::all()->random();
         switch ($type->id) {
             case 1: // deposit
-                $amount = $this->faker->numberBetween(0, 1000);
+                $amount = $this->faker->numberBetween(0, 100000) / 100;
                 break;
 
             case 2: //withdrawal
-                $amount = $this->faker->numberBetween(-1000, 0);
+                $amount = $this->faker->numberBetween(-100000, 0) / 100;
                 break;
 
             default: //transfer
-                $amount = $this->faker->numberBetween(-1000, 1000);
+                $amount = $this->faker->numberBetween(-100000, 100000) / 100;
                 break;
         }
         $account = Account::all()->random();

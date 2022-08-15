@@ -7,6 +7,7 @@ use App\Models\Transaction;
 use App\Models\Type;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
+use NumberFormatter;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Exportable;
@@ -110,12 +111,13 @@ final class TransactionsTable extends PowerGridComponent
     {
         return PowerGrid::eloquent()
             ->addColumn('id')
-            ->addColumn('amount')
+            ->addColumn('amount', function (Transaction $transaction) {
+                $fmt = new NumberFormatter('nl_BE', NumberFormatter::CURRENCY);
+
+                return $fmt->formatCurrency($transaction->amount, 'EUR');
+            })
             ->addColumn('recipient')
             ->addColumn('message')
-//        , function (Transaction $model) {
-//                return Str::limit($model->message, 10); //Gets the first x words/chars
-//            })
             ->addColumn('date_formatted', fn (transaction $model) => Carbon::parse($model->date)->format('d/m/Y H:i'))
             ->addColumn('type')
             ->addColumn('tag')

@@ -15,8 +15,6 @@
 
       <x-slot name="footer">
         <div class="flex justify-between gap-x-4">
-          {{--        <x-button flat negative label="Delete" wire:click="delete"/>--}}
-
           <x-button primary label="Save" wire:click="saveTag"/>
           <x-button flat label="Cancel" x-on:click="close"/>
         </div>
@@ -28,8 +26,15 @@
     <x-card title="Add transaction" class="dark:bg-slate-600">
       <div class="grid grid-cols-2 gap-5">
 
-        <x-input label="Amount" placeholder="Amount" icon="currency-euro" type="number" step="0.01"
-                 wire:model.lazy="amount"/>
+        <x-inputs.currency
+          label="Amount"
+          placeholder="Amount"
+          icon="currency-euro"
+          thousands=" "
+          decimal="."
+          precision="2"
+          wire:model.lazy="amount"
+        />
 
         <x-input label="Recipient" placeholder="Recipient" wire:model.defer="recipient"/>
 

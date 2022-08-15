@@ -22,8 +22,8 @@ class AccountFactory extends Factory
             'name' => $this->faker->word(),
             'user_id' => User::all()->random(),
             'account_type_id' => AccountType::all()->random(),
-            'start_balance' => $this->faker->numberBetween(0, 734623),
-            'alert' => $this->faker->numberBetween(0, 5000),
+            'start_balance' => 0,
+            'alert' => 0,
         ];
     }
 }

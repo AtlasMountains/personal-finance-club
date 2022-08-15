@@ -16,11 +16,11 @@
     "laravel/tinker": "^2.7",
     "livewire/livewire": "^2.10",
     "power-components/livewire-powergrid": "^3.2",
-    "wireui/wireui": "^1.11"
+    "wireui/wireui": "^1.11",
+    "ext-intl": "*"
   },
   "require-dev": {
     "barryvdh/laravel-debugbar": "^3.6",
-    "beyondcode/laravel-query-detector": "^1.6",
     "fakerphp/faker": "^1.9.1",
     "laravel/pint": "^0.2.3",
     "laravel/sail": "^1.0.1",
