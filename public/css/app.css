@@ -1004,6 +1004,9 @@ video {
 .mb-8 {
   margin-bottom: 2rem;
 }
+.ml-5 {
+  margin-left: 1.25rem;
+}
 .mb-3 {
   margin-bottom: 0.75rem;
 }
@@ -1045,9 +1048,6 @@ video {
 }
 .mt-4 {
   margin-top: 1rem;
-}
-.ml-5 {
-  margin-left: 1.25rem;
 }
 .ml-4 {
   margin-left: 1rem;
@@ -1392,6 +1392,10 @@ video {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
+}
+.columns-1 {
+  -moz-columns: 1;
+       columns: 1;
 }
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));

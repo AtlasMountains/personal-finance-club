@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Account;
+use App\Models\Category;
 use NumberFormatter;
 
 class AccountInformationService
@@ -16,6 +17,8 @@ class AccountInformationService
     public float $incomeThisYear;
 
     public float $expenseThisYear;
+
+    public array $expensePerCategory;
 
     public function __construct(public Account $account)
     {
@@ -71,8 +74,20 @@ class AccountInformationService
         $this->expenseThisYear = $result;
     }
 
-    private function calculateExpensesPerCategory(): void
+    private function calculateExpensesPerCategory($begin = false, $end = false): void
     {
+        $startDate = $begin ?: now()->startOfYear();
+        $endDate = $end ?: now();
+
+        $result = [];
+        foreach (Category::all() as $category) {
+            $result[$category->category] =
+                $this->account->transactions()
+                    ->where('category_id', $category->id)
+                    ->whereBetween('date', [$startDate, $endDate])
+                    ->sum('amount');
+        }
+        $this->expensePerCategory = $result;
     }
 
     private function getFormatedNumber(
@@ -97,36 +112,53 @@ class AccountInformationService
     public function getBalance(): bool|string
     {
         $this->calculateBalance();
+
         return $this->getFormatedNumber($this->balance, style: NumberFormatter::CURRENCY);
     }
 
     public function getIncomeLastMonth(): bool|string
     {
         $this->calculateIncomeLastMonth();
+
         return $this->getFormatedNumber($this->incomeLastMonth, style: NumberFormatter::CURRENCY);
     }
 
     public function getExpenseLastMonth(): bool|string
     {
         $this->calculateExpenseLastMonth();
+
         return $this->getFormatedNumber($this->expenseLastMonth, style: NumberFormatter::CURRENCY);
     }
 
     public function getIncomeThisYear(): bool|string
     {
         $this->calculateIncomeThisYear();
+
         return $this->getFormatedNumber($this->incomeThisYear, style: NumberFormatter::CURRENCY);
     }
 
     public function getExpenseThisYear(): bool|string
     {
         $this->calculateExpenseThisYear();
+
         return $this->getFormatedNumber($this->expenseThisYear, style: NumberFormatter::CURRENCY);
     }
 
-    public function getExpensesPerCategory()
+    public function getExpensesPerCategoryFormatted(): array
     {
         $this->calculateExpensesPerCategory();
-        return $this->getFormatedNumber($this->expenseThisYear, style: NumberFormatter::CURRENCY);
+        $result = [];
+        foreach ($this->expensePerCategory as $category => $expense) {
+            $result[$category] = $this->getFormatedNumber($expense, style: NumberFormatter::CURRENCY);
+        }
+
+        return $result;
+    }
+
+    public function getExpensesPerCategory(): array
+    {
+        $this->calculateExpensesPerCategory();
+
+        return $this->expensePerCategory;
     }
 }
