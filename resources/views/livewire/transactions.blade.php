@@ -7,7 +7,7 @@
   </div>
 
   <div x-data="{ showModel: @entangle('showModel') }">
-    <x-modal.card title="Create a New Tag" blur wire:model="tagModel" x-show="showModel" x-transition.duration.500ms>
+    <x-modal.card title="Create a New Tag" blur x-show="showModel" x-transition.duration.500ms>
       <p class="text-center">tags can not be deleted</p>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <x-input label="Tag" placeholder="Tag name" wire:model.lazy="newTag"/>

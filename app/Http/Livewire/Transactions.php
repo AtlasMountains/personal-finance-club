@@ -15,8 +15,6 @@ class Transactions extends Component
 {
     use Actions;
 
-    public $tagModal;
-
     public $showModel;
 
     public $newTag;
@@ -87,7 +85,7 @@ class Transactions extends Component
     {
         $this->validateOnly('newTag');
         $tag = Tag::firstOrCreate(['tag' => $this->newTag]);
-        if (! auth()->user()->tags->contains($tag)) {
+        if (!auth()->user()->tags->contains($tag)) {
             auth()->user()->tags()->attach($tag->id);
             $this->tags->push($tag);
             $this->emit('newTagAdded'); //refresh the transactions table
@@ -137,7 +135,7 @@ class Transactions extends Component
     {
         $transaction = Transaction::findOrFail($params)->first();
         $this->dialog()->confirm([
-            'title' => 'Delete transaction: '.$transaction->id.'?',
+            'title' => 'Delete transaction: ' . $transaction->id . '?',
             'description' => 'deleting the transaction is irreversible',
             'acceptLabel' => 'Yes, delete it',
             'accept' => [
@@ -156,7 +154,7 @@ class Transactions extends Component
     {
         $transaction->delete();
         $this->notification()->success(
-            $title = 'Transaction:'.$transaction->id.' deleted',
+            $title = 'Transaction:' . $transaction->id . ' deleted',
             $description = 'Your transaction is deleted'
         );
         $this->emit('transactionsChanged');
