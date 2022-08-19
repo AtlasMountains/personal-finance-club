@@ -1,4 +1,4 @@
-<x-layout.power>
+<x-layout.chart>
 
   <x-notifications/>
   <x-dialog/>
@@ -13,30 +13,37 @@
       <div>
         balance:
         {{ $balance }}
-        <br>
-        income Last Month:
-        {{ $incomeLastMonth }}
-        <br>
-        expense Last Month:
-        {{ $expenseLastMonth }}
-        <br>
-        income This Year:
-        {{ $incomeThisYear }}
-        <br>
-        expense this year
-        {{ $expenseThisYear }}
-        <br>
       </div>
+    </div>
 
-      <div>
-        <h2 class="text-xl font-semibold py-1">expenses per category</h2>
-        @foreach($expensePerCategory as $category => $expense)
-          @if($expense === 0)
-            @continue
-          @endif
-          {{ $category }} : {{ $expense }} <br>
-        @endforeach
+    <script>
+      const categoryChartLabels = {{ Js::from($expensesPerCategory['category']) }};
+      const categoryIncomeData = {{ Js::from($incomePerCategory['amount']) }};
+      const categoryExpenseData = {{ Js::from($expensesPerCategory['amount']) }};
+      const categoryNettoData = {{ JS::from($nettoPerCategory['amount']) }};
+
+      const yearsChartLabels = {{ Js::from($incomePerYear['years']) }};
+      const yearsIncomeData = {{ Js::from($incomePerYear['amount']) }};
+      const yearsExpenseData = {{ Js::from($expensePerYear['amount']) }};
+      const yearsNettoData = {{ Js::from($nettoPerYear['amount']) }};
+
+      const monthChartLabels = {{ Js::from($incomePerMonth['months']) }};
+      const monthIncomeData = {{ Js::from($incomePerMonth['amount']) }};
+      const monthExpenseData = {{ Js::from($expensePerMonth['amount']) }};
+      const monthNettoData = {{ Js::from($nettoPerMonth['amount']) }};
+    </script>
+
+    <div class="px-10 gap-3 grid grid-cols-2">
+      <div class="h-96">
+        <canvas id="years"></canvas>
       </div>
+      <div class="h-96">
+        <canvas id="months"></canvas>
+      </div>
+    </div>
+
+    <div class="px-10 my-2 h-96">
+      <canvas id="categories"></canvas>
     </div>
 
     @if($account->user->id === auth()->user()->id)
@@ -50,4 +57,4 @@
     </div>
 
   </div>
-</x-layout.power>
+</x-layout.chart>

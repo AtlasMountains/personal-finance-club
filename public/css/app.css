@@ -1136,6 +1136,18 @@ video {
 .h-9 {
   height: 2.25rem;
 }
+.h-24 {
+  height: 6rem;
+}
+.h-40 {
+  height: 10rem;
+}
+.h-80 {
+  height: 20rem;
+}
+.h-96 {
+  height: 24rem;
+}
 .max-h-96 {
   max-height: 24rem;
 }
@@ -1393,15 +1405,11 @@ video {
      -moz-appearance: none;
           appearance: none;
 }
-.columns-1 {
-  -moz-columns: 1;
-       columns: 1;
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
-}
-.grid-cols-2 {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 .grid-cols-3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -3256,6 +3264,22 @@ input#checkboxLabelFive:checked ~ .box {
     rgba(196, 196, 196, 0) 100%
   );
 } */
+
+.selection\:bg-transparent *::-moz-selection {
+  background-color: transparent;
+}
+
+.selection\:bg-transparent *::selection {
+  background-color: transparent;
+}
+
+.selection\:bg-transparent::-moz-selection {
+  background-color: transparent;
+}
+
+.selection\:bg-transparent::selection {
+  background-color: transparent;
+}
 
 .checked\:translate-x-3:checked {
   --tw-translate-x: 0.75rem;
