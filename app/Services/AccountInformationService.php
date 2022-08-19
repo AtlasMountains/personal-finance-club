@@ -4,9 +4,10 @@ namespace App\Services;
 
 use App\Models\Account;
 use App\Models\Category;
+use Carbon\Carbon;
 use NumberFormatter;
 
-class AccountInformationService
+class AccountInformationService extends FormatNumberService
 {
     public float $balance;
 
@@ -18,7 +19,11 @@ class AccountInformationService
 
     public float $expenseThisYear;
 
-    public array $expensePerCategory;
+    private array $incomePerCategory;
+
+    public array $expensesPerCategory;
+
+    private array $nettoPerCategory;
 
     public function __construct(public Account $account)
     {
@@ -38,10 +43,66 @@ class AccountInformationService
             ->sum('amount');
     }
 
+    private function calculatePerYear(string $operator = '>', bool $netto = false): array
+    {
+        $earliestTransactionDate = Carbon::create(
+            $this->account->transactions()->orderBy('date')->first()->date
+        );
+        $yearsWorthOfData = now()->year - $earliestTransactionDate->year;
+        $maxYearsToShowInGraph = 10;
+
+        if ($yearsWorthOfData <= $maxYearsToShowInGraph) {
+            $startYear = $earliestTransactionDate->year;
+        } else {
+            $startYear = now()->year - $maxYearsToShowInGraph;
+        }
+        $result = [];
+        for ($i = $startYear; $i <= now()->year; $i++) {
+            $result['years'][] = Carbon::create($i)->year;
+            $firstDayOfYear = Carbon::create($i);
+            $lastDayOfYear = Carbon::create($i)->endOfYear();
+            if ($netto) {
+                $result['amount'][] = $this->account->transactions()
+                    ->whereBetween('date', [$firstDayOfYear, $lastDayOfYear])
+                    ->sum('amount');
+            } else {
+                $result['amount'][] = $this->account->transactions()
+                    ->where('amount', $operator, 0)
+                    ->whereBetween('date', [$firstDayOfYear, $lastDayOfYear])
+                    ->sum('amount');
+            }
+        }
+        return $result;
+    }
+
+    private function calculatePerMonth($year = null, string $operator = '>', bool $netto = false): array
+    {
+        $year ?: now()->year;
+
+        $result = [];
+        for ($i = 0; $i <= 11; $i++) {
+            $result['months'][] = Carbon::create($year)->addMonths($i)->monthName;
+            $startOfMonth = Carbon::create($year)->addMonths($i)->startOfMonth();
+            $endOfMonth = Carbon::create($year)->addMonths($i)->endOfMonth();
+            
+            if ($netto) {
+                $result['amount'][] = $this->account->transactions()
+                    ->whereBetween('date', [$startOfMonth, $endOfMonth])
+                    ->sum('amount');
+            } else {
+                $result['amount'][] = $this->account->transactions()
+                    ->where('amount', $operator, 0)
+                    ->whereBetween('date', [$startOfMonth, $endOfMonth])
+                    ->sum('amount');
+            }
+        }
+        return $result;
+    }
+
     private function calculateIncomeLastMonth(): void
     {
-        $startDate = now()->startOfMonth()->previous('month');
-        $endDate = now()->startOfMonth();
+        $startDate = now()->previous('month')->startOfMonth();
+        $endDate = now()->previous('month')->endOfMonth();
 
         $result = $this->sumTransactionsBetween($startDate, $endDate, '>');
         $this->incomeLastMonth = $result;
@@ -49,8 +110,8 @@ class AccountInformationService
 
     private function calculateExpenseLastMonth(): void
     {
-        $startDate = now()->startOfMonth()->previous('month');
-        $endDate = now()->startOfMonth();
+        $startDate = now()->previous('month')->startOfMonth();
+        $endDate = now()->previous('month')->endOfMonth();
 
         $result = $this->sumTransactionsBetween($startDate, $endDate, '<');
         $this->expenseLastMonth = $result;
@@ -59,7 +120,7 @@ class AccountInformationService
     private function calculateIncomeThisYear(): void
     {
         $startDate = now()->startOfYear();
-        $endDate = now();
+        $endDate = now()->endOfYear();
 
         $result = $this->sumTransactionsBetween($startDate, $endDate, '>');
         $this->incomeThisYear = $result;
@@ -68,45 +129,43 @@ class AccountInformationService
     private function calculateExpenseThisYear(): void
     {
         $startDate = now()->startOfYear();
-        $endDate = now();
+        $endDate = now()->endOfYear();
 
         $result = $this->sumTransactionsBetween($startDate, $endDate, '<');
         $this->expenseThisYear = $result;
     }
 
-    private function calculateExpensesPerCategory($begin = false, $end = false): void
+    private function calculatePerCategory($begin = false, $end = false, string $operator = '>', $netto = false): void
     {
         $startDate = $begin ?: now()->startOfYear();
         $endDate = $end ?: now();
 
         $result = [];
         foreach (Category::all() as $category) {
-            $result[$category->category] =
-                $this->account->transactions()
-                    ->where('category_id', $category->id)
-                    ->whereBetween('date', [$startDate, $endDate])
-                    ->sum('amount');
+            if ($netto) {
+                $result[$category->category] =
+                    $this->account->transactions()
+                        ->where('category_id', $category->id)
+                        ->whereBetween('date', [$startDate, $endDate])
+                        ->sum('amount');
+            } else {
+                $result[$category->category] =
+                    $this->account->transactions()
+                        ->where('category_id', $category->id)
+                        ->whereBetween('date', [$startDate, $endDate])
+                        ->where('amount', $operator, 0)
+                        ->sum('amount');
+            }
         }
-        $this->expensePerCategory = $result;
-    }
-
-    private function getFormatedNumber(
-        $value,
-        $locale = 'nl_BE',
-        $style = NumberFormatter::DECIMAL,
-        $precision = 2,
-        $groupingUsed = true,
-        $currencyCode = 'EUR',
-    ): bool|string
-    {
-        $formatter = new NumberFormatter($locale, $style);
-        $formatter->setAttribute(NumberFormatter::FRACTION_DIGITS, $precision);
-        $formatter->setAttribute(NumberFormatter::GROUPING_USED, $groupingUsed);
-        if ($style === NumberFormatter::CURRENCY) {
-            $formatter->setTextAttribute(NumberFormatter::CURRENCY_CODE, $currencyCode);
+        if ($netto) {
+            $this->nettoPerCategory = $result;
+        } else {
+            if ($operator === '>') {
+                $this->incomePerCategory = $result;
+            } else {
+                $this->expensesPerCategory = $result;
+            }
         }
-
-        return $formatter->format($value);
     }
 
     public function getBalance(): bool|string
@@ -144,12 +203,12 @@ class AccountInformationService
         return $this->getFormatedNumber($this->expenseThisYear, style: NumberFormatter::CURRENCY);
     }
 
-    public function getExpensesPerCategoryFormatted(): array
+    public function getIncomePerCategory(): array
     {
-        $this->calculateExpensesPerCategory();
-        $result = [];
-        foreach ($this->expensePerCategory as $category => $expense) {
-            $result[$category] = $this->getFormatedNumber($expense, style: NumberFormatter::CURRENCY);
+        $this->calculatePerCategory(operator: '>');
+        foreach ($this->incomePerCategory as $category => $amount) {
+            $result['category'][] = $category;
+            $result['amount'][] = $amount;
         }
 
         return $result;
@@ -157,8 +216,52 @@ class AccountInformationService
 
     public function getExpensesPerCategory(): array
     {
-        $this->calculateExpensesPerCategory();
+        $this->calculatePerCategory(operator: '<');
+        foreach ($this->expensesPerCategory as $category => $amount) {
+            $result['category'][] = $category;
+            $result['amount'][] = $amount;
+        }
 
-        return $this->expensePerCategory;
+        return $result;
+    }
+
+    public function getNettoPerCategory(): array
+    {
+        $this->calculatePerCategory(netto: true);
+        foreach ($this->nettoPerCategory as $category => $amount) {
+            $result['category'][] = $category;
+            $result['amount'][] = $amount;
+        }
+        return $result;
+    }
+
+    public function getIncomePerYear(): array
+    {
+        return $this->calculatePerYear(operator: '>');
+    }
+
+    public function getExpensePerYear(): array
+    {
+        return $this->calculatePerYear(operator: '<');
+    }
+
+    public function getNettoPerYear(): array
+    {
+        return $this->calculatePerYear(netto: true);
+    }
+
+    public function getIncomePerMonth(): array
+    {
+        return $this->calculatePerMonth(operator: '>');
+    }
+
+    public function getExpensePerMonth(): array
+    {
+        return $this->calculatePerMonth(operator: '<');
+    }
+
+    public function getNettoPerMonth(): array
+    {
+        return $this->calculatePerMonth(netto: true);
     }
 }
