@@ -14,29 +14,18 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(10)->create();
-
-//         make admin user
+//        make user member of a family
         User::factory()->create([
-            'first_name' => 'admin',
-            'last_name' => 'administrator',
-            'email' => 'admin@admin.com',
-            'is_admin' => true,
+            'first_name' => 'demo',
+            'last_name' => 'member',
+            'email' => 'member@family.com',
         ]);
 
-//         make user email-not-verified
+//        make user head of a family
         User::factory()->create([
-            'first_name' => 'user',
-            'last_name' => 'not verified',
-            'email' => 'user@not-verified.com',
-            'email_verified_at' => null,
-        ]);
-
-//        make user email-verified
-        User::factory()->create([
-            'first_name' => 'user',
-            'last_name' => 'verified',
-            'email' => 'user@verified.com',
+            'first_name' => 'demo',
+            'last_name' => 'head',
+            'email' => 'head@family.com',
         ]);
     }
 }

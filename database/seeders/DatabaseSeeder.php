@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Family;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,5 +25,23 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             TransactionSeeder::class,
         ]);
+
+        $head = User::where('email', 'head@family.com')->first();
+        $member = User::where('email', 'member@family.com')->first();
+        $family = Family::where('name', 'demo family')->first();
+
+        $head->family()->associate($family);
+        $head->save();
+        foreach ($head->accounts as $account) {
+            $account->family()->associate($family);
+            $account->save();
+        }
+
+        $member->family()->associate($family);
+        $member->save();
+        foreach ($member->accounts as $account) {
+            $account->family()->associate($family);
+            $account->save();
+        }
     }
 }

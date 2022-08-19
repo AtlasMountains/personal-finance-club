@@ -14,6 +14,6 @@ class AccountSeeder extends Seeder
      */
     public function run()
     {
-        Account::factory(25)->create();
+        Account::factory(6)->create();
     }
 }
