@@ -7,14 +7,9 @@
     <h1 class="px-3 text-2xl font-semibold text-center dark:text-white">
       Account: {{ $account->name }}
     </h1>
-
-    <div class="ml-5 text-lg dark:text-white grid grid-cols-2">
-
-      <div>
-        balance:
-        {{ $balance }}
-      </div>
-    </div>
+    <p class="mb-2 text-center dark:text-white">
+      balance: {{ $balance }}
+    </p>
 
     <script>
       const categoryChartLabels = {{ Js::from($expensesPerCategory['category']) }};
@@ -33,27 +28,29 @@
       const monthNettoData = {{ Js::from($nettoPerMonth['amount']) }};
     </script>
 
-    <div class="px-10 gap-3 grid grid-cols-2">
-      <div class="h-96">
-        <canvas id="years"></canvas>
+    <div class="space-y-3">
+      <div class="px-10 gap-3 grid grid-cols-2">
+        <div class="h-96">
+          <canvas class="p-2 rounded-lg bg-slate-300" id="years"></canvas>
+        </div>
+        <div class="h-96">
+          <canvas class="p-2 rounded-lg bg-slate-300" id="months"></canvas>
+        </div>
       </div>
-      <div class="h-96">
-        <canvas id="months"></canvas>
+
+      <div class="px-10 h-96">
+        <canvas class="p-2 rounded-lg bg-slate-300" id="categories"></canvas>
       </div>
-    </div>
 
-    <div class="px-10 my-2 h-96">
-      <canvas id="categories"></canvas>
-    </div>
+      @if($account->user->id === auth()->user()->id)
+        <div class="w-full">
+          <livewire:transactions :account="$account"/>
+        </div>
+      @endif
 
-    @if($account->user->id === auth()->user()->id)
-      <div class="w-full">
-        <livewire:transactions :account="$account"/>
+      <div class="w-full px-10 pb-10 mx-auto">
+        <livewire:transactions-table :account="$account" :transactions="$transactions"/>
       </div>
-    @endif
-
-    <div class="w-full px-10 pb-10 mx-auto">
-      <livewire:transactions-table :account="$account" :transactions="$transactions"/>
     </div>
 
   </div>

@@ -200,16 +200,29 @@
               Why Choose Us
               </span>
               <h2 class="mb-8 text-3xl font-bold sm:text-4xl text-dark dark:text-white">
-                Make managing personal finances easy.
+                Manage your personal finances
               </h2>
-              <p class="mb-8 text-base text-body-color dark:text-gray-300">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid beatae
-                facilis illum ipsum
-                molestias officiis perferendis perspiciatis quibusdam unde.
-              </p>
+              <div class="mb-8 space-y-1 text-base text-body-color dark:text-gray-300">
+                <p>
+                  this is a demo project to show my skills as a web developer,
+                  you can test this application using 1 of 3 demo accounts or make your own.
+                  You will get an email with a link to verify your email-address, so please use a real email-address.
+                </p>
+                <p>Please use fake data tot test this application</p>
+                <ul>
+                  <li>email: member@family.com</li>
+                  <li>email: head@family.com</li>
+                </ul>
+              </div>
+
               <a href="{{ route('user.dashboard') }}"
                  class="inline-flex items-center justify-center px-10 py-4 text-base font-normal text-center text-white rounded-lg lg:px-8 xl:px-10 bg-primary-500 hover:bg-secondary-500 focus:bg-secondary-500">
                 Get Started
+              </a>
+              <a href="https://github.com/AtlasMountains/personal-finance-club"
+                 target="_blank"
+                 class="inline-flex items-center justify-center px-10 py-4 text-base font-normal text-center text-white rounded-lg lg:px-8 xl:px-10 bg-primary-500 hover:bg-secondary-500 focus:bg-secondary-500">
+                Github
               </a>
             </div>
           </div>
