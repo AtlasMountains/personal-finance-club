@@ -10,7 +10,7 @@ const categoriesConfig = {
         label: 'Income',
         data: categoryIncomeData,
         backgroundColor: [
-          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 0.7)',
         ],
         borderColor: [
           'rgba(75, 192, 192, 1)',
@@ -21,7 +21,7 @@ const categoriesConfig = {
         label: 'Expenses',
         data: categoryExpenseData,
         backgroundColor: [
-          'rgba(255, 99, 132, 1)',
+          'rgba(255, 99, 132, 0.7)',
         ],
         borderColor: [
           'rgba(255, 99, 132, 1)',
@@ -32,7 +32,7 @@ const categoriesConfig = {
         label: 'Netto',
         data: categoryNettoData,
         backgroundColor: [
-          'rgba(54, 162, 235, 1)',
+          'rgba(54, 162, 235, 0.7)',
         ],
         borderColor: [
           'rgba(54, 162, 235, 1)',
@@ -80,7 +80,7 @@ const yearsConfig = {
         label: 'Income',
         data: yearsIncomeData,
         backgroundColor: [
-          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 0.7)',
         ],
         borderColor: [
           'rgba(75, 192, 192, 1)',
@@ -91,7 +91,7 @@ const yearsConfig = {
         label: 'Expenses',
         data: yearsExpenseData,
         backgroundColor: [
-          'rgba(255, 99, 132, 1)',
+          'rgba(255, 99, 132, 0.7)',
         ],
         borderColor: [
           'rgba(255, 99, 132, 1)',
@@ -102,7 +102,7 @@ const yearsConfig = {
         label: 'Netto',
         data: yearsNettoData,
         backgroundColor: [
-          'rgba(54, 162, 235, 1)',
+          'rgba(54, 162, 235, 0.7)',
         ],
         borderColor: [
           'rgba(54, 162, 235, 1)',
@@ -150,7 +150,7 @@ const monthsConfig = {
         label: 'Income',
         data: monthIncomeData,
         backgroundColor: [
-          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 10.7',
         ],
         borderColor: [
           'rgba(75, 192, 192, 1)',
@@ -161,7 +161,7 @@ const monthsConfig = {
         label: 'Expenses',
         data: monthExpenseData,
         backgroundColor: [
-          'rgba(255, 99, 132, 1)',
+          'rgba(255, 99, 132, 0.7)',
         ],
         borderColor: [
           'rgba(255, 99, 132, 1)',
@@ -172,7 +172,7 @@ const monthsConfig = {
         label: 'Netto',
         data: monthNettoData,
         backgroundColor: [
-          'rgba(54, 162, 235, 1)',
+          'rgba(54, 162, 235, 0.7)',
         ],
         borderColor: [
           'rgba(54, 162, 235, 1)',

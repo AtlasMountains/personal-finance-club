@@ -204,12 +204,13 @@
               </h2>
               <div class="mb-8 space-y-1 text-base text-body-color dark:text-gray-300">
                 <p>
-                  this is a demo project to show my skills as a web developer,
-                  you can test this application using 1 of 3 demo accounts or make your own.
-                  You will get an email with a link to verify your email-address, so please use a real email-address.
+                  This is a demo project to show my skills as a web developer.
+                  You can test this application using demo accounts or make your own.
+                  Upon creation of your account an email will be sent containing a link to verify your email-address.
                 </p>
-                <p>Please use fake data tot test this application</p>
+                <p>Please use demo data (use real email for verification) to test this application.</p>
                 <ul>
+                  <li>Test as a member or head of a family using email & 'password' as the login credentials.</li>
                   <li>email: member@family.com</li>
                   <li>email: head@family.com</li>
                 </ul>

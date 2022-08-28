@@ -29,7 +29,7 @@
     </script>
 
     <div class="space-y-3">
-      <div class="px-10 gap-3 grid grid-cols-2">
+      <div class="px-10 gap-3 grid grid-cols-1 md:grid-cols-2">
         <div class="h-96">
           <canvas class="p-2 rounded-lg bg-slate-300" id="years"></canvas>
         </div>
