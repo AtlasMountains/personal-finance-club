@@ -13,8 +13,7 @@ class FormatNumberService
         $precision = 2,
         $groupingUsed = true,
         $currencyCode = 'EUR',
-    ): bool|string
-    {
+    ): bool|string {
         $formatter = new NumberFormatter($locale, $style);
         $formatter->setAttribute(NumberFormatter::FRACTION_DIGITS, $precision);
         $formatter->setAttribute(NumberFormatter::GROUPING_USED, $groupingUsed);
