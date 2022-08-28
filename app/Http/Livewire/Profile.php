@@ -101,6 +101,6 @@ class Profile extends Component
 
     public function render()
     {
-        return view('livewire.Profile');
+        return view('livewire.profile');
     }
 }
