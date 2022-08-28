@@ -45,9 +45,14 @@ class AccountInformationService extends FormatNumberService
 
     private function calculatePerYear(string $operator = '>', bool $netto = false): array
     {
-        $earliestTransactionDate = Carbon::create(
-            $this->account->transactions()->orderBy('date')->first()->date
-        );
+        $earliestTransaction = $this->account->transactions()->orderBy('date')->first();
+
+        $earliestTransactionDate = now();
+        if ($earliestTransaction) {
+            $earliestTransactionDate = Carbon::create(
+                $earliestTransaction->date
+            );
+        }
         $yearsWorthOfData = now()->year - $earliestTransactionDate->year;
         $maxYearsToShowInGraph = 10;
 
@@ -72,6 +77,7 @@ class AccountInformationService extends FormatNumberService
                     ->sum('amount');
             }
         }
+
         return $result;
     }
 
@@ -84,7 +90,7 @@ class AccountInformationService extends FormatNumberService
             $result['months'][] = Carbon::create($year)->addMonths($i)->monthName;
             $startOfMonth = Carbon::create($year)->addMonths($i)->startOfMonth();
             $endOfMonth = Carbon::create($year)->addMonths($i)->endOfMonth();
-            
+
             if ($netto) {
                 $result['amount'][] = $this->account->transactions()
                     ->whereBetween('date', [$startOfMonth, $endOfMonth])
@@ -96,6 +102,7 @@ class AccountInformationService extends FormatNumberService
                     ->sum('amount');
             }
         }
+
         return $result;
     }
 
@@ -232,6 +239,7 @@ class AccountInformationService extends FormatNumberService
             $result['category'][] = $category;
             $result['amount'][] = $amount;
         }
+
         return $result;
     }
 
