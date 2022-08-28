@@ -46,7 +46,9 @@
                 </p>
                 <p>Please use demo data (use real email for verification) to test this application.</p>
                 <ul>
-                  <li>Test as a member or head of a family using email & 'password' as the login credentials.</li>
+                  <li>Test as a member or head of a family using the following emails & use 'password' as the login
+                    credentials.
+                  </li>
                   <li>email: member@family.com</li>
                   <li>email: head@family.com</li>
                 </ul>
