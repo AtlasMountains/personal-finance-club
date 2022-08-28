@@ -28,7 +28,7 @@
     </div>
 
     @if(auth()->user()->family?->id)
-      <label for="addFamily">
+      <label for="addFamily" class="text-body-color dark:text-gray-200">
         visible for all family members
         <input name="addFamily" id="addFamily" type="checkbox" checked>
       </label>

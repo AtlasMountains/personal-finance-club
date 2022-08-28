@@ -8,7 +8,7 @@
       account name
     </x-forms.input>
 
-    <x-forms.input for="alert" type="number" step=".01" :value="$account->alert/100">
+    <x-forms.input for="alert" type="number" step=".01" :value="$account->alert">
       alert
     </x-forms.input>
 
@@ -24,7 +24,7 @@
     </div>
 
     @if(auth()->user()->family?->id)
-      <label for="addFamily">
+      <label for="addFamily" class="text-body-color dark:text-gray-200">
         visible for all family members
         <input name="addFamily" id="addFamily" type="checkbox" @if($account->family) checked @endif>
       </label>
