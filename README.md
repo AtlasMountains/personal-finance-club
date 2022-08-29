@@ -12,8 +12,10 @@ At the start of this project, I learned [Tailwindcss](https://tailwindcss.com/) 
 starter-kits and plugins use it. which I plan to use in following projects.
 Along the way I added [AlpineJS](https://alpinejs.dev/) for functionality with a dark mode and dropdown in mobile.
 
-After the general layout, navigation & a few pages (responsive and with a dark mode), I made an authentication system with email verification.
-Expanded on that with rate limiting emails, login & registration attempts, using both route limiters and custom-made limiters in the controllers. (here I hit my first bigger problem more details below).
+After the general layout, navigation & a few pages (responsive and with a dark mode), I made an authentication system
+with email verification.
+Expanded on that with rate limiting emails, login & registration attempts, using both route limiters and custom-made
+limiters in the controllers. (here I hit my first bigger problem more details below).
 
 ## What I used
 
@@ -25,6 +27,9 @@ Expanded on that with rate limiting emails, login & registration attempts, using
 - [github](https://github.com/AtlasMountains)
 - [mailtrap](https://mailtrap.io/)
 - [laravel-debugbar](https://github.com/barryvdh/laravel-debugbar)
+- [Livewire](https://laravel-livewire.com/)
+- [WireUI](https://livewire-wireui.com/)
+- [Livewire-Powergrid](https://livewire-powergrid.com/#/)
 
 ## What I knew before
 
@@ -77,23 +82,95 @@ using [Mailtrap](https://mailtrap.io/)
 #### Expanding to the authentication system and the first big problem
 
 After I had the basic authentication system with email verification, I wanted to limit the amount of emails sent to
-protect against spammers. And while we're at it, I also limited the amount of login and registration attempts both per ip
+protect against spammers. And while we're at it, I also limited the amount of login and registration attempts both per
+ip
 address and in total to increase security.
 
-This is where I hit my first big problem, there are two types of rate limiters, the naming is the same and syntax is very similar, but they're different and obviously easily confused. It took me a while to figure that out. you can use [rate limiters in routes](https://laravel.com/docs/9.x/routing#rate-limiting) which will automatically increment upon visiting that route, but are different from [rate limiters you can make yourself](https://laravel.com/docs/9.x/rate-limiting) in controllers and interact with manually. At a point i was using two different types of limiters to limit the same action thinking I was interaction with one and the same limiter, not knowing they were different. The documentation on that can be improved!
+This is where I hit my first big problem, there are two types of rate limiters, the naming is the same and syntax is
+very similar, but they're different and obviously easily confused. It took me a while to figure that out. you can
+use [rate limiters in routes](https://laravel.com/docs/9.x/routing#rate-limiting) which will automatically increment
+upon visiting that route, but are different
+from [rate limiters you can make yourself](https://laravel.com/docs/9.x/rate-limiting) in controllers and interact with
+manually. At a point i was using two different types of limiters to limit the same action thinking I was interaction
+with one and the same limiter, not knowing they were different. The documentation on that can be improved!
 
 - rate limiting
   - Limit the amount of verification emails per user
-  - Limit login and registration attempts: 
+  - Limit login and registration attempts:
     - per ip address using custom rate limiters in the controllers
     - in total using rate limiters in the routes as middleware
   - show info about the remaining emails & attempts and wait time
 - middleware
   - made my own middleware to redirect if the user is already verified
 
-After this I installed [laravel-debugbar](https://github.com/barryvdh/laravel-debugbar), cleaned-up & refactored some code and updated composer.
+After this I installed [laravel-debugbar](https://github.com/barryvdh/laravel-debugbar), cleaned-up & refactored some
+code and updated composer.
 
-### Testing
+### Dashboard
+
+![Dashboard](readmeImages/dashboard small.png)
+After the authentication system I made a user dashboard where users can edit there account information, manage there
+accounts and join or manage a family.
+In this dashboard I made use of a combination between Server Site Rendered SSR pages and dynamic components that would
+update live via ajax requests using [Livewire](https://laravel-livewire.com/).
+
+#### Profile
+
+![Profile](readmeImages/profile.png)
+
+In the profile section of the dashboard you can change your account information like first- & last name and email. upon
+change, you get a notification or a confirmation dialog this was made using [Livewire](https://laravel-livewire.com/)
+& [WireUI](https://livewire-wireui.com/). And is therefor a dynamic livewire component using ajax request to change the
+information on the fly without reloading the page.
+
+#### Accounts
+
+![Accounts](readmeImages/accounts.png)
+
+In the accounts section you can manage your accounts, this is also a dynamic livewire component using ajax, You can even
+drag and sort the accounts to be in the order you want.
+
+#### Family
+
+![Family](readmeImages/family.png)
+
+Users can make or join a family where you can choose which of your accounts will be visible to all family members,
+members can only leave and edit their own accounts, but the head of a family can also invite and kick members & change
+the family head.
+If a user has ordered there account by drag and sort the order will be respected in the family section.
+
+## Accounts and Transactions
+
+Let's dig deeper into accounts. When you open an account you can see 3 big sections.
+The first is the charts area where you can see information clearly. This was made
+using [Chart JS](https://www.chartjs.org/).
+The calculations and formatting of the data was handled in separate Business/Service Classes.
+
+The second section allows you to add transaction to your account, instead of using a standard form on Server Side
+Rendered page, I opted to go fully livewire to make use of ajax to update the list of options in the form.
+For example, if you enter a negative amount you cant select deposit type (the option will be removed from the list).
+Because of course you cant deposit negative amounts into your account.
+
+And the last section is an interactive table made using [Livewire-Powergrid](https://livewire-powergrid.com/#/).
+That allows you to:
+
+* sort
+* filter
+* search based on a combination of user defined criteria
+* hide specific columns
+* export to csv, excel
+* delete and bulk delete
+
+## Deploying
+
+To deploy the site I made use of FTP, SSH, autogit a feature to automatically deploy if an update is pushed to GitHub.
+I also set debug mode off, protected files form public view, etc.
+To finish off I made a DemoSeeder to easily restore the demo users without affecting users' data.
 
 ## Where to go from here
- Implementing queuing for better user experience, so users don't have to wait until emails are sent.
+
+* Implementing queuing for better user experience, so users don't have to wait until emails are sent.
+* clean up soft deleted records
+* Set up Cronjob to run demoSeeder automatically
+* quality of life features to improve the charts (ability to show/hide charts, choose which years data is used, etc.)
+
