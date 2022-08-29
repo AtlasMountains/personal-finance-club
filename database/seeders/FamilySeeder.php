@@ -16,7 +16,7 @@ class FamilySeeder extends Seeder
     {
         Family::factory(1)->create([
             'name' => 'demo family',
-            'head' => 3,
+            'head' => 2,
         ]
         );
     }
