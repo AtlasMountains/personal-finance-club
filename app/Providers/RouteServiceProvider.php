@@ -17,7 +17,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/home';
+    public const HOME = '/';
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
@@ -43,10 +43,47 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function configureRateLimiting()
+    protected function configureRateLimiting(): void
     {
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
+
+//        rate limiter for login, all users combined
+        RateLimiter::for('login', function () {
+            return Limit::perMinute(5000);
+        });
+
+//        rate limiter for register, all users combined
+        RateLimiter::for('register', function () {
+            return Limit::perMinute(5000);
+        });
+
+        ////      rate limiter for verification emails by user
+//        RateLimiter::for('verification_emails', function (Request $request) {
+//            return Limit::perHour(3, 4)
+//                ->by('verification_emails.' . $request->user()->id)
+//                ->response(function () {
+//                    return back()->with('max_attempts', __('auth.attempts_max'));
+//                });
+//        });
+//
+////      rate limiter for login by ip
+//        RateLimiter::for('login', function (Request $request) {
+//            return Limit::perMinute(3)
+//                ->by('login.' . $request->ip())
+//                ->response(function () {
+//                    return back()->with('max_attempts', __('auth.attempts_max'));
+//                });
+//        });
+//
+//        //rate limiter for registration by ip
+//        RateLimiter::for('register', function (Request $request) {
+//            return Limit::perHour(3, 3)
+//                ->by('register.' . $request->ip())
+//                ->response(function () {
+//                    return back()->with('max_attempts', __('auth.attempts_max'));
+//                });
+//        });
     }
 }
