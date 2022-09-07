@@ -28,6 +28,7 @@ limiters in the controllers. (here I hit my first bigger problem more details be
 - [mailtrap](https://mailtrap.io/)
 - [laravel-debugbar](https://github.com/barryvdh/laravel-debugbar)
 - [Livewire](https://laravel-livewire.com/)
+- [Sortable](https://github.com/livewire/sortable)
 - [WireUI](https://livewire-wireui.com/)
 - [Livewire-Powergrid](https://livewire-powergrid.com/#/)
 
@@ -108,11 +109,21 @@ code and updated composer.
 
 ### Dashboard
 
-![Dashboard](readmeImages/dashboard small.png)
+![Dashboard](readmeImages/dashboardSmall.png)
 After the authentication system I made a user dashboard where users can edit there account information, manage there
 accounts and join or manage a family.
 In this dashboard I made use of a combination between Server Site Rendered SSR pages and dynamic components that would
 update live via ajax requests using [Livewire](https://laravel-livewire.com/).
+
+With livewire there was a lot to learn:
+
+- Component class and view
+- Props to give to components, and merging properties like classes
+- lifecycle hooks like updated
+- events and listeners to communicate between multiple components
+- integration with [AlpineJS](https://alpinejs.dev/) for TALL stack
+- synchronization between JS on client and variables on the server, if one updates so does the other
+- notifications like messages, dialogs and models using [WireUI](https://livewire-wireui.com/)
 
 #### Profile
 
@@ -123,12 +134,18 @@ change, you get a notification or a confirmation dialog this was made using [Liv
 & [WireUI](https://livewire-wireui.com/). And is therefor a dynamic livewire component using ajax request to change the
 information on the fly without reloading the page.
 
+- real time validation of input
+- lazy model to reduce AJAX request after each keystroke
+
 #### Accounts
 
 ![Accounts](readmeImages/accounts.png)
 
 In the accounts section you can manage your accounts, this is also a dynamic livewire component using ajax, You can even
-drag and sort the accounts to be in the order you want.
+[drag and sort](https://github.com/livewire/sortable) the accounts to be in the order you want.
+
+- Modifying migrations and table for sortable field
+- updating the order on creating, deleting and obviously order change
 
 #### Family
 
@@ -138,6 +155,9 @@ Users can make or join a family where you can choose which of your accounts will
 members can only leave and edit their own accounts, but the head of a family can also invite and kick members & change
 the family head.
 If a user has ordered there account by drag and sort the order will be respected in the family section.
+
+- More complex relations many to many
+- Eager loading to prevent n+1 queries
 
 ## Accounts and Transactions
 
@@ -167,10 +187,28 @@ To deploy the site I made use of FTP, SSH, autogit a feature to automatically de
 I also set debug mode off, protected files form public view, etc.
 To finish off I made a DemoSeeder to easily restore the demo users without affecting users' data.
 
+- FTP
+- SSH
+
+### Changelog after first deployment
+
+After working out the details of deploying I:
+
+v1.0.1
+
+- bugfix: adding new tags
+
+v1.1
+
+- updated this readme
+- ability to show/hide charts.
+- the form to make a new transaction is more responsive (big improvement on small screen).
+
 ## Where to go from here
 
 * Implementing queuing for better user experience, so users don't have to wait until emails are sent.
 * clean up soft deleted records
 * Set up Cronjob to run demoSeeder automatically
-* quality of life features to improve the charts (ability to show/hide charts, choose which years data is used, etc.)
+* quality of life features to improve the charts (~~ability to show/hide charts~~, choose which years data is used,
+  etc.)
 
