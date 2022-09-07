@@ -28,18 +28,29 @@
       const monthNettoData = {{ Js::from($nettoPerMonth['amount']) }};
     </script>
 
-    <div class="space-y-3">
-      <div class="px-10 gap-3 grid grid-cols-1 md:grid-cols-2">
-        <div class="h-96">
-          <canvas class="p-2 rounded-lg bg-slate-300" id="years"></canvas>
-        </div>
-        <div class="h-96">
-          <canvas class="p-2 rounded-lg bg-slate-300" id="months"></canvas>
-        </div>
+    <div class="space-y-3" x-data="{ showCharts:false }">
+      <div class="flex justify-center">
+        <button x-on:click="showCharts =! showCharts"
+                class="
+              p-3 font-semibold bg-white rounded shadow
+              dark:bg-slate-500 dark:hover:text-black dark:focus:text-black dark:hover:bg-gray-200 dark:focus:bg-gray-200
+              hover:bg-secondary-500 hover:text-white focus:text-white focus:bg-secondary-500">
+          toggle charts
+        </button>
       </div>
+      <div x-show="showCharts" class="space-y-3" x-transition.duration.500ms>
+        <div class="px-10 gap-3 grid grid-cols-1 md:grid-cols-2">
+          <div class="h-96">
+            <canvas class="p-2 rounded-lg bg-slate-300" id="years"></canvas>
+          </div>
+          <div class="h-96">
+            <canvas class="p-2 rounded-lg bg-slate-300" id="months"></canvas>
+          </div>
+        </div>
 
-      <div class="px-10 h-96">
-        <canvas class="p-2 rounded-lg bg-slate-300" id="categories"></canvas>
+        <div class="px-10 h-96">
+          <canvas class="p-2 rounded-lg bg-slate-300" id="categories"></canvas>
+        </div>
       </div>
 
       @if($account->user->id === auth()->user()->id)
