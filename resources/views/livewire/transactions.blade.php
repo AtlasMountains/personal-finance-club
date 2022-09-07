@@ -22,9 +22,10 @@
     </x-modal.card>
   </div>
 
-  <div class="w-2/5 mx-auto my-5" x-show="showAddTransactionForm" x-transition.duration.500ms>
+  <div class="w-4/5 mx-auto lg:w-3/5  my-5" x-show="showAddTransactionForm"
+       x-transition.duration.500ms>
     <x-card title="Add transaction" class="dark:bg-slate-600">
-      <div class="grid grid-cols-2 gap-5">
+      <div class="grid md:grid-cols-2 gap-5">
 
         <x-inputs.currency
           label="Amount"

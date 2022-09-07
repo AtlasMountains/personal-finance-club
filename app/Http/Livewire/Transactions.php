@@ -17,6 +17,8 @@ class Transactions extends Component
 
     public $showModel;
 
+    public $tagModel;
+    
     public $newTag;
 
     public $types;
