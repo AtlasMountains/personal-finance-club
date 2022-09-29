@@ -20,7 +20,7 @@ class UserRegisterController extends Controller
 
     public function index(Request $request): Factory|View|Application
     {
-        $key = 'register.' . $request->ip();
+        $key = 'register.'.$request->ip();
         $remaining = RateLimiter::retriesLeft($key, $this->maxAttempts);
         $wait_time = now()->addSeconds(RateLimiter::availableIn($key))->diffForHumans();
 
@@ -29,7 +29,7 @@ class UserRegisterController extends Controller
 
     public function store(UserCreateRequest $request): RedirectResponse
     {
-        $key = 'register.' . $request->ip();
+        $key = 'register.'.$request->ip();
         if (RateLimiter::tooManyAttempts($key, $this->maxAttempts)) {
             return back()->withErrors(['max_attempts' => trans('auth.attempts_max')]);
         }
