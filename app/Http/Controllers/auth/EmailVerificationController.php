@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\auth;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\EmailVerificationJob;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -30,8 +31,8 @@ class EmailVerificationController extends Controller
         if (RateLimiter::tooManyAttempts($key, $this->maxAttempts)) {
             return back()->withErrors(['max_attempts' => __('auth.attempts_max')]);
         }
-        $request->user()->sendEmailVerificationNotification();
-        RateLimiter::hit($key, 3600);
+
+        EmailVerificationJob::dispatch($request->user(), $key);
 
         return back()->with(['message' => 'email send']);
     }

@@ -4,8 +4,8 @@ namespace App\Http\Controllers\auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserCreateRequest;
+use App\Jobs\RegisterUser;
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -40,8 +40,9 @@ class UserRegisterController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-//        send email
-        event(new Registered($user));
+//        send email using jobs and queuing
+        RegisterUser::dispatch($user);
+
 //        limit registrations by ip decay per 1 hours
         RateLimiter::hit($key, $this->maxAttempts * 3600);
         auth()->attempt($request->only('email', 'password'));
