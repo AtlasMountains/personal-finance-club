@@ -2,14 +2,15 @@
 
 namespace App\Jobs;
 
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldBeUniqueUntilProcessing;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\RateLimiter;
 
-class RegisterUser implements ShouldQueue
+class EmailVerificationJob implements ShouldQueue, ShouldBeUniqueUntilProcessing
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -18,8 +19,9 @@ class RegisterUser implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(public $user)
+    public function __construct(private $user, private $key)
     {
+        //
     }
 
     /**
@@ -27,8 +29,9 @@ class RegisterUser implements ShouldQueue
      *
      * @return void
      */
-    public function handle(): void
+    public function handle()
     {
-        event(new Registered($this->user));
+        $this->user->sendEmailVerificationNotification();
+        RateLimiter::hit($this->key, 3600);
     }
 }

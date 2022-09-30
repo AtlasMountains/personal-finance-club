@@ -40,10 +40,8 @@ class UserRegisterController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-//        send email using jobs and queing
+//        send email using jobs and queuing
         RegisterUser::dispatch($user);
-//       old code
-//       event(new Registered($user));
 
 //        limit registrations by ip decay per 1 hours
         RateLimiter::hit($key, $this->maxAttempts * 3600);
