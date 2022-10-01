@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUniqueUntilProcessing;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -19,7 +20,7 @@ class EmailVerificationJob implements ShouldQueue, ShouldBeUniqueUntilProcessing
      *
      * @return void
      */
-    public function __construct(private $user, private $key)
+    public function __construct(private int $userId, private string $key)
     {
         //
     }
@@ -31,7 +32,8 @@ class EmailVerificationJob implements ShouldQueue, ShouldBeUniqueUntilProcessing
      */
     public function handle()
     {
-        $this->user->sendEmailVerificationNotification();
+        $user = User::findOrFail($this->userId);
+        $user->sendEmailVerificationNotification();
         RateLimiter::hit($this->key, 3600);
     }
 }

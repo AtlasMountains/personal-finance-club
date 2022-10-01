@@ -32,7 +32,7 @@ class EmailVerificationController extends Controller
             return back()->withErrors(['max_attempts' => __('auth.attempts_max')]);
         }
 
-        EmailVerificationJob::dispatch($request->user(), $key);
+        EmailVerificationJob::dispatch($request->user()->id, $key);
 
         return back()->with(['message' => 'email send']);
     }
