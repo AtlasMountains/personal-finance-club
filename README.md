@@ -204,11 +204,18 @@ v1.1
 - ability to show/hide charts.
 - the form to make a new transaction is more responsive (big improvement on small screen).
 
+v1.2
+
+- Implementing queuing for better user experience
+
+v1.2.1
+
+- set up schedule seed demo accounts daily & workers to handel the queue
+- set up cronjob to run the schedule
+
 ## Where to go from here
 
-* Implementing queuing for better user experience, so users don't have to wait until emails are sent.
-* clean up soft deleted records
-* Set up Cronjob to run demoSeeder automatically
-* quality of life features to improve the charts (~~ability to show/hide charts~~, choose which years data is used,
+* implement test for stability
+* quality of life features to improve the charts (~~v1.1 ability to show/hide charts~~, choose which years data is used,
   etc.)
 

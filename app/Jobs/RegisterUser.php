@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -18,7 +19,7 @@ class RegisterUser implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(public $user)
+    public function __construct(public int $userId)
     {
     }
 
@@ -29,6 +30,7 @@ class RegisterUser implements ShouldQueue
      */
     public function handle(): void
     {
-        event(new Registered($this->user));
+        $user = User::findOrFail($this->userId);
+        event(new Registered($user));
     }
 }
