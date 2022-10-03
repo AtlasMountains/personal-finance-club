@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Account;
+use App\Models\AccountType;
+use App\Models\User;
 
 test('homepage exists', function () {
     $this->get(route('home'))->assertStatus(200);
@@ -24,7 +26,13 @@ test('account is not accessible', function () {
 });
 
 test('specific account is not accessible as a guest', function () {
-    $accountSlug = Account::first()->slug;
-    $this->get('/account/'.$accountSlug)
+    $accountType = AccountType::create(['type' => 'checking']);
+    $user = User::factory()->create();
+    $account = Account::factory()->create([
+        'user_id' => $user->id,
+        //        'start_balance' => 43.56,
+        'account_type_id' => $accountType->id,
+    ]);
+    $this->get('/account/'.$account->slug)
         ->assertStatus(302);
 });
