@@ -47,7 +47,6 @@ final class TransactionsTable extends PowerGridComponent
 
         return [
             Exportable::make('Transactions')
-                ->striped('#A6ACCD')
                 ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV),
             Header::make()
                 ->showSearchInput()
@@ -186,7 +185,8 @@ final class TransactionsTable extends PowerGridComponent
             [
                 'transactionsChanged' => '$refresh',
                 'bulkDelete' => 'bulkDelete',
-            ]);
+            ]
+        );
     }
 
     public function bulkDelete()
@@ -197,7 +197,7 @@ final class TransactionsTable extends PowerGridComponent
         } else {
             $this->dialog()->confirm([
                 'title' => 'Delete multiple transactions?',
-                'description' => 'Are you sure you want to delete the following transactions: '.implode(', ', $ids),
+                'description' => 'Are you sure you want to delete the following transactions: ' . implode(', ', $ids),
                 'accept' => [
                     'label' => 'Yes, delete them all',
                     'method' => 'bulkDeleteConfirmed',
