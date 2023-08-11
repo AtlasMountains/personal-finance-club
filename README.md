@@ -6,7 +6,7 @@ like [Laravel Breeze](https://laravel.com/docs/9.x/starter-kits#laravel-breeze) 
 like [filament](https://filamentphp.com/).
 But decided to **start without plugins**, in order to get a good foundation first.
 
-### summary (more details below):
+## summary (more details below):
 
 At the start of this project, I learned [Tailwindcss](https://tailwindcss.com/) for the styling since a lot of the
 starter-kits and plugins use it. which I plan to use in following projects.
@@ -38,7 +38,7 @@ Before this project I already knew
 
 1. [x] HTML, CSS, Sass, bootstrap,
 2. [x] Javascript, PHP, MVC structure, twig templating
-3. [x] Agile SCRUM, Git, Git flow & [github](https://github.com/AtlasMountains).
+3. [x] Agile/SCRUM, Git, Git flow & [github](https://github.com/AtlasMountains).
 
 Find out more at [My Portfolio](https://github.com/AtlasMountains).
 
@@ -53,8 +53,9 @@ views.
 
 - blade templating
 - work modular with @section @yield @include
-- after the basics I learned how to work with custom components using <x-component> syntax
+- after the basics I learned how to work with custom components using `<x-component>` syntax
 - style it using [Tailwindcss](https://tailwindcss.com/) some features like:
+
   - dark mode
   - mobile responsive
   - tailwindcss.config to change default behaviors or add custom colors, include plugins etc
@@ -174,12 +175,12 @@ Because of course you cant deposit negative amounts into your account.
 And the last section is an interactive table made using [Livewire-Powergrid](https://livewire-powergrid.com/#/).
 That allows you to:
 
-* sort
-* filter
-* search based on a combination of user defined criteria
-* hide specific columns
-* export to csv, excel
-* delete and bulk delete
+- sort
+- filter
+- search based on a combination of user defined criteria
+- hide specific columns
+- export to csv, excel
+- delete and bulk delete
 
 ## Deploying
 
@@ -196,13 +197,13 @@ After working out the details of deploying I:
 
 v1.0.1
 
-- bugfix: adding new tags
+- Bugfix: adding new tags
 
 v1.1
 
-- updated this readme
-- ability to show/hide charts.
-- the form to make a new transaction is more responsive (big improvement on small screen).
+- Updated this readme
+- Ability to show/hide charts.
+- The form to make a new transaction is more responsive (big improvement on small screen).
 
 v1.2
 
@@ -210,12 +211,30 @@ v1.2
 
 v1.2.1
 
-- set up schedule seed demo accounts daily & workers to handel the queue
-- set up cronjob to run the schedule
+- Set up schedule seed demo accounts daily & workers to handel the queue
+- Set up cronjob to run the schedule
+
+v1.3
+
+- Setup unit tests using pest
+  - routing
+  - calc account balance
+
+v1.3.1
+
+- Run tests automaticaly using github actions
+
+v1.4
+
+- Remove stripes on exports
+
+v1.5
+
+- Updated readme
 
 ## Where to go from here
 
-* implement test for stability
-* quality of life features to improve the charts (~~v1.1 ability to show/hide charts~~, choose which years data is used,
-  etc.)
-
+- ~~implement test for stability v1.3~~
+- quality of life features to improve charts
+  - ~~Ability to show/hide charts v1.1~~
+  - choose which years data is used
